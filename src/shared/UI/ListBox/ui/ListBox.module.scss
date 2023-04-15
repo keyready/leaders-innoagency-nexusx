@@ -1,0 +1,59 @@
+.listbox {
+    position: relative;
+}
+
+.options {
+    padding: 0;
+    border-radius: 8px;
+    background: var(--listox-bg);
+    margin-top: 10px;
+    min-width: 250px;
+    position: absolute;
+    z-index: 10000;
+}
+
+.item {
+    cursor: pointer;
+    padding: 5px 15px;
+    transition: 100ms;
+}
+
+.active {
+    background: var(--primary-bg-color);
+}
+
+.selected {
+    color: var(--sec);
+    font-weight: bold;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+    fill: var(--primary-bg-color);
+}
+
+.disabled {
+    cursor: auto;
+    opacity: 0.6;
+}
+
+.directionBottomLeft {
+    top: 100%;
+    right: 0;
+}
+
+.directionsTopLeft {
+    bottom: 100%;
+    right: 0;
+}
+
+.directionBottomRight {
+    top: 100%;
+    left: 0;
+}
+
+.directionsTopRight {
+    bottom: 100%;
+    left: 0;
+}

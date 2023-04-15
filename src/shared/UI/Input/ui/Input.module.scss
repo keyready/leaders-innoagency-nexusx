@@ -1,0 +1,13 @@
+.Input {
+    padding: 7px 15px;
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--primary-bg-color);
+    transition: background-color 200ms;
+    outline: var(--border-width) solid var(--primary-bg-color);
+
+    &:focus {
+        color: var(--primary-color);
+        background: rgb(68 105 103 / 60%);
+    }
+}
