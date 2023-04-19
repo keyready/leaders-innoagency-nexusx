@@ -10,6 +10,7 @@ export enum CardTheme {
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
     className?: string;
     children: ReactNode;
+    invisible?: boolean
     theme?: CardTheme
 }
 
@@ -18,12 +19,15 @@ export const Card = memo((props: CardProps) => {
         className,
         children,
         theme = CardTheme.NORMAL,
+        invisible,
         ...otherProps
     } = props;
 
     return (
         <div
-            className={classNames(classes.Card, {}, [className, classes[theme]])}
+            className={classNames(classes.Card, {
+                [classes.invisible]: invisible,
+            }, [className, classes[theme]])}
             {...otherProps}
         >
             {children}

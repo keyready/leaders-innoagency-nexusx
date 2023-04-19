@@ -20,7 +20,6 @@ interface ComboboxProps {
     onChangeInput?: (value: string) => void;
     onChange: (value: string) => void;
     value: string;
-    defaultValue?: string;
     showLength?: boolean;
 }
 
@@ -32,7 +31,6 @@ export const Combobox = memo((props: ComboboxProps) => {
         value,
         onChange,
         onChangeInput,
-        defaultValue,
         showLength,
     } = props;
 
@@ -50,7 +48,7 @@ export const Combobox = memo((props: ComboboxProps) => {
             <HCombobox.Input
                 className={classes.input}
                 onChange={onChangeHandler}
-                placeholder={defaultValue}
+                placeholder={placeholder}
             />
             <HCombobox.Options
                 className={classes.options}

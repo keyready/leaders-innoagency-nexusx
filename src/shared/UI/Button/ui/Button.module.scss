@@ -2,24 +2,40 @@
     padding: 7px 15px;
     border: none;
     border-radius: var(--border-radius);
-    transition: background-color 200ms;
+    transition: 200ms;
     outline: none;
 }
 
 .primary {
     background: var(--primary-bg-color);
+
+    &:hover {
+        outline: 2px solid var(--primary-bg-color);
+    }
 }
 
 .success {
     background: var(--success-bg-color);
+
+    &:hover {
+        outline: 2px solid var(--success-bg-color);
+    }
 }
 
 .warning {
     background: var(--warning-bg-color);
+
+    &:hover {
+        outline: 2px solid var(--warning-bg-color);
+    }
 }
 
 .danger {
     background: var(--danger-bg-color);
+
+    &:hover {
+        outline: 2px solid var(--danger-bg-color);
+    }
 }
 
 .primary-outline {
