@@ -19,16 +19,26 @@ const reserved = [
         endDate: new Date(2023, 3, 23),
     },
 ];
-const availableTime = [
-    '09:00', '10:00', '11:00',
-    '12:00', '13:00', '14:00',
-    '15:00', '16:00', '17:00',
-    '18:00', '19:00', '20:00',
-    '21:00',
+const availableTime: Date[] = [
+    new Date('Thu, 01 Jan 1970 09:00:00'),
+    new Date('Thu, 01 Jan 1970 10:00:00'),
+    new Date('Thu, 01 Jan 1970 11:00:00'),
+    new Date('Thu, 01 Jan 1970 12:00:00'),
+    new Date('Thu, 01 Jan 1970 13:00:00'),
+    new Date('Thu, 01 Jan 1970 14:00:00'),
+    new Date('Thu, 01 Jan 1970 15:00:00'),
+    new Date('Thu, 01 Jan 1970 16:00:00'),
+    new Date('Thu, 01 Jan 1970 17:00:00'),
+    new Date('Thu, 01 Jan 1970 18:00:00'),
+    new Date('Thu, 01 Jan 1970 19:00:00'),
+    new Date('Thu, 01 Jan 1970 20:00:00'),
+    new Date('Thu, 01 Jan 1970 21:00:00'),
 ];
 
 interface RenderDateProps {
+    // eslint-disable-next-line react/no-unused-prop-types
     startDate?: Date;
+    // eslint-disable-next-line react/no-unused-prop-types
     endDate?: Date;
 }
 
@@ -38,9 +48,10 @@ const MainPage = () => {
     const [selectedUser, setSelectedUser] = useState<string>('');
     const [start, startRef] = useState(null);
     const [end, endRef] = useState(null);
-    const [selectedTime, setSelectedTime] = useState<SelectedTime>(
-        { startTime: '', finishTime: '' },
-    );
+    const [selectedTime, setSelectedTime] = useState<SelectedTime>({
+        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
+        startTime: new Date('Thu, 01 Jan 1970 00:00:00'),
+    });
 
     useEffect(() => {
         console.warn(selectedTime);
@@ -60,12 +71,8 @@ const MainPage = () => {
             disclosureItems.push({
                 title: currentDate.toLocaleDateString(),
                 content: <Timepicker
-                    availableTime={availableTime}
                     selectedTime={selectedTime}
-                    setSelectedTime={(times) => setSelectedTime({
-                        finishTime: times.finishTime,
-                        startTime: times.startTime,
-                    })}
+                    setSelectedTime={setSelectedTime}
                 />,
             });
             currentDate.setDate(currentDate.getDate() + 1);
@@ -76,7 +83,7 @@ const MainPage = () => {
                 items={disclosureItems}
             />
         );
-    }, []);
+    }, [selectedTime]);
     const handleChange = (e: any) => {
         setSelectedDates(e);
     };
@@ -168,6 +175,10 @@ const MainPage = () => {
                 {/*        showLength */}
                 {/*    /> */}
                 {/* </HStack> */}
+                <Timepicker
+                    selectedTime={selectedTime}
+                    setSelectedTime={setSelectedTime}
+                />
                 <HStack gap="32">
                     <Calendar
                         style={{ width: 600 }}

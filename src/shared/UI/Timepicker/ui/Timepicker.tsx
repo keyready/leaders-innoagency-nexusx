@@ -1,17 +1,18 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Fragment, memo, useState } from 'react';
+import {
+    Fragment, memo, useEffect, useMemo, useState,
+} from 'react';
 import { Tab } from '@headlessui/react';
 import { HStack } from '../../Stack';
 import classes from './Timepicker.module.scss';
 
 export interface SelectedTime {
-    startTime: string;
-    finishTime: string
+    startTime: Date;
+    finishTime: Date
 }
 
 interface TimepickerProps {
     className?: string;
-    availableTime: string[];
     selectedTime: SelectedTime;
     setSelectedTime: (times: SelectedTime) => void;
 }
@@ -19,12 +20,31 @@ interface TimepickerProps {
 export const Timepicker = memo((props: TimepickerProps) => {
     const {
         className,
-        availableTime,
         selectedTime,
         setSelectedTime,
     } = props;
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
+
+    useEffect(() => {
+        console.log(selectedTime);
+    }, [selectedTime]);
+
+    const availableHours = useMemo(() => {
+        const startDate = new Date();
+        startDate.setHours(9, 0, 0, 0);
+
+        const endDate = new Date();
+        endDate.setHours(21, 0, 0, 0);
+
+        const hourDates = [];
+
+        for (let d = new Date(startDate); d <= endDate; d.setMinutes(d.getMinutes() + 30)) {
+            hourDates.push(new Date(d));
+        }
+
+        return hourDates;
+    }, []);
 
     return (
         <Tab.Group
@@ -47,7 +67,10 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         >
                             <div>Время начала</div>
                             <div className={classes.timeCheck}>
-                                {selectedTime.startTime || 'Выберите время'}
+                                {selectedTime.startTime.getHours()
+                                    ? `${selectedTime.startTime.getHours().toString().padStart(2, '0')
+                                    }:${selectedTime.startTime.getMinutes().toString().padStart(2, '0')}`
+                                    : 'Выберите время'}
                             </div>
                         </div>
                     )}
@@ -60,7 +83,10 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         >
                             <div>Время завершения</div>
                             <div className={classes.timeCheck}>
-                                {selectedTime.finishTime || 'Выберите время'}
+                                {selectedTime.finishTime.getHours()
+                                    ? `${selectedTime.finishTime.getHours().toString().padStart(2, '0')
+                                    }:${selectedTime.finishTime.getMinutes().toString().padStart(2, '0')}`
+                                    : 'Выберите время'}
                             </div>
                         </div>
                     )}
@@ -70,33 +96,36 @@ export const Timepicker = memo((props: TimepickerProps) => {
                 <Tab.Panel
                     className={classes.panel}
                 >
-                    {availableTime
+                    {availableHours
+                        .filter((time) => time.getHours() !== 21)
                         .map((time) => (
                             <div
-                                key={time}
+                                key={time.getMilliseconds()}
                                 className={classes.timeCell}
                                 onClick={() => {
                                     setSelectedTime({
-                                        ...selectedTime, startTime: time,
+                                        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
+                                        startTime: time,
                                     });
                                     setSelectedTab(1);
                                 }}
                             >
-                                {time}
+                                {`${time.getHours().toString().padStart(2, '0')
+                                }:${time.getMinutes().toString().padStart(2, '0')}`}
                             </div>
                         ))}
                 </Tab.Panel>
                 <Tab.Panel
                     className={classes.panel}
                 >
-                    {availableTime
+                    {availableHours
                         .filter(
-                            (_, index) => index > availableTime
+                            (_, index) => index > availableHours
                                 .indexOf(selectedTime.startTime),
                         )
                         .map((time) => (
                             <div
-                                key={time}
+                                key={time.getMilliseconds()}
                                 className={classes.timeCell}
                                 onClick={() => {
                                     setSelectedTime({
@@ -104,7 +133,8 @@ export const Timepicker = memo((props: TimepickerProps) => {
                                     });
                                 }}
                             >
-                                {time}
+                                {`${time.getHours().toString().padStart(2, '0')
+                                }:${time.getMinutes().toString().padStart(2, '0')}`}
                             </div>
                         ))}
                 </Tab.Panel>

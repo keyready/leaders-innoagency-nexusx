@@ -5,7 +5,7 @@
 .ListGroup {
     padding: 10px;
     border-radius: var(--border-radius);
-    background: red;
+    background: var(--primary-bg-color);
 }
 
 .tab {
@@ -19,7 +19,7 @@
     text-align: center;
 
     &:focus {
-        outline: 2px solid yellow;
+        outline: 2px solid var(--warning-bg-color);
     }
 }
 
@@ -32,26 +32,26 @@
 }
 
 .selectedTab {
-    background: blue;
+    color: #000;
+    background: var(--card-bg);
 }
 
 .panel {
     padding: 10px;
     border-radius: var(--border-radius);
     color: black;
-    background: yellow;
+    background: var(--primary-bg-color);
     display: grid;
     align-items: center;
     margin-top: 5px;
-    grid-template-rows: repeat(5, 1fr);
-    grid-gap: 10px;
-    justify-items: center;
-    grid-auto-flow: column;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 5px;
 }
 
 .timeCell {
+    cursor: pointer;
     padding: 5px 10px;
     border-radius: var(--border-radius);
-    background: green;
+    background: var(--card-bg);
     text-align: center;
 }
