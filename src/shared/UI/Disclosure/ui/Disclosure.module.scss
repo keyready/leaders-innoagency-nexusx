@@ -1,0 +1,50 @@
+.Disclosure {
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.panel {
+    margin-top: 5px;
+}
+
+.arrow {
+    width: 2rem;
+    height: 2rem;
+    transition: all 200ms;
+}
+
+.opened {
+    transform: rotate(180deg);
+}
+
+.enter {
+    transition: ease-out 200ms;
+}
+
+.enterFrom {
+    opacity: 0;
+}
+
+.enterTo {
+    opacity: 1;
+}
+
+.leave {
+    transition: ease-out 200ms;
+}
+
+.leaveFrom {
+    opacity: 1;
+}
+
+.leaveTo {
+    opacity: 0;
+}

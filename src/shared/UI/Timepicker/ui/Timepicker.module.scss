@@ -1,0 +1,57 @@
+.Timepicker {
+
+}
+
+.ListGroup {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background: red;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 5px 10px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: none;
+    position: relative;
+    white-space: pre;
+    text-align: center;
+
+    &:focus {
+        outline: 2px solid yellow;
+    }
+}
+
+.cleanIcon {
+}
+
+.timeCheck {
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.selectedTab {
+    background: blue;
+}
+
+.panel {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    color: black;
+    background: yellow;
+    display: grid;
+    align-items: center;
+    margin-top: 5px;
+    grid-template-rows: repeat(5, 1fr);
+    grid-gap: 10px;
+    justify-items: center;
+    grid-auto-flow: column;
+}
+
+.timeCell {
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    background: green;
+    text-align: center;
+}
