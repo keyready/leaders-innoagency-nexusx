@@ -25,20 +25,21 @@ export const Timepicker = memo((props: TimepickerProps) => {
     } = props;
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
+    const [localTime, setLocalTime] = useState<SelectedTime>({
+        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
+        startTime: new Date('Thu, 01 Jan 1970 00:00:00'),
+    });
 
     useEffect(() => {
-        console.log(selectedTime);
-    }, [selectedTime]);
+        console.log(selectedTime, localTime);
+    }, [selectedTime, localTime]);
 
     const availableHours = useMemo(() => {
         const startDate = new Date();
         startDate.setHours(9, 0, 0, 0);
-
         const endDate = new Date();
         endDate.setHours(21, 0, 0, 0);
-
         const hourDates = [];
-
         for (let d = new Date(startDate); d <= endDate; d.setMinutes(d.getMinutes() + 30)) {
             hourDates.push(new Date(d));
         }
@@ -67,9 +68,9 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         >
                             <div>Время начала</div>
                             <div className={classes.timeCheck}>
-                                {selectedTime.startTime.getHours()
-                                    ? `${selectedTime.startTime.getHours().toString().padStart(2, '0')
-                                    }:${selectedTime.startTime.getMinutes().toString().padStart(2, '0')}`
+                                {localTime.startTime.getHours()
+                                    ? `${localTime.startTime.getHours().toString().padStart(2, '0')
+                                    }:${localTime.startTime.getMinutes().toString().padStart(2, '0')}`
                                     : 'Выберите время'}
                             </div>
                         </div>
@@ -83,9 +84,9 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         >
                             <div>Время завершения</div>
                             <div className={classes.timeCheck}>
-                                {selectedTime.finishTime.getHours()
-                                    ? `${selectedTime.finishTime.getHours().toString().padStart(2, '0')
-                                    }:${selectedTime.finishTime.getMinutes().toString().padStart(2, '0')}`
+                                {localTime.finishTime.getHours()
+                                    ? `${localTime.finishTime.getHours().toString().padStart(2, '0')
+                                    }:${localTime.finishTime.getMinutes().toString().padStart(2, '0')}`
                                     : 'Выберите время'}
                             </div>
                         </div>
@@ -98,12 +99,12 @@ export const Timepicker = memo((props: TimepickerProps) => {
                 >
                     {availableHours
                         .filter((time) => time.getHours() !== 21)
-                        .map((time) => (
+                        .map((time, index) => (
                             <div
-                                key={time.getMilliseconds()}
+                                key={index}
                                 className={classes.timeCell}
                                 onClick={() => {
-                                    setSelectedTime({
+                                    setLocalTime({
                                         finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
                                         startTime: time,
                                     });
@@ -121,16 +122,17 @@ export const Timepicker = memo((props: TimepickerProps) => {
                     {availableHours
                         .filter(
                             (_, index) => index > availableHours
-                                .indexOf(selectedTime.startTime),
+                                .indexOf(localTime.startTime),
                         )
-                        .map((time) => (
+                        .map((time, index) => (
                             <div
-                                key={time.getMilliseconds()}
+                                key={index}
                                 className={classes.timeCell}
                                 onClick={() => {
-                                    setSelectedTime({
-                                        ...selectedTime, finishTime: time,
+                                    setLocalTime({
+                                        ...localTime, finishTime: time,
                                     });
+                                    setSelectedTime(localTime);
                                 }}
                             >
                                 {`${time.getHours().toString().padStart(2, '0')

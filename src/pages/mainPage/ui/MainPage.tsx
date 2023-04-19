@@ -33,12 +33,13 @@ const MainPage = () => {
     const [selectedUser, setSelectedUser] = useState<string>('');
     const [start, startRef] = useState(null);
     const [end, endRef] = useState(null);
+
     const [isHackathon, setIsHackathon] = useState<boolean>(false);
     const [isSameTimeForRange, setIsSameTimeForRange] = useState<boolean>(false);
-    const [selectedTime, setSelectedTime] = useState<SelectedTime>({
+    const [selectedTime, setSelectedTime] = useState<SelectedTime[]>([{
         finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
         startTime: new Date('Thu, 01 Jan 1970 00:00:00'),
-    });
+    }]);
 
     useEffect(() => {
         console.warn(selectedTime);
@@ -53,8 +54,10 @@ const MainPage = () => {
         if (!endDate || isSameTimeForRange) {
             return (
                 <Timepicker
-                    selectedTime={selectedTime}
-                    setSelectedTime={setSelectedTime}
+                    selectedTime={selectedTime[0]}
+                    setSelectedTime={
+                        (times) => setSelectedTime((prevTimes) => [times])
+                    }
                 />
             );
         }
@@ -66,8 +69,8 @@ const MainPage = () => {
             disclosureItems.push({
                 title: currentDate.toLocaleDateString(),
                 content: <Timepicker
-                    selectedTime={selectedTime}
-                    setSelectedTime={setSelectedTime}
+                    selectedTime={selectedTime[disclosureItems.length - 1]}
+                    setSelectedTime={(times) => selectedTime.push(times)}
                 />,
             });
             currentDate.setDate(currentDate.getDate() + 1);
@@ -146,10 +149,9 @@ const MainPage = () => {
                         style={{ width: 600 }}
                         selected={selectedDates}
                         onChange={handleChange}
-                        // onOverbook={(e, err) => alert(err)}
                         disabled={(date, state) => !state.isSameMonth}
                         reserved={reserved}
-                        variant="booking"
+                        variant={isHackathon ? 'booking' : 'events'}
                         dateFnsOptions={{ weekStartsOn: 1, locale: ru }}
                         range={isHackathon}
                     />
