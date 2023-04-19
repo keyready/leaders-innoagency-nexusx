@@ -5,14 +5,16 @@ import classes from './Switch.module.scss';
 
 interface SwitchProps {
     className?: string;
+    enabled: boolean;
+    setEnabled: (value: boolean) => void
 }
 
 export const Switch = memo((props: SwitchProps) => {
     const {
         className,
+        enabled,
+        setEnabled,
     } = props;
-
-    const [enabled, setEnabled] = useState(false);
 
     return (
         <HSwitch

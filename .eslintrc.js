@@ -25,7 +25,7 @@ module.exports = {
     rules: {
         'fsd-path-checker-keyready/path-checker-fsd': 'error',
         'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.tsx'] }],
-        'max-len': ['error', { ignoreComments: true, code: 100 }],
+        'max-len': ['error', { ignoreComments: true, code: 110 }],
         'react/jsx-indent-props': [2, 4],
         'react/jsx-indent': [2, 4],
         indent: [2, 4],
@@ -39,6 +39,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'import/prefer-default-export': 'off',
         'react/require-default-props': 'off',
+        'react/no-unused-prop-types': 'off',
         'react/no-array-index-key': 'off',
         'react/react-in-jsx-scope': 'off',
         'react/button-has-type': 'off',

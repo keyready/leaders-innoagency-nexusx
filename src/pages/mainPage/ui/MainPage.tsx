@@ -7,6 +7,8 @@ import Calendar from '@demark-pro/react-booking-calendar';
 import { ru } from 'date-fns/locale';
 import { Disclosure, DisclosureItems } from 'shared/UI/Disclosure';
 import { SelectedTime, Timepicker } from 'shared/UI/Timepicker';
+import { Switch } from 'shared/UI/Switch';
+import { Card } from 'shared/UI/Card/Card';
 
 interface IUser {
     value: string;
@@ -19,26 +21,9 @@ const reserved = [
         endDate: new Date(2023, 3, 23),
     },
 ];
-const availableTime: Date[] = [
-    new Date('Thu, 01 Jan 1970 09:00:00'),
-    new Date('Thu, 01 Jan 1970 10:00:00'),
-    new Date('Thu, 01 Jan 1970 11:00:00'),
-    new Date('Thu, 01 Jan 1970 12:00:00'),
-    new Date('Thu, 01 Jan 1970 13:00:00'),
-    new Date('Thu, 01 Jan 1970 14:00:00'),
-    new Date('Thu, 01 Jan 1970 15:00:00'),
-    new Date('Thu, 01 Jan 1970 16:00:00'),
-    new Date('Thu, 01 Jan 1970 17:00:00'),
-    new Date('Thu, 01 Jan 1970 18:00:00'),
-    new Date('Thu, 01 Jan 1970 19:00:00'),
-    new Date('Thu, 01 Jan 1970 20:00:00'),
-    new Date('Thu, 01 Jan 1970 21:00:00'),
-];
 
 interface RenderDateProps {
-    // eslint-disable-next-line react/no-unused-prop-types
     startDate?: Date;
-    // eslint-disable-next-line react/no-unused-prop-types
     endDate?: Date;
 }
 
@@ -48,6 +33,8 @@ const MainPage = () => {
     const [selectedUser, setSelectedUser] = useState<string>('');
     const [start, startRef] = useState(null);
     const [end, endRef] = useState(null);
+    const [isHackathon, setIsHackathon] = useState<boolean>(false);
+    const [isSameTimeForRange, setIsSameTimeForRange] = useState<boolean>(false);
     const [selectedTime, setSelectedTime] = useState<SelectedTime>({
         finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
         startTime: new Date('Thu, 01 Jan 1970 00:00:00'),
@@ -60,8 +47,16 @@ const MainPage = () => {
     const [selectedDates, setSelectedDates] = useState<Date[]>([]);
 
     const renderBookedDays = useCallback(({ startDate, endDate }: RenderDateProps) => {
-        if (!startDate || !endDate) {
+        if (!startDate) {
             return null;
+        }
+        if (!endDate || isSameTimeForRange) {
+            return (
+                <Timepicker
+                    selectedTime={selectedTime}
+                    setSelectedTime={setSelectedTime}
+                />
+            );
         }
 
         const currentDate: Date = new Date(startDate.getTime());
@@ -83,7 +78,7 @@ const MainPage = () => {
                 items={disclosureItems}
             />
         );
-    }, [selectedTime]);
+    }, [isSameTimeForRange, selectedTime]);
     const handleChange = (e: any) => {
         setSelectedDates(e);
     };
@@ -91,7 +86,6 @@ const MainPage = () => {
     const fetchUsers = useCallback(
         (username: string) => {
             fetch(
-                // eslint-disable-next-line max-len
                 `https://jsonplaceholder.typicode.com/posts?title_like=${username}&_sort=title&_order=desc`,
             )
                 .then((res) => res.json())
@@ -111,20 +105,10 @@ const MainPage = () => {
         [],
     );
 
-    const disclosureItems = useMemo<DisclosureItems[]>(() => [
-        {
-            title: 'Вопрос 1',
-            content: 'Ответ на вопрос 1. Очень длинный ответ',
-        },
-        {
-            title: 'Вопрос 2',
-            content: 'Ответ на вопрос 2. Очень длинный ответ',
-        },
-        {
-            title: 'Вопрос 3',
-            content: 'Ответ на вопрос 3. Очень длинный ответ',
-        },
-    ], []);
+    const changeModeHandler = useCallback(() => {
+        setIsHackathon((prev) => !prev);
+        setSelectedDates([selectedDates[0]]);
+    }, [selectedDates]);
 
     return (
         <Page>
@@ -132,39 +116,6 @@ const MainPage = () => {
                 ГЛАВНАЯ СТРАНИЦА
             </h1>
             <VStack max gap="32">
-                {/* <HStack max gap="16"> */}
-                {/*    <Button>Кнопка primary</Button> */}
-                {/*    <Button variant="success">Кнопка success</Button> */}
-                {/*    <Button variant="warning">Кнопка warning</Button> */}
-                {/*    <Button variant="danger">Кнопка danger</Button> */}
-                {/*    <Button disabled variant="danger">Кнопка danger disabled</Button> */}
-                {/* </HStack> */}
-                {/* <HStack max gap="16"> */}
-                {/*    <Button variant="primary-outline">Кнопка primary</Button> */}
-                {/*    <Button variant="success-outline">Кнопка success</Button> */}
-                {/*    <Button variant="warning-outline">Кнопка warning</Button> */}
-                {/*    <Button variant="danger-outline">Кнопка danger</Button> */}
-                {/*    <Button disabled variant="danger-outline">Кнопка danger disabled</Button> */}
-                {/* </HStack> */}
-                {/* <HStack max> */}
-                {/*    <ListBox */}
-                {/*        onChange={(e) => setValue(e)} */}
-                {/*        defaultValue="Выберите значение" */}
-                {/*        value={value} */}
-                {/*        items={[ */}
-                {/*            { value: '1 hello world', content: '1 hello world' }, */}
-                {/*            { value: '2 hello world', content: '2 hello world' }, */}
-                {/*            { value: '3 hello world', content: '3 hello world' }, */}
-                {/*        ]} */}
-                {/*    /> */}
-                {/* </HStack> */}
-                {/* <HStack max> */}
-                {/*    <Input */}
-                {/*        value={value} */}
-                {/*        onChange={setValue} */}
-                {/*        placeholder="Введите что-нибудь" */}
-                {/*    /> */}
-                {/* </HStack> */}
                 {/* <HStack max> */}
                 {/*    <Combobox */}
                 {/*        value={selectedUser} */}
@@ -175,10 +126,21 @@ const MainPage = () => {
                 {/*        showLength */}
                 {/*    /> */}
                 {/* </HStack> */}
-                <Timepicker
-                    selectedTime={selectedTime}
-                    setSelectedTime={setSelectedTime}
-                />
+                <Card>
+                    <VStack max gap="16">
+                        <h2>Настройки</h2>
+                        <HStack gap="16" max>
+                            <span>У нас хакатон</span>
+                            <Switch enabled={isHackathon} setEnabled={changeModeHandler} />
+                        </HStack>
+                        {isHackathon && (
+                            <HStack gap="16" max>
+                                <span>Одинаковое время</span>
+                                <Switch enabled={isSameTimeForRange} setEnabled={setIsSameTimeForRange} />
+                            </HStack>
+                        )}
+                    </VStack>
+                </Card>
                 <HStack gap="32">
                     <Calendar
                         style={{ width: 600 }}
@@ -189,7 +151,7 @@ const MainPage = () => {
                         reserved={reserved}
                         variant="booking"
                         dateFnsOptions={{ weekStartsOn: 1, locale: ru }}
-                        range
+                        range={isHackathon}
                     />
                     <VStack
                         max
