@@ -1,14 +1,16 @@
 import { Page } from 'widgets/Page/Page';
 import { HStack, VStack } from 'shared/UI/Stack';
 import {
-    ReactNode, useCallback, useEffect, useMemo, useState,
+    ReactNode, useCallback, useEffect, useState,
 } from 'react';
-import Calendar from '@demark-pro/react-booking-calendar';
+import Calendar, { DayCellProps } from '@demark-pro/react-booking-calendar';
 import { ru } from 'date-fns/locale';
 import { Disclosure, DisclosureItems } from 'shared/UI/Disclosure';
-import { SelectedTime, Timepicker } from 'shared/UI/Timepicker';
+import { SelectedTime, Timepicker } from 'widgets/Timepicker';
 import { Switch } from 'shared/UI/Switch';
 import { Card } from 'shared/UI/Card/Card';
+import classes from './MainPage.module.scss';
+import './customCalendar.scss';
 
 interface IUser {
     value: string;
@@ -17,8 +19,8 @@ interface IUser {
 
 const reserved = [
     {
-        startDate: new Date(2023, 3, 21),
-        endDate: new Date(2023, 3, 23),
+        startDate: new Date(2023, 4, 4, 9, 40, 23),
+        endDate: new Date(2023, 4, 10),
     },
 ];
 
@@ -28,11 +30,8 @@ interface RenderDateProps {
 }
 
 const MainPage = () => {
-    const [value, setValue] = useState<string>('');
     const [users, setUsers] = useState<IUser[]>([]);
     const [selectedUser, setSelectedUser] = useState<string>('');
-    const [start, startRef] = useState(null);
-    const [end, endRef] = useState(null);
 
     const [isHackathon, setIsHackathon] = useState<boolean>(false);
     const [isSameTimeForRange, setIsSameTimeForRange] = useState<boolean>(false);
@@ -69,8 +68,14 @@ const MainPage = () => {
             disclosureItems.push({
                 title: currentDate.toLocaleDateString(),
                 content: <Timepicker
-                    selectedTime={selectedTime[disclosureItems.length - 1]}
-                    setSelectedTime={(times) => selectedTime.push(times)}
+                    selectedTime={selectedTime[disclosureItems.length]}
+                    setSelectedTime={(times) => setSelectedTime(
+                        (prevTimes) => {
+                            const newTimes = [...prevTimes];
+                            newTimes[disclosureItems.length] = times;
+                            return newTimes;
+                        },
+                    )}
                 />,
             });
             currentDate.setDate(currentDate.getDate() + 1);
@@ -146,6 +151,7 @@ const MainPage = () => {
                 </Card>
                 <HStack gap="32">
                     <Calendar
+                        classNamePrefix="calendar"
                         style={{ width: 600 }}
                         selected={selectedDates}
                         onChange={handleChange}
@@ -154,6 +160,17 @@ const MainPage = () => {
                         variant={isHackathon ? 'booking' : 'events'}
                         dateFnsOptions={{ weekStartsOn: 1, locale: ru }}
                         range={isHackathon}
+                        components={{
+                            DayCellFooter: ({ innerProps, state }: DayCellProps) => {
+                                const { isSelectedStart, isSelectedEnd } = state;
+                                return (
+                                    <div className={classes.footerText}>
+                                        {isSelectedStart && 'Начало'}
+                                        {isSelectedEnd && 'Конец'}
+                                    </div>
+                                );
+                            },
+                        }}
                     />
                     <VStack
                         max

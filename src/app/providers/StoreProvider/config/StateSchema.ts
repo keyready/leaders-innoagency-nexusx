@@ -1,4 +1,3 @@
-import { CounterSchema } from 'entities/Counter';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/AuthByUsername';
 import {
@@ -7,15 +6,16 @@ import {
 import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
+import { PlatformSchema } from 'entities/Platform';
 
 export interface StateSchema {
-    counter: CounterSchema;
     user: UserSchema;
     ui: UISchema
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
 
     // asynchronous reducers
     loginForm?: LoginSchema;
+    platform?: PlatformSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

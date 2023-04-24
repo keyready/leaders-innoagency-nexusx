@@ -3,7 +3,7 @@ import { memo, useCallback, useState } from 'react';
 import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getUserAuthData, isUserAdmin, isUserManager, userActions,
+    getUserAuthData, isUserAdmin, isUserOwner, userActions,
 } from 'entities/User';
 import { Text, TextTheme } from 'shared/UI/Text/ui/Text';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
@@ -20,7 +20,7 @@ export interface NavbarProps {
 export const Navbar = memo(({ className }: NavbarProps) => {
     const userData = useSelector(getUserAuthData);
     const isAdmin = useSelector(isUserAdmin);
-    const isManager = useSelector(isUserManager);
+    const isOwner = useSelector(isUserOwner);
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -34,9 +34,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         dispatch(userActions.logout());
     }, [dispatch]);
 
-    const isAdminPanelAvailable = isAdmin || isManager;
-
-    if (userData?.id) {
+    if (userData?._id) {
         return (
             <HStack justify="between" className={classNames(classes.Navbar, {}, [className])}>
                 <HStack justify="start" gap="8">
@@ -52,7 +50,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                     className={classes.link}
                     trigger={<Avatar src={userData.avatar} size={40} />}
                     items={[
-                        ...(isAdminPanelAvailable
+                        ...(isAdmin
                             ? [{
                                 content: 'Админка',
                                 href: RoutePath.admin_panel,

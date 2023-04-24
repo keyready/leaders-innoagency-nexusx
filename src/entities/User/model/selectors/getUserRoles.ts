@@ -8,7 +8,7 @@ export const isUserAdmin = createSelector(
     getUserRoles,
     (userRoles) => Boolean(userRoles?.includes(UserRoles.ADMIN)),
 );
-export const isUserManager = createSelector(
+export const isUserOwner = createSelector(
     getUserRoles,
-    (userRoles) => Boolean(userRoles?.includes(UserRoles.MANAGER)),
+    (userRoles) => Boolean(userRoles?.includes(UserRoles.OWNER)),
 );

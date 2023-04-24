@@ -46,6 +46,8 @@
     margin-top: 5px;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 5px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .timeCell {

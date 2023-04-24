@@ -1,9 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    Fragment, memo, useEffect, useMemo, useState,
+    Fragment, memo, useMemo, useState,
 } from 'react';
 import { Tab } from '@headlessui/react';
-import { HStack } from '../../Stack';
+import { HStack } from 'shared/UI/Stack';
 import classes from './Timepicker.module.scss';
 
 export interface SelectedTime {
@@ -25,14 +25,7 @@ export const Timepicker = memo((props: TimepickerProps) => {
     } = props;
 
     const [selectedTab, setSelectedTab] = useState<number>(0);
-    const [localTime, setLocalTime] = useState<SelectedTime>({
-        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
-        startTime: new Date('Thu, 01 Jan 1970 00:00:00'),
-    });
-
-    useEffect(() => {
-        console.log(selectedTime, localTime);
-    }, [selectedTime, localTime]);
+    const [localTime, setLocalTime] = useState<SelectedTime>(selectedTime);
 
     const availableHours = useMemo(() => {
         const startDate = new Date();
@@ -132,7 +125,7 @@ export const Timepicker = memo((props: TimepickerProps) => {
                                     setLocalTime({
                                         ...localTime, finishTime: time,
                                     });
-                                    setSelectedTime(localTime);
+                                    setSelectedTime({ ...localTime, finishTime: time });
                                 }}
                             >
                                 {`${time.getHours().toString().padStart(2, '0')
