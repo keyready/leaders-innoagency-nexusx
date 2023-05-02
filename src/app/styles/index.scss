@@ -1,4 +1,4 @@
-@import "reset";
+@import "./reset";
 @import "./variables/globals";
 @import "./themes/normal";
 @import "./themes/dark";
@@ -8,7 +8,7 @@
 .app,
 .app_modal {
     color: var(--primary-color);
-    font: var(--font-m);
+    font: var(--font-main-text);
 }
 
 .app {
@@ -33,4 +33,28 @@
     border: 2px solid var(--inverted-bg-color);
     border-radius: 10px;
     background-color: var(--bg-color);
+}
+
+h1 {
+    padding: 0;
+    font: var(--font-heading-large);
+    margin-bottom: 10px;
+}
+
+h2 {
+    padding: 0;
+    font: var(--font-heading-medium);
+    margin-bottom: 10px;
+}
+
+h3 {
+    padding: 0;
+    font: var(--font-heading-small);
+    margin-bottom: 10px;
+}
+
+p, span, div {
+    margin: 0;
+    padding: 0;
+    font: var(--font-main-text);
 }

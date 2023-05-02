@@ -1,7 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, {
-    ChangeEvent,
-    Fragment, memo, ReactNode, useCallback, useState,
+    ChangeEvent, Fragment, memo, ReactNode, useCallback,
 } from 'react';
 import { Combobox as HCombobox } from '@headlessui/react';
 import { VStack } from '../../Stack';

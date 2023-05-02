@@ -30,13 +30,34 @@ export interface Booking {
     endTime: Date;
 }
 
-export interface Platform {
+export enum PlatformTypes {
+    COWORKING = 'coworking',
+    CINEMA = 'cinema',
+    RECORDS = 'records',
+    GALLERY = 'gallery'
+}
+
+interface PlatformBase {
     _id: string;
     address?: string;
     name: string;
     description: string;
     mainPhoto: string;
     informationBlocks: InformationBlocks[];
-    maxCapacity: number;
     bookings: Booking[];
+    type: PlatformTypes;
+}
+
+export interface PlatformCinema extends PlatformBase {
+    type: PlatformTypes.CINEMA;
+    filmName: string;
+    date: Date;
+    maxCapacity: number;
+}
+export interface PlatformRecords extends PlatformBase {
+    type: PlatformTypes.RECORDS;
+}
+
+export interface Platform {
+
 }

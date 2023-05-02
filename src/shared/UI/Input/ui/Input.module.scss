@@ -1,13 +1,31 @@
+.InputWrapper {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.btnWrapper {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
 .Input {
-    padding: 7px 15px;
+    padding: 10px 20px;
     border: none;
     border-radius: var(--border-radius);
-    color: var(--primary-bg-color);
-    transition: background-color 200ms;
-    outline: var(--border-width) solid var(--primary-bg-color);
+    color: var(--primary-color);
+    background: var(--inverted-bg-color);
+    font: var(--font-line-main-text);
+    transition: 200ms ease-in-out;
 
     &:focus {
-        color: var(--primary-color);
-        background: rgb(68 105 103 / 60%);
+        outline: none;
     }
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
 }

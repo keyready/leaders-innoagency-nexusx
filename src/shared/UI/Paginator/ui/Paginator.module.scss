@@ -1,0 +1,43 @@
+.Paginator {
+
+}
+
+.currentPageWrapper {
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgb(183 184 185 / 20%);
+    text-align: center;
+}
+
+.leftArrow {
+    width: 20px;
+    height: 20px;
+    transform: rotate(180deg);
+    fill: var(--primary-color);
+}
+
+.paginatorButton {
+    margin-right: 5px;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.paginatorIcon {
+    width: 20px;
+    height: 20px;
+    fill: var(--secondary-color);
+    opacity: 0.2;
+}
+
+.currentPage {
+    fill: var(--accent-color-main);
+    opacity: 1;
+}
+
+.rightArrow {
+    width: 20px;
+    height: 20px;
+    fill: var(--primary-color);
+}

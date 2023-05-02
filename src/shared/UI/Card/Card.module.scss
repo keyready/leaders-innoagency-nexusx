@@ -1,24 +1,16 @@
-.Card {
-    display: block;
-    cursor: pointer;
-    padding: 15px;
-    border-radius: 10px;
-    transition: 200ms;
-
-    &:hover {
-        transform: translateY(-3px);
-    }
-}
-
-.invisible {
-    display: none;
-}
-
 .normal {
-    background: var(--card-bg);
+    cursor: pointer;
+    width: 500px;
+    height: 180px;
+    padding: 25px 30px;
+    border-radius: 20px;
+    background: var(--inverted-bg-color);
 }
 
-.outlined {
-    border: 2px solid var(--primary-color);
-    border-radius: 10px;
+.expand {
+    width: 500px;
+    height: 500px;
+    padding: 50px 100px 80px;
+    border-radius: 20px;
+    background: var(--inverted-bg-color);
 }

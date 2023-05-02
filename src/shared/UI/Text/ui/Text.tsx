@@ -20,13 +20,6 @@ export enum TextSize {
     L = 'size_l'
 }
 
-type HeaderTagType = 'h1' | 'h2' | 'h3';
-
-const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
-    [TextSize.S]: 'h3',
-    [TextSize.M]: 'h2',
-    [TextSize.L]: 'h1',
-};
 interface TextProps {
     className?: string;
     title?: string;
@@ -34,7 +27,6 @@ interface TextProps {
     indent?: string | number;
     theme?: TextTheme;
     align?: TextAlign;
-    size?: TextSize;
 }
 
 export const Text = memo((props: TextProps) => {
@@ -44,7 +36,6 @@ export const Text = memo((props: TextProps) => {
         text,
         theme = TextTheme.PRIMARY,
         align = TextAlign.LEFT,
-        size = TextSize.M,
         indent,
     } = props;
 
@@ -52,10 +43,7 @@ export const Text = memo((props: TextProps) => {
         className,
         classes[theme],
         classes[align],
-        classes[size],
     ];
-
-    const HeaderTag = mapSizeToHeaderTag[size];
 
     const styles: CSSProperties = {
         textIndent: indent,
@@ -66,7 +54,7 @@ export const Text = memo((props: TextProps) => {
             className={classNames(classes.Text, {}, add)}
             style={styles}
         >
-            {title && <HeaderTag className={classes.title}>{title}</HeaderTag>}
+            {title && <h3 className={classes.title}>{title}</h3>}
             {text && <p className={classes.text}>{text}</p>}
         </div>
     );

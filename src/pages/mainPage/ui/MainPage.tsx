@@ -1,188 +1,86 @@
 import { Page } from 'widgets/Page/Page';
+import { Input } from 'shared/UI/Input';
+import { useState } from 'react';
 import { HStack, VStack } from 'shared/UI/Stack';
-import {
-    ReactNode, useCallback, useEffect, useState,
-} from 'react';
-import Calendar, { DayCellProps } from '@demark-pro/react-booking-calendar';
-import { ru } from 'date-fns/locale';
-import { Disclosure, DisclosureItems } from 'shared/UI/Disclosure';
-import { SelectedTime, Timepicker } from 'widgets/Timepicker';
-import { Switch } from 'shared/UI/Switch';
-import { Card } from 'shared/UI/Card/Card';
+import { Button } from 'shared/UI/Button';
+import { Paginator } from 'shared/UI/Paginator';
+import { Card, CardSize } from 'shared/UI/Card/Card';
+import { Icon } from 'shared/UI/Icon/Icon';
+import BagIcon from 'shared/assets/icons/bag.svg';
+import { Text } from 'shared/UI/Text';
 import classes from './MainPage.module.scss';
-import './customCalendar.scss';
-
-interface IUser {
-    value: string;
-    content: ReactNode;
-}
-
-const reserved = [
-    {
-        startDate: new Date(2023, 4, 4, 9, 40, 23),
-        endDate: new Date(2023, 4, 10),
-    },
-];
-
-interface RenderDateProps {
-    startDate?: Date;
-    endDate?: Date;
-}
 
 const MainPage = () => {
-    const [users, setUsers] = useState<IUser[]>([]);
-    const [selectedUser, setSelectedUser] = useState<string>('');
-
-    const [isHackathon, setIsHackathon] = useState<boolean>(false);
-    const [isSameTimeForRange, setIsSameTimeForRange] = useState<boolean>(false);
-    const [selectedTime, setSelectedTime] = useState<SelectedTime[]>([{
-        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
-        startTime: new Date('Thu, 01 Jan 1970 00:00:00'),
-    }]);
-
-    useEffect(() => {
-        console.warn(selectedTime);
-    }, [selectedTime]);
-
-    const [selectedDates, setSelectedDates] = useState<Date[]>([]);
-
-    const renderBookedDays = useCallback(({ startDate, endDate }: RenderDateProps) => {
-        if (!startDate) {
-            return null;
-        }
-        if (!endDate || isSameTimeForRange) {
-            return (
-                <Timepicker
-                    selectedTime={selectedTime[0]}
-                    setSelectedTime={
-                        (times) => setSelectedTime((prevTimes) => [times])
-                    }
-                />
-            );
-        }
-
-        const currentDate: Date = new Date(startDate.getTime());
-        const disclosureItems: DisclosureItems[] = [];
-
-        while (currentDate <= endDate) {
-            disclosureItems.push({
-                title: currentDate.toLocaleDateString(),
-                content: <Timepicker
-                    selectedTime={selectedTime[disclosureItems.length]}
-                    setSelectedTime={(times) => setSelectedTime(
-                        (prevTimes) => {
-                            const newTimes = [...prevTimes];
-                            newTimes[disclosureItems.length] = times;
-                            return newTimes;
-                        },
-                    )}
-                />,
-            });
-            currentDate.setDate(currentDate.getDate() + 1);
-        }
-
-        return (
-            <Disclosure
-                items={disclosureItems}
-            />
-        );
-    }, [isSameTimeForRange, selectedTime]);
-    const handleChange = (e: any) => {
-        setSelectedDates(e);
-    };
-
-    const fetchUsers = useCallback(
-        (username: string) => {
-            fetch(
-                `https://jsonplaceholder.typicode.com/posts?title_like=${username}&_sort=title&_order=desc`,
-            )
-                .then((res) => res.json())
-                .then((res) => {
-                    setUsers(res.map((item: any) => ({
-                        value: item.title,
-                        content: (
-                            <>
-                                <h4>{item.userId}</h4>
-                                <p>{item.title}</p>
-                                <p>{item.body}</p>
-                            </>
-                        ),
-                    })));
-                });
-        },
-        [],
-    );
-
-    const changeModeHandler = useCallback(() => {
-        setIsHackathon((prev) => !prev);
-        setSelectedDates([selectedDates[0]]);
-    }, [selectedDates]);
+    const [value, setValue] = useState<string>('');
+    const [page, setPage] = useState<number>(1);
 
     return (
         <Page>
-            <h1>
-                ГЛАВНАЯ СТРАНИЦА
-            </h1>
-            <VStack max gap="32">
-                {/* <HStack max> */}
-                {/*    <Combobox */}
-                {/*        value={selectedUser} */}
-                {/*        onChange={setSelectedUser} */}
-                {/*        onChangeInput={fetchUsers} */}
-                {/*        placeholder="Выберите из списка" */}
-                {/*        items={users} */}
-                {/*        showLength */}
-                {/*    /> */}
-                {/* </HStack> */}
-                <Card>
-                    <VStack max gap="16">
-                        <h2>Настройки</h2>
-                        <HStack gap="16" max>
-                            <span>У нас хакатон</span>
-                            <Switch enabled={isHackathon} setEnabled={changeModeHandler} />
-                        </HStack>
-                        {isHackathon && (
-                            <HStack gap="16" max>
-                                <span>Одинаковое время</span>
-                                <Switch enabled={isSameTimeForRange} setEnabled={setIsSameTimeForRange} />
-                            </HStack>
-                        )}
-                    </VStack>
-                </Card>
-                <HStack gap="32">
-                    <Calendar
-                        classNamePrefix="calendar"
-                        style={{ width: 600 }}
-                        selected={selectedDates}
-                        onChange={handleChange}
-                        disabled={(date, state) => !state.isSameMonth}
-                        reserved={reserved}
-                        variant={isHackathon ? 'booking' : 'events'}
-                        dateFnsOptions={{ weekStartsOn: 1, locale: ru }}
-                        range={isHackathon}
-                        components={{
-                            DayCellFooter: ({ innerProps, state }: DayCellProps) => {
-                                const { isSelectedStart, isSelectedEnd } = state;
-                                return (
-                                    <div className={classes.footerText}>
-                                        {isSelectedStart && 'Начало'}
-                                        {isSelectedEnd && 'Конец'}
-                                    </div>
-                                );
-                            },
-                        }}
-                    />
-                    <VStack
-                        max
-                        justify="start"
-                        align="start"
-                        style={{ background: 'red' }}
+            <VStack>
+                <h1>Lorem ipsum dolor sit amet.</h1>
+                <h2>Lorem ipsum dolor sit amet.</h2>
+                <h3>Lorem ipsum dolor sit amet.</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum quae quas sit! Aperiam at eveniet inventore nihil quos repudiandae. Dolorum ducimus earum, fuga in quo recusandae tempore veritatis vero voluptate?</p>
+            </VStack>
+            <br />
+            <br />
+            <VStack>
+                <h1>Инпуты</h1>
+                <Input
+                    value={value}
+                    onChange={setValue}
+                    placeholder="Поиск"
+                />
+                <Input
+                    inputType="search"
+                    value={value}
+                    onChange={setValue}
+                    placeholder="Поиск"
+                />
+                <Input
+                    inputType="password"
+                    value={value}
+                    onChange={setValue}
+                    placeholder="Поиск"
+                />
+            </VStack>
+            <br />
+            <br />
+            <VStack>
+                <h1>Кнопочки</h1>
+                <HStack max>
+                    <Button>Привет мир</Button>
+                    <Button variant="primary-outline">Привет мир</Button>
+                </HStack>
+            </VStack>
+            <br />
+            <br />
+            <VStack>
+                <h1>Пагинатор</h1>
+                <Paginator
+                    currentPage={page}
+                    setCurrentPage={setPage}
+                    maxPages={10}
+                />
+            </VStack>
+            <br />
+            <br />
+            <VStack>
+                <h1>Карточки</h1>
+                <HStack max gap="32">
+                    <Card
+                        size={CardSize.EXPAND}
                     >
-                        {renderBookedDays({
-                            startDate: selectedDates[0],
-                            endDate: selectedDates[1],
-                        })}
-                    </VStack>
+                        <Icon Svg={BagIcon} className={classes.icon} />
+                        <h1>Название</h1>
+                    </Card>
+                    <Card>
+                        <Icon Svg={BagIcon} className={classes.icon} />
+                        <Text
+                            title="Название"
+                            text="Краткое описание преимущества сервиса перед другими"
+                        />
+                    </Card>
                 </HStack>
             </VStack>
         </Page>

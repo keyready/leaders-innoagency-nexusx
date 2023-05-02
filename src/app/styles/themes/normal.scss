@@ -1,22 +1,26 @@
 :root {
-    //--bg-color: #e5e5e5;
-    --bg-color: #482c2c;
-
-    // --inverted-bg-color: #0e0e75;
+    --bg-color: #f7f7f7;
+    --inverted-bg-color: #fff;
 
     // текст
-    --primary-color: #dee1e1;
-    --secondary-color: #c8cbcb;
+    --primary-color: #323232;
+    --secondary-color: #b7b8b9;
+
+    // акценты
+    --accent-color-main: #9abbec;
+    --accent-color-sec: #6196e4;
+    --accent-grad:
+        linear-gradient(
+            93.03deg,
+            var(--accent-color-main) 0%,
+            var(--accent-color-sec) 100%
+        );
 
     // цвета
     --primary-bg-color: #446967;
     --success-bg-color: #125840;
     --warning-bg-color: #d8be54;
     --danger-bg-color: #b1291a;
-
-    // --accent-color: black;
-    // --inverted-primary-color: black;
-    // --inverted-secondary-color: black;
 
     // skeleton
     --skeleton-shadow: #275594;

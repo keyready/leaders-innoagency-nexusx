@@ -1,80 +1,50 @@
 .Button {
-    padding: 7px 15px;
+    padding: 7px 40px;
     border: none;
     border-radius: var(--border-radius);
+    color: var(--inverted-bg-color);
+    font: var(--font-line-main-text);
     transition: 200ms;
+    text-align: center;
+    outline: none;
+}
+
+.clear {
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: inherit;
+    background: none;
     outline: none;
 }
 
 .primary {
-    background: var(--primary-bg-color);
+    background: var(--accent-color-sec);
 
     &:hover {
-        outline: 2px solid var(--primary-bg-color);
+        background: var(--accent-color-main);
     }
-}
 
-.success {
-    background: var(--success-bg-color);
-
-    &:hover {
-        outline: 2px solid var(--success-bg-color);
-    }
-}
-
-.warning {
-    background: var(--warning-bg-color);
-
-    &:hover {
-        outline: 2px solid var(--warning-bg-color);
-    }
-}
-
-.danger {
-    background: var(--danger-bg-color);
-
-    &:hover {
-        outline: 2px solid var(--danger-bg-color);
+    &:focus,
+    &:active {
+        background: var(--accent-grad);
     }
 }
 
 .primary-outline {
-    color: var(--primary-bg-color);
-    outline: var(--border-width) solid var(--primary-bg-color);
+    color: var(--accent-color-sec);
+    background: transparent;
+    outline: var(--border-width) solid var(--accent-color-sec);
 
     &:hover {
-        color: var(--primary-color);
-        background: var(--primary-bg-color);
+        color: var(--inverted-bg-color);
+        background: var(--accent-color-sec);
     }
-}
 
-.success-outline {
-    color: var(--success-bg-color);
-    outline: var(--border-width) solid var(--success-bg-color);
-
-    &:hover {
-        color: var(--primary-color);
-        background: var(--success-bg-color);
-    }
-}
-
-.warning-outline {
-    color: var(--warning-bg-color);
-    outline: var(--border-width) solid var(--warning-bg-color);
-
-    &:hover {
-        color: var(--primary-color);
-        background: var(--warning-bg-color);
-    }
-}
-
-.danger-outline {
-    color: var(--danger-bg-color);
-    outline: var(--border-width) solid var(--danger-bg-color);
-
-    &:hover {
-        color: var(--primary-color);
-        background: var(--danger-bg-color);
+    &:focus,
+    &:active {
+        color: var(--inverted-bg-color);
+        background: var(--accent-grad);
     }
 }
 

@@ -2,50 +2,43 @@ import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { ButtonHTMLAttributes, memo, ReactNode } from 'react';
 import classes from './Button.module.scss';
 
-type ButtonVariant = 'success' | 'primary' | 'warning' | 'danger' |
-    'success-outline' | 'primary-outline' | 'warning-outline' | 'danger-outline'
-type ButtonSize = 's' | 'm' | 'l' | 'xl'
+type ButtonVariant = 'primary' | 'primary-outline' | 'clear'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     variant?: ButtonVariant;
-    size?: ButtonSize;
+    // size?: ButtonSize;
     children?: ReactNode;
 }
 
-export const Button = memo((props: ButtonProps) => {
+export const Button = (props: ButtonProps) => {
     const {
         className,
         type = 'button',
         onClick,
-        size = 'm',
+        // size = 'm',
         variant = 'primary',
         children,
         disabled,
         ...otherProps
     } = props;
-
-    const sizeClasses: Record<ButtonSize, string> = {
-        s: classes.s,
-        m: classes.m,
-        l: classes.l,
-        xl: classes.xl,
-    };
+    //
+    // const sizeClasses: Record<ButtonSize, string> = {
+    //     s: classes.s,
+    //     m: classes.m,
+    //     l: classes.l,
+    //     xl: classes.xl,
+    // };
 
     const variantClasses: Record<ButtonVariant, string> = {
         primary: classes.primary,
-        success: classes.success,
-        warning: classes.warning,
-        danger: classes.danger,
         'primary-outline': classes['primary-outline'],
-        'success-outline': classes['success-outline'],
-        'warning-outline': classes['warning-outline'],
-        'danger-outline': classes['danger-outline'],
+        clear: classes.clear,
     };
 
     const classesMapper = [
         className,
-        sizeClasses[size],
+        // sizeClasses[size],
         variantClasses[variant],
     ];
     const mods: Mods = {
@@ -63,4 +56,4 @@ export const Button = memo((props: ButtonProps) => {
             {children}
         </button>
     );
-});
+};
