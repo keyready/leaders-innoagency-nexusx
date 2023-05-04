@@ -1,3 +1,4 @@
+/* eslint-disable fsd-path-checker-keyready/path-checker-fsd */
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, { HTMLAttributes, memo, ReactNode } from 'react';
 import { HStack, VStack } from 'shared/UI/Stack';
@@ -25,7 +26,7 @@ export const Card = memo((props: CardProps) => {
     if (size === CardSize.NORMAL) {
         return (
             <HStack
-                className={classes.normal}
+                className={classNames(classes.normal, {}, [className])}
                 gap="32"
                 justify="center"
                 align="center"
@@ -37,7 +38,7 @@ export const Card = memo((props: CardProps) => {
 
     return (
         <VStack
-            className={classes.expand}
+            className={classNames(classes.expand, {}, [className])}
             gap="8"
             align="center"
             justify="center"

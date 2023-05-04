@@ -28,7 +28,8 @@
     --font-main-sub-text: var(--font-size-sub-text) / var(--font-line-sub-text) var(--font-family-text);
 
     //  Размеры
-    --navbar-heigth: 65px;
+    --navbar-heigth: 100px;
+    --footer-height: 500px;
     --sidebar-width: 300px;
     --sidebar-width-collapsed: 75px;
 
@@ -39,6 +40,6 @@
     --overlay-color: rgba(0 0 0 / 60%);
 
     // границы
-    --border-radius: 15px;
+    --border-radius: 35px;
     --border-width: 2px;
 }

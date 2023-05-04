@@ -1,16 +1,29 @@
 .Navbar {
     width: 100%;
-    height: var(--navbar-heigth);
-    padding: 20px;
+    padding: 20px 40px;
     background: var(--inverted-bg-color);
-    display: flex;
-    align-items: center;
 }
 
-.link {
-    margin-left: auto;
+.icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
 }
 
-.appName {
-    width: var(--sidebar-width);
+.navbarLinks {
+    font-weight: bold;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mainIcon {
+    width: 120px;
+    height: 54px;
+}
+
+.navbar {
+    color: var(--accent-color-sec);
+    font: var(--font-main-sub-text);
 }

@@ -1,4 +1,4 @@
-import { AppLink, AppLinkTheme } from 'shared/UI/AppLink/ui/AppLink';
+import { AppLink } from 'shared/UI/AppLink/ui/AppLink';
 import { useLocation } from 'react-router-dom';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo } from 'react';
@@ -24,9 +24,6 @@ export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
         <AppLink
             to={item?.path || ''}
             className={classNames(classes.item, { [classes.collapsed]: collapsed }, [])}
-            theme={location.pathname === item?.path
-                ? AppLinkTheme.OUTLINED_INVERTED
-                : AppLinkTheme.INVERTED}
         >
             <item.Icon className={classes.icon} />
             <span className={classes.link}>

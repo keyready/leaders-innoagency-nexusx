@@ -1,5 +1,5 @@
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
-import { ButtonHTMLAttributes, memo, ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import classes from './Button.module.scss';
 
 type ButtonVariant = 'primary' | 'primary-outline' | 'clear'

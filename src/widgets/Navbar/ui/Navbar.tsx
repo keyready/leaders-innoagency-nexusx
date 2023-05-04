@@ -1,16 +1,15 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback, useState } from 'react';
-import { LoginModal } from 'features/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     getUserAuthData, isUserAdmin, isUserOwner, userActions,
 } from 'entities/User';
-import { Text, TextTheme } from 'shared/UI/Text/ui/Text';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import { Avatar } from 'shared/UI/Avatar/Avatar';
-import { Dropdown } from 'shared/UI/Dropdown';
 import { HStack } from 'shared/UI/Stack';
-import { Button } from 'react-bootstrap';
+import MainIcon from 'shared/assets/icons/main-logo.svg';
+import { Icon } from 'shared/UI/Icon/Icon';
+import { AppLink } from 'shared/UI/AppLink';
+import LkIcon from 'shared/assets/icons/lk-icon.svg';
+import EyeIcon from 'shared/assets/icons/eye.svg';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -24,61 +23,27 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const dispatch = useDispatch();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const onCloseModal = useCallback(() => {
-        setIsModalVisible(false);
-    }, []);
-    const onLogin = useCallback(() => {
-        setIsModalVisible(true);
-    }, []);
     const onLogout = useCallback(() => {
         dispatch(userActions.logout());
     }, [dispatch]);
 
-    if (userData?._id) {
-        return (
-            <HStack justify="between" className={classNames(classes.Navbar, {}, [className])}>
-                <HStack justify="start" gap="8">
-                    <Text
-                        className={classes.appName}
-                        theme={TextTheme.INVERTED}
-                        title="Keyready App"
-                    />
-                </HStack>
-
-                <Dropdown
-                    direction="bottom left"
-                    className={classes.link}
-                    trigger={<Avatar src={userData.avatar} size={40} />}
-                    items={[
-                        ...(isAdmin
-                            ? [{
-                                content: 'Админка',
-                                href: RoutePath.admin_panel,
-                            }] : []),
-                        {
-                            content: 'Профиль',
-                            href: 'ссылка до профиля',
-                        },
-                        {
-                            content: 'Выйти',
-                            onClick: onLogout,
-                        },
-                    ]}
-                />
-            </HStack>
-        );
-    }
-
     return (
-        <div className={classNames(classes.Navbar, {}, [className])}>
-            <Button
-                variant="primary"
-                className={classes.link}
-                onClick={onLogin}
-            >
-                Войти
-            </Button>
-            {isModalVisible && <LoginModal isOpen={isModalVisible} onClose={onCloseModal} />}
-        </div>
+        <HStack
+            justify="between"
+            align="center"
+            className={classNames(classes.Navbar, {}, [className])}
+        >
+            <Icon Svg={MainIcon} className={classes.mainIcon} />
+            <HStack className={classes.navbarLinks} gap="32">
+                <AppLink to="#" className={classes.navbarLinks}>
+                    <Icon Svg={EyeIcon} className={classes.icon} />
+                    Инклюзивная версия
+                </AppLink>
+                <AppLink to="#" className={classes.navbarLinks}>
+                    <Icon Svg={LkIcon} className={classes.icon} />
+                    Личный кабинет
+                </AppLink>
+            </HStack>
+        </HStack>
     );
 });

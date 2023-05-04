@@ -1,6 +1,8 @@
+/* eslint-disable fsd-path-checker-keyready/path-checker-fsd */
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    ChangeEvent, HTMLInputTypeAttribute, InputHTMLAttributes, memo, MouseEvent, useCallback, useEffect, useState,
+    ChangeEvent, InputHTMLAttributes, memo,
+    MouseEvent, useCallback, useEffect, useState,
 } from 'react';
 import CrossIcon from 'shared/assets/icons/input-cross.svg';
 import SearchIcon from 'shared/assets/icons/search.svg';
@@ -19,6 +21,8 @@ interface InputProps extends Omit<
     onChange?: (value: string) => void;
     inputType?: 'input' | 'search' | 'password';
     onSubmit?: () => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
 }
 
 export const Input = memo((props: InputProps) => {
@@ -29,6 +33,8 @@ export const Input = memo((props: InputProps) => {
         placeholder,
         inputType = 'input',
         onSubmit,
+        onFocus,
+        onBlur,
     } = props;
 
     const [isCrossVisible, setIsCrossVisible] = useState<boolean>(false);
@@ -72,46 +78,46 @@ export const Input = memo((props: InputProps) => {
     };
 
     return (
-        <span className={classes.InputWrapper}>
+        <span className={classNames(classes.InputWrapper, {}, [className])}>
             <input
                 placeholder={placeholder}
                 className={classNames(classes.Input, {}, [className])}
                 value={value}
                 onChange={onChangeHandler}
                 type={type()}
+                onFocus={onFocus}
+                onBlur={onBlur}
             />
-            {isCrossVisible && (
-                <HStack
-                    className={classes.btnWrapper}
-                    justify="end"
-                    align="center"
-                >
-                    {inputType === 'search' && (
-                        <Button
-                            variant="clear"
-                            onClick={onSubmitClick}
-                        >
-                            <Icon Svg={SearchIcon} className={classes.icon} />
-                        </Button>
-                    )}
-                    {inputType === 'password' && (
-                        <Button
-                            variant="clear"
-                            onClick={passwordVisibilityHandler}
-                        >
-                            <Icon Svg={EyeIcon} className={classes.icon} />
-                        </Button>
-                    )}
-                    {inputType !== 'password' && (
-                        <Button
-                            variant="clear"
-                            onClick={onClearButtonClick}
-                        >
-                            <Icon Svg={CrossIcon} className={classes.icon} />
-                        </Button>
-                    )}
-                </HStack>
-            )}
+            <HStack
+                className={classes.btnWrapper}
+                justify="end"
+                align="center"
+            >
+                {inputType === 'password' && (
+                    <Button
+                        variant="clear"
+                        onClick={passwordVisibilityHandler}
+                    >
+                        <Icon Svg={EyeIcon} className={classes.icon} />
+                    </Button>
+                )}
+                {inputType !== 'password' && isCrossVisible && (
+                    <Button
+                        variant="clear"
+                        onClick={onClearButtonClick}
+                    >
+                        <Icon Svg={CrossIcon} className={classes.icon} />
+                    </Button>
+                )}
+                {inputType === 'search' && (
+                    <Button
+                        variant="clear"
+                        onClick={onSubmitClick}
+                    >
+                        <Icon Svg={SearchIcon} className={classes.icon} />
+                    </Button>
+                )}
+            </HStack>
         </span>
     );
 });

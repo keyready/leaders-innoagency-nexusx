@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import {
+import React, {
     memo, MutableRefObject, ReactNode, UIEvent, useEffect, useRef,
 } from 'react';
 import { useInfiniteScroll } from 'shared/lib/hooks/useInfiniteScroll/useInfiniteScroll';
@@ -43,7 +43,6 @@ export const Page = memo((props: PageProps) => {
     }, [scrollPosition]);
 
     const onScroll = useThrottle((e: UIEvent<HTMLDivElement>) => {
-        console.warn('SCROLL');
         dispatch(UIActions.setScrollPosition({
             path: pathname,
             position: e.currentTarget.scrollTop,

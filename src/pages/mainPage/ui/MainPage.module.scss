@@ -1,4 +1,90 @@
 .icon {
-	width: 100px;
-	height: 96px;
+    width: 100px;
+    height: 96px;
+}
+
+.title {
+    margin-top: 100px;
+}
+
+.mainHeader {
+    font-size: 120px;
+    font-weight: bold;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subheader {
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 32px;
+
+    &:nth-child(3) {
+        margin-top: 60px;
+    }
+}
+
+.cardIcon {
+    width: 157px;
+    height: 130px;
+}
+
+.cardText {
+    font-size: 16px;
+    font-style: normal;
+    line-height: 23px;
+}
+
+.helpsIcon {
+    width: 210px;
+    height: 170px;
+}
+
+.helpsText {
+    font-size: 44.416px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 51px;
+    text-align: center;
+}
+
+.helpsCard {
+    width: 630px;
+}
+
+.parentDivs {
+    align-items: stretch;
+}
+
+.cardTitle {
+    font-family: Ubuntu, sans-serif;
+}
+
+.subtitle {
+    text-align: center;
+}
+
+.searchInput {
+    width: 450px;
+    color: inherit;
+}
+
+.expandSearch {
+    width: 700px;
+}
+
+.mainIcons {
+    width: 120px;
+    height: 120px;
+}
+
+.typesTitle {
+    font-size: 38.4px;
+    font-weight: 400;
+    margin-top: 25px;
+    text-align: center;
 }

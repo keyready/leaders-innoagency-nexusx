@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, MouseEvent, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import PaginatorIcon from 'shared/assets/icons/paginator.svg';
 import ArrowIcon from 'shared/assets/icons/right_arrow.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
