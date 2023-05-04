@@ -39,14 +39,15 @@ export const Navbar = memo(({ className }: NavbarProps) => {
             <Button variant="clear" onClick={() => navigate('/')}>
                 <Icon Svg={MainIcon} className={classes.mainIcon} />
             </Button>
+            {/* TODO сломалось выравнивание у иконок */}
             <HStack className={classes.navbarLinks} gap="32">
                 <AppLink to="#" className={classes.navbarLinks}>
                     <Icon Svg={EyeIcon} className={classes.icon} />
-                    Инклюзивная версия
+                    <span>Инклюзивная версия</span>
                 </AppLink>
                 <AppLink to="#" className={classes.navbarLinks}>
                     <Icon Svg={LkIcon} className={classes.icon} />
-                    Личный кабинет
+                    <span>Личный кабинет</span>
                 </AppLink>
             </HStack>
         </HStack>

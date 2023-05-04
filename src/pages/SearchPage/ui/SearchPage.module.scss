@@ -31,3 +31,12 @@
 .expandSearch {
     width: 700px;
 }
+
+.searchResults {
+    margin-top: 70px;
+    height: 100%;
+    display: grid;
+    gap: 20px;
+    justify-items: center;
+    grid-template-columns: 2fr 2fr;
+}

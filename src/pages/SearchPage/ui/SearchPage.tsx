@@ -7,8 +7,10 @@ import { Page } from 'widgets/Page/Page';
 import React, { memo, useCallback, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Input } from 'shared/UI/Input';
-import { VStack } from 'shared/UI/Stack';
+import { HStack, VStack } from 'shared/UI/Stack';
 import { addQueryParams } from 'shared/url/addQueryParams/addQueryParams';
+import { CostBadges } from 'shared/UI/CostBadges';
+import { PlatformCard } from 'entities/Platform';
 import classes from './SearchPage.module.scss';
 
 interface SearchPageProps {
@@ -56,6 +58,13 @@ const SearchPage = memo((props: SearchPageProps) => {
                     onSubmit={onSubmitSearch}
                 />
             </VStack>
+            <div className={classes.searchResults}>
+                {new Array(7)
+                    .fill(0)
+                    .map((_, index) => (
+                        <PlatformCard key={index} />
+                    ))}
+            </div>
         </Page>
     );
 });

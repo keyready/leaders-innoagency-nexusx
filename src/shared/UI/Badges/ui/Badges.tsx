@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo } from 'react';
 import classes from './Badges.module.scss';
 
-type BadgesTypes =
+export type BadgesTypes =
     'coworking' | 'gallery' |
     'event' | 'mc' |
     'lecture' | 'festival' |

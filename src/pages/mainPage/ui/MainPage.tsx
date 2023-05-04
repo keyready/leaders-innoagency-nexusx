@@ -102,7 +102,7 @@ const MainPage = () => {
                 </h2>
                 <VStack max gap="20">
                     <HStack gap="32" max justify="center" className={classes.parentDivs}>
-                        <Card>
+                        <Card className={classes.card}>
                             <HStack gap="32" max justify="center">
                                 <Icon Svg={PaintingIcon} className={classes.cardIcon} />
                                 <VStack max justify="start">
@@ -115,7 +115,7 @@ const MainPage = () => {
                                 </VStack>
                             </HStack>
                         </Card>
-                        <Card>
+                        <Card className={classes.card}>
                             <HStack gap="32" max justify="center">
                                 <Icon Svg={SearchIcon} className={classes.cardIcon} />
                                 <VStack max justify="start">
@@ -128,7 +128,7 @@ const MainPage = () => {
                         </Card>
                     </HStack>
                     <HStack gap="32" max justify="center" className={classes.parentDivs}>
-                        <Card>
+                        <Card className={classes.card}>
                             <HStack gap="32" max justify="center">
                                 <Icon Svg={CalendarIcon} className={classes.cardIcon} />
                                 <VStack max justify="start">
@@ -139,7 +139,7 @@ const MainPage = () => {
                                 </VStack>
                             </HStack>
                         </Card>
-                        <Card>
+                        <Card className={classes.card}>
                             <HStack gap="32" max justify="center">
                                 <Icon Svg={BagIcon} className={classes.cardIcon} />
                                 <VStack max justify="start">
