@@ -13,10 +13,12 @@ import MoscowIcon from 'shared/assets/icons/active-msc.svg';
 import TicketIcon from 'shared/assets/icons/ticket.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { classNames } from 'shared/lib/classNames/classNames';
+import { useNavigate } from 'react-router';
 import classes from './MainPage.module.scss';
 
 const MainPage = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
+    const navigate = useNavigate();
     // const [expandSearch, setExpandSearch] = useState<boolean>(false);
 
     return (
@@ -37,8 +39,7 @@ const MainPage = () => {
                     inputType="search"
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    // onFocus={() => setExpandSearch(true)}
-                    // onBlur={() => setExpandSearch(false)}
+                    onSubmit={() => navigate(`/search?q=${searchQuery}`)}
                 />
                 <p>или</p>
                 <h2 className={classes.subheader}>Популярные категории</h2>

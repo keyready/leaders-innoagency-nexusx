@@ -37,6 +37,18 @@ export const Input = memo((props: InputProps) => {
         onBlur,
     } = props;
 
+    useEffect(() => {
+        document.addEventListener('keypress', (ev) => {
+            if (ev.key === 'Enter') {
+                onSubmit?.();
+            }
+        });
+
+        // return () => {
+        //     document.removeEventListener('keypress');
+        // };
+    }, [onSubmit]);
+
     const [isCrossVisible, setIsCrossVisible] = useState<boolean>(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 

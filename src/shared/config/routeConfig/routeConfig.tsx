@@ -5,6 +5,7 @@ import { NotFound } from 'pages/NotFound';
 import { UserRoles } from 'entities/User';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
+import { SearchPage } from 'pages/SearchPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -15,6 +16,8 @@ export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
     ADMIN_PANEL = 'admin_panel',
+    SEARCH_PAGE = 'search_page',
+
     // last
     FORBIDDEN = 'forbidden',
     NOT_FOUND = 'not_found',
@@ -25,6 +28,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     [AppRoutes.ABOUT]: '/about',
     [AppRoutes.ADMIN_PANEL]: '/admin',
+    [AppRoutes.SEARCH_PAGE]: '/search',
 
     // last
     [AppRoutes.FORBIDDEN]: '/forbidden',
@@ -39,6 +43,10 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ABOUT]: {
         path: RoutePath.about,
         element: <AboutPage />,
+    },
+    [AppRoutes.SEARCH_PAGE]: {
+        path: RoutePath.search_page,
+        element: <SearchPage />,
     },
     [AppRoutes.ADMIN_PANEL]: {
         path: RoutePath.admin_panel,
