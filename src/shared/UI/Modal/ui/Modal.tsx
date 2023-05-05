@@ -1,5 +1,4 @@
 import { ReactNode, useCallback } from 'react';
-import { Modal as BModal } from 'react-bootstrap';
 import { classNames } from 'shared/lib/classNames/classNames';
 import classes from './Modal.module.scss';
 
@@ -29,24 +28,9 @@ export const Modal = (props: ModalProps) => {
     }, [setShow]);
 
     return (
-        <BModal
+        <Modal
             className={classNames(classes.Modal, {}, [className])}
             show={show}
-            onHide={handleClose}
-        >
-            {header && (
-                <BModal.Header closeButton={headerCloser}>
-                    <BModal.Title>{header}</BModal.Title>
-                </BModal.Header>
-            )}
-
-            <BModal.Body>{children}</BModal.Body>
-
-            {footer && (
-                <BModal.Footer>
-                    {footer}
-                </BModal.Footer>
-            )}
-        </BModal>
+        />
     );
 };

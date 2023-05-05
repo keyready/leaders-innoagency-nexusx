@@ -2,8 +2,8 @@
 }
 
 .title {
-    font-size: 24px;
-    font-weight: 500;
+    font-style: normal;
+    font-weight: 400;
 }
 
 .icon {
@@ -13,4 +13,11 @@
 
 .photo {
     border-radius: 30px;
+}
+
+.block {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    background: crimson;
 }

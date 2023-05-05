@@ -40,14 +40,18 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                 <Icon Svg={MainIcon} className={classes.mainIcon} />
             </Button>
             {/* TODO сломалось выравнивание у иконок */}
-            <HStack className={classes.navbarLinks} gap="32">
-                <AppLink to="#" className={classes.navbarLinks}>
-                    <Icon Svg={EyeIcon} className={classes.icon} />
-                    <span>Инклюзивная версия</span>
+            <HStack gap="32">
+                <AppLink to="#">
+                    <HStack max gap="8" align="center">
+                        <Icon Svg={EyeIcon} className={classes.icon} />
+                        <span className={classes.navbarLinks}>Инклюзивная версия</span>
+                    </HStack>
                 </AppLink>
-                <AppLink to="#" className={classes.navbarLinks}>
-                    <Icon Svg={LkIcon} className={classes.icon} />
-                    <span>Личный кабинет</span>
+                <AppLink to="#">
+                    <HStack max gap="8" align="center">
+                        <Icon Svg={LkIcon} className={classes.icon} />
+                        <span className={classes.navbarLinks}>Личный кабинет</span>
+                    </HStack>
                 </AppLink>
             </HStack>
         </HStack>

@@ -5,6 +5,7 @@ import { Navbar } from 'widgets/Navbar';
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserInited, userActions } from 'entities/User';
+import 'app/styles/index.scss';
 
 export const App = () => {
     const { theme } = useTheme();

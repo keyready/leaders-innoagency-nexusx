@@ -17,6 +17,11 @@ server.use(jsonServer.bodyParser);
 //     next();
 // });
 
+server.get('/error', (req, res) => {
+    //
+    res.status(401).json({ data: 'хых, ошибка' });
+});
+
 // Эндпоинт для логина
 server.post('/login', (req, res) => {
     try {

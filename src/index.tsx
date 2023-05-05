@@ -1,4 +1,3 @@
-import 'app/styles/index.scss';
 import { ThemeProvider } from 'app/providers/ThemeProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { App } from 'app/App';

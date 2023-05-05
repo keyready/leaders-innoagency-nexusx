@@ -7,6 +7,7 @@ import { AxiosInstance } from 'axios';
 import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { PlatformSchema } from 'entities/Platform';
+import { GetPlatformsSchema } from 'features/getPlatforms';
 
 export interface StateSchema {
     user: UserSchema;
@@ -16,6 +17,7 @@ export interface StateSchema {
     // asynchronous reducers
     loginForm?: LoginSchema;
     platform?: PlatformSchema;
+    getPlatforms?: GetPlatformsSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

@@ -5,13 +5,14 @@
 }
 
 .icon {
-    width: 30px;
-    height: 30px;
+    width: 37px;
+    height: 37px;
     margin-right: 5px;
 }
 
 .navbarLinks {
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 700;
     background-color: var(--accent-color-sec);
     background-image: var(--accent-grad);
     -webkit-background-clip: text;

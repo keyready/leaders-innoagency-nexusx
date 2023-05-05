@@ -1,12 +1,9 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import React, {
-    ChangeEvent, Fragment, memo, ReactNode, useCallback,
-} from 'react';
+import React, { Fragment, memo, ReactNode } from 'react';
 import { Combobox as HCombobox } from '@headlessui/react';
-import { VStack } from '../../Stack';
 import classes from './Combobox.module.scss';
 
-interface ComboboxItem {
+export interface ComboboxItem {
     value: string;
     content: ReactNode;
     disabled?: boolean;
@@ -16,78 +13,92 @@ interface ComboboxProps {
     className?: string;
     placeholder?: string;
     items: ComboboxItem[];
-    onChangeInput?: (value: string) => void;
-    onChange: (value: string) => void;
-    value: string;
-    showLength?: boolean;
+    selectedPerson: ComboboxItem;
+    setSelectedPerson: (item: ComboboxItem) => void;
+    query: string;
+    setQuery: (value: string) => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
+    onResultsClick?: () => void;
 }
 
 export const Combobox = memo((props: ComboboxProps) => {
     const {
-        className,
-        placeholder,
         items,
-        value,
-        onChange,
-        onChangeInput,
-        showLength,
+        placeholder,
+        onResultsClick,
+        className,
+        selectedPerson,
+        setSelectedPerson,
+        query,
+        setQuery,
+        onFocus,
+        onBlur,
     } = props;
 
-    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        onChangeInput?.(e.target.value);
-    }, [onChangeInput]);
+    const filteredPeople = query === ''
+        ? items
+        : items.filter((
+            item,
+        ) => item.value.toLowerCase().includes(query.toLowerCase()));
 
     return (
         <HCombobox
             as="div"
-            className={classNames(classes.Combobox, {}, [className])}
-            value={value}
-            onChange={onChange}
+            className={classes.Combobox}
+            value={selectedPerson}
+            onChange={(value) => setSelectedPerson(value)}
         >
             <HCombobox.Input
-                className={classes.input}
-                onChange={onChangeHandler}
+                className={classNames(classes.Input, {}, [className])}
                 placeholder={placeholder}
+                onChange={(event) => setQuery(event.target.value)}
+                displayValue={(item: ComboboxItem) => item.value}
+                onFocus={onFocus}
+                onBlur={onBlur}
             />
-            <HCombobox.Options
-                className={classes.options}
-            >
-                {placeholder && (
-                    <VStack className={classes.placeholderWrapper}>
-                        <p className={classes.placeholder}>
-                            {placeholder}
-                            {showLength ? ` | ${items.length}` : ''}
-                        </p>
-                        <hr className={classes.divider} />
-                    </VStack>
-                )}
-                {items.length
-                    ? items.map((item) => (
+            {filteredPeople
+                ? (
+                    <HCombobox.Options
+                        className={classes.options}
+                    >
+                        {filteredPeople.map((item) => (
+                            <HCombobox.Option
+                                as={Fragment}
+                                key={item.value}
+                                value={item}
+                                disabled={item.disabled}
+                            >
+                                {({ active }) => (
+                                    <p className={classNames(
+                                        classes.item,
+                                        { [classes.active]: active },
+                                    )}
+                                    >
+                                        {item.content}
+                                    </p>
+                                )}
+                            </HCombobox.Option>
+                        ))}
+                        {filteredPeople.length ? (<hr className={classes.divider} />) : ''}
                         <HCombobox.Option
-                            as={Fragment}
-                            key={item.value}
-                            value={item.value}
+                            value="Посмотреть все результаты"
+                            onClick={onResultsClick}
                         >
                             {({ active }) => (
-                                <li
-                                    className={classNames(classes.item, {
-                                        [classes.active]: active,
-                                        [classes.disabled]: item.disabled,
-                                    })}
+                                <p className={classNames(
+                                    classes.item,
+                                    { [classes.active]: active },
+                                    [classes.search],
+                                )}
                                 >
-                                    {item.content}
-                                </li>
+                                    Посмотреть все результаты
+                                </p>
                             )}
                         </HCombobox.Option>
-                    ))
-                    : (
-                        <li
-                            className={classNames(classes.item, {}, [])}
-                        >
-                            Ничего не найдено
-                        </li>
-                    )}
-            </HCombobox.Options>
+                    </HCombobox.Options>
+                )
+                : (<p>Ничего не найдено..</p>)}
         </HCombobox>
     );
 });

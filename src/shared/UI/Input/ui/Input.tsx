@@ -110,7 +110,9 @@ export const Input = memo((props: InputProps) => {
                         variant="clear"
                         onClick={passwordVisibilityHandler}
                     >
-                        <Icon Svg={EyeIcon} className={classes.icon} />
+                        <HStack max align="center">
+                            <Icon Svg={EyeIcon} className={classes.icon} />
+                        </HStack>
                     </Button>
                 )}
                 {inputType !== 'password' && isCrossVisible && (
@@ -118,7 +120,9 @@ export const Input = memo((props: InputProps) => {
                         variant="clear"
                         onClick={onClearButtonClick}
                     >
-                        <Icon Svg={CrossIcon} className={classes.icon} />
+                        <HStack max align="center">
+                            <Icon Svg={CrossIcon} className={classes.icon} />
+                        </HStack>
                     </Button>
                 )}
                 {inputType === 'search' && (
@@ -126,7 +130,9 @@ export const Input = memo((props: InputProps) => {
                         variant="clear"
                         onClick={onSubmitClick}
                     >
-                        <Icon Svg={SearchIcon} className={classes.icon} />
+                        <HStack max align="center">
+                            <Icon Svg={SearchIcon} className={classes.icon} />
+                        </HStack>
                     </Button>
                 )}
             </HStack>

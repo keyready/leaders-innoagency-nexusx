@@ -8,6 +8,7 @@ export interface Booking {
 
 export interface Platform {
     _id: string;
+    metro?: string;
     address?: string;
     name: string;
     subtitle: string;
@@ -15,5 +16,6 @@ export interface Platform {
     description: string;
     mainPhoto: string;
     date: Date;
+    type: 'coworking' | 'gallery' | 'event' | 'mc' | 'lecture' | 'festival' | 'film';
     bookings: Booking[];
 }

@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button } from 'shared/UI/Button';
 import { useEffect, useState } from 'react';
 
 // Компонент для тестирования ErrorBoundary
@@ -16,7 +16,7 @@ export const BugButton = () => {
     return (
         <Button
             onClick={onThrow}
-            variant="outlined"
+            variant="primary-outline"
         >
             Сломать
         </Button>

@@ -73,12 +73,21 @@
 }
 
 .searchInput {
-    width: 450px;
+    width: 1000px;
     color: inherit;
 }
 
+.blurred {
+    opacity: 0.8;
+    filter: blur(10px) brightness(0.7);
+}
+
+.wrapper {
+    transition: 200ms ease-in-out;
+}
+
 .expandSearch {
-    width: 700px;
+    //width: 700px;
 }
 
 .mainIcons {

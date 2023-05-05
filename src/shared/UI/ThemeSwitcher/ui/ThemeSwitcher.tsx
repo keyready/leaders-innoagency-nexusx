@@ -3,7 +3,7 @@ import { Theme, useTheme } from 'app/providers/ThemeProvider';
 import LightIcon from 'shared/assets/icons/theme-light.svg';
 import DarkIcon from 'shared/assets/icons/theme-dark.svg';
 // eslint-disable-next-line fsd-path-checker-keyready/path-checker-fsd
-import { Button } from 'react-bootstrap';
+import { Button } from 'shared/UI/Button';
 import { memo } from 'react';
 
 interface ThemeSwitcherProps {
@@ -17,7 +17,7 @@ export const ThemeSwitcher = memo(({ className }: ThemeSwitcherProps) => {
         <Button
             className={classNames('', {}, [className])}
             onClick={toggleTheme}
-            variant="contained"
+            variant="clear"
         >
             {theme === Theme.LIGHT ? <LightIcon /> : <DarkIcon />}
         </Button>

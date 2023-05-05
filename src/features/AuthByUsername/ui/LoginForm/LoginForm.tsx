@@ -1,12 +1,14 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Alert, Button, Form } from 'react-bootstrap';
+import { Button } from 'shared/UI/Button';
 import { useSelector } from 'react-redux';
-import { ChangeEvent, memo, useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { Text } from 'shared/UI/Text';
+import { Input } from 'shared/UI/Input';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
@@ -37,12 +39,10 @@ const LoginForm = memo((props: LoginFormProps) => {
         onSuccess,
     } = props;
 
-    const onUsernameChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
+    const onUsernameChange = useCallback((value: string) => {
         dispatch(loginActions.setUsername(value));
     }, [dispatch]);
-    const onPasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        const { value } = e.target;
+    const onPasswordChange = useCallback((value: string) => {
         dispatch(loginActions.setPassword(value));
     }, [dispatch]);
     const onLoginClick = useCallback(async () => {
@@ -61,21 +61,19 @@ const LoginForm = memo((props: LoginFormProps) => {
                 className={classNames(classes.LoginForm, {}, [className])}
             >
                 {error && (
-                    <Alert
-                        variant="danger"
+                    <Text
                         className={classes.loginError}
-                    >
-                        {error}
-                    </Alert>
+                        title={error}
+                    />
                 )}
-                <Form.Control
+                <Input
                     autoFocus
                     placeholder="Введите имя"
                     value={username}
                     onChange={onUsernameChange}
                     type="text"
                 />
-                <Form.Control
+                <Input
                     placeholder="Введите пароль"
                     value={password}
                     onChange={onPasswordChange}

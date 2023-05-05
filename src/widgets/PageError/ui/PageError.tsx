@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Button } from 'react-bootstrap';
+import { Button } from 'shared/UI/Button';
 import { VStack } from 'shared/UI/Stack';
 import classes from './PageError.module.scss';
 
