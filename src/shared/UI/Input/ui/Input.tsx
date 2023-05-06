@@ -2,7 +2,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
     ChangeEvent, InputHTMLAttributes, memo,
-    MouseEvent, useCallback, useEffect, useState,
+    MouseEvent, ReactNode, useCallback, useEffect, useState,
 } from 'react';
 import CrossIcon from 'shared/assets/icons/input-cross.svg';
 import SearchIcon from 'shared/assets/icons/search.svg';
@@ -10,6 +10,7 @@ import EyeIcon from 'shared/assets/icons/eye.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { Button } from 'shared/UI/Button';
 import { HStack } from 'shared/UI/Stack';
+import { FieldErrors, FieldValues } from 'react-hook-form';
 import classes from './Input.module.scss';
 
 interface InputProps extends Omit<

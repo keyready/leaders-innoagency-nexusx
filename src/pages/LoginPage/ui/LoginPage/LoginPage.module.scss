@@ -1,0 +1,97 @@
+.LoginPage {
+
+}
+
+.Form {
+    width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--primary-color);
+    background: var(--inverted-bg-color);
+    font: var(--font-line-main-text);
+    transition: 200ms ease-in-out;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        cursor: auto;
+        color: rgb(183 184 185 / 10%);
+        background: rgb(183 184 185 / 10%);
+    }
+}
+
+.link {
+    color: #b7b8b9;
+    font-size: 16px;
+    text-decoration-line: underline;
+
+    &:first-child {
+        margin-right: 40px;
+    }
+}
+
+.errorMessage {
+    color: red;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.error {
+    background: rgb(255 0 0 / 20%);
+    outline: 2px solid crimson;
+}
+
+.isValid {
+    color: #b6e492;
+}
+
+.mainHeader {
+    font-size: 120px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.smallMainHeader {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.signInHelpersWrapper {
+    margin-top: 45px;
+}
+
+.signInHelpers {
+    font-size: 16px;
+    margin-right: 30px;
+}
+
+.loginIcon {
+    width: 32px;
+    height: 32px;
+}
+
+
+.subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    white-space: pre-line;
+    text-align: center;
+}

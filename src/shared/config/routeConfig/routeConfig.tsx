@@ -6,6 +6,7 @@ import { UserRoles } from 'entities/User';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { SearchPage } from 'pages/SearchPage';
+import { LoginPage } from 'pages/LoginPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -15,6 +16,7 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
+    LOGIN = 'login',
     ADMIN_PANEL = 'admin_panel',
     SEARCH_PAGE = 'search_page',
 
@@ -27,6 +29,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     // main
     [AppRoutes.MAIN]: '/',
     [AppRoutes.ABOUT]: '/about',
+    [AppRoutes.LOGIN]: '/login',
     [AppRoutes.ADMIN_PANEL]: '/admin',
     [AppRoutes.SEARCH_PAGE]: '/search',
 
@@ -43,6 +46,10 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ABOUT]: {
         path: RoutePath.about,
         element: <AboutPage />,
+    },
+    [AppRoutes.LOGIN]: {
+        path: RoutePath.login,
+        element: <LoginPage />,
     },
     [AppRoutes.SEARCH_PAGE]: {
         path: RoutePath.search_page,

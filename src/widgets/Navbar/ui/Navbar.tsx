@@ -47,7 +47,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                         <span className={classes.navbarLinks}>Инклюзивная версия</span>
                     </HStack>
                 </AppLink>
-                <AppLink to="#">
+                <AppLink to="/login">
                     <HStack max gap="8" align="center">
                         <Icon Svg={LkIcon} className={classes.icon} />
                         <span className={classes.navbarLinks}>Личный кабинет</span>

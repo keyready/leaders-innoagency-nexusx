@@ -20,14 +20,14 @@ export const ${sliceName}Slice = createSlice({
     },
     // extraReducers: (builder) => {
     //     builder
-    //         .addCase(, (state) => {
+    //         .addCase(.pending, (state) => {
     //             state.error = undefined;
     //             state.isLoading = true;
     //         })
-    //         .addCase(, (state) => {
+    //         .addCase(.fulfilled, (state) => {
     //             state.isLoading = false;
     //         })
-    //         .addCase(, (state, action) => {
+    //         .addCase(.rejected, (state, action) => {
     //             state.isLoading = false;
     //             state.error = action.payload;
     //         });

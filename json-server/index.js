@@ -25,19 +25,29 @@ server.get('/error', (req, res) => {
 // Эндпоинт для логина
 server.post('/login', (req, res) => {
     try {
-        const { username, password } = req.body;
+        const { email, phoneNumber, password } = req.body;
         const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
         const { users = [] } = db;
 
-        const userFromBd = users.find(
-            (user) => user.username === username && user.password === password,
-        );
-
-        if (userFromBd) {
-            return res.json(userFromBd);
+        let userFromBd;
+        if (email && password) {
+            userFromBd = users.find(
+                (user) => user.email === email && user.password === password,
+            );
+            return res.status(403).json({
+                message: 'Пользователь с такой почтой не найден',
+            });
+        }
+        if (phoneNumber && password) {
+            userFromBd = users.find(
+                (user) => user.phoneNumber === phoneNumber && user.password === password,
+            );
+            return res.status(403).json({
+                message: 'Пользователь с таким номером телефона не найден',
+            });
         }
 
-        return res.status(403).json({ message: 'User not found' });
+        return res.json(userFromBd);
     } catch (e) {
         return res.status(500).json({ message: e.message });
     }

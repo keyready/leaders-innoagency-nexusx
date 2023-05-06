@@ -1,5 +1,4 @@
 import { UserSchema } from 'entities/User';
-import { LoginSchema } from 'features/AuthByUsername';
 import {
     AnyAction, CombinedState, EnhancedStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
@@ -8,6 +7,7 @@ import { UISchema } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { PlatformSchema } from 'entities/Platform';
 import { GetPlatformsSchema } from 'features/getPlatforms';
+import { LoginPageSchema } from 'pages/LoginPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -15,7 +15,7 @@ export interface StateSchema {
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
 
     // asynchronous reducers
-    loginForm?: LoginSchema;
+    loginPage?: LoginPageSchema;
     platform?: PlatformSchema;
     getPlatforms?: GetPlatformsSchema;
 }
