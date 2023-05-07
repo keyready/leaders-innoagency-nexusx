@@ -1,9 +1,12 @@
 .PlatformCard {
+    padding: 20px;
+    border-radius: var(--border-radius);
+    background: var(--inverted-bg-color);
 }
 
 .title {
-    font-style: normal;
     font-weight: 400;
+    font-style: normal;
 }
 
 .icon {

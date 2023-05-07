@@ -29,7 +29,8 @@ export const ${sliceName}Slice = createSlice({
     //         })
     //         .addCase(.rejected, (state, action) => {
     //             state.isLoading = false;
-    //             state.error = action.payload;
+    //             // @ts-ignore
+    //             state.error = action.payload.message;
     //         });
     // },
 });

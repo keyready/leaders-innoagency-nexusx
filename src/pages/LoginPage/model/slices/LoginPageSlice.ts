@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { loginByPhoneNumber } from '../services/LoginByPhoneNumber';
-import { loginByUsername } from '../services/LoginByUsername';
+import { login } from '../services/Login';
 import { LoginPageSchema } from '../types/LoginPageSchema';
 
 const initialState: LoginPageSchema = {
@@ -29,27 +28,14 @@ export const LoginPageSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(loginByUsername.pending, (state) => {
+            .addCase(login.pending, (state) => {
                 state.error = undefined;
                 state.isLoading = true;
             })
-            .addCase(loginByUsername.fulfilled, (state) => {
+            .addCase(login.fulfilled, (state) => {
                 state.isLoading = false;
             })
-            .addCase(loginByUsername.rejected, (state, action) => {
-                state.isLoading = false;
-                // @ts-ignore
-                state.error = action.payload.message;
-            })
-
-            .addCase(loginByPhoneNumber.pending, (state) => {
-                state.error = undefined;
-                state.isLoading = true;
-            })
-            .addCase(loginByPhoneNumber.fulfilled, (state) => {
-                state.isLoading = false;
-            })
-            .addCase(loginByPhoneNumber.rejected, (state, action) => {
+            .addCase(login.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.message;

@@ -10,12 +10,12 @@ server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
 
 // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-// server.use(async (req, res, next) => {
-//     await new Promise((res) => {
-//         setTimeout(res, 200);
-//     });
-//     next();
-// });
+server.use(async (req, res, next) => {
+    await new Promise((res) => {
+        setTimeout(res, 1000);
+    });
+    next();
+});
 
 server.get('/error', (req, res) => {
     //
@@ -32,18 +32,28 @@ server.post('/login', (req, res) => {
         let userFromBd;
         if (email && password) {
             userFromBd = users.find(
-                (user) => user.email === email && user.password === password,
+                (user) => user.email === email,
             );
-            return res.status(403).json({
-                message: 'Пользователь с такой почтой не найден',
-            });
+            if (!userFromBd) {
+                return res.status(403).json({
+                    message: 'Пользователь с такой почтой не найден',
+                });
+            }
         }
         if (phoneNumber && password) {
             userFromBd = users.find(
-                (user) => user.phoneNumber === phoneNumber && user.password === password,
+                (user) => user.phoneNumber === phoneNumber,
             );
-            return res.status(403).json({
-                message: 'Пользователь с таким номером телефона не найден',
+            if (!userFromBd) {
+                return res.status(403).json({
+                    message: 'Пользователь с таким номером телефона не найден',
+                });
+            }
+        }
+
+        if (password !== userFromBd.password) {
+            return res.status(401).json({
+                message: 'Неверный пароль',
             });
         }
 

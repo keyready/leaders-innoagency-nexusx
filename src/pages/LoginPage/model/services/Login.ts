@@ -1,19 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { userActions, User } from 'entities/User';
-import { USER_LOCALSTORAGE_KEY } from 'shared/const';
+import { User } from 'entities/User';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
 
-interface LoginByUsernameProps {
-    phoneNumber: string;
-    password: string;
-}
-
-export const loginByPhoneNumber = createAsyncThunk<
+export const login = createAsyncThunk<
     User,
     any,
     ThunkConfig<string>>(
-        'loginPage/loginByPhoneNumber',
+        'loginPage/loginByUsername',
         async (authData, thunkAPI) => {
             const { extra, dispatch, rejectWithValue } = thunkAPI;
 

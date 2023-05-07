@@ -3,7 +3,10 @@
     {
       "name": "Родион",
       "lastname": "Корчак",
-      "middlename": "Дмитриевич"
+      "middlename": "Дмитриевич",
+      "email": "dallss13@bk.ru",
+      "phoneNumber": "89243093207",
+      "password": "Rodion13star!"
     },
     {
       "name": "Андрей",

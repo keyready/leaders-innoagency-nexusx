@@ -17,9 +17,10 @@ import GoogleIcon from 'shared/assets/icons/google-signin-logo.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { getLoginDataError } from 'pages/LoginPage';
-import { loginByUsername } from '../../model/services/LoginByUsername';
-import { loginByPhoneNumber } from '../../model/services/LoginByPhoneNumber';
+import { getLoginDataError, getLoginDataIsLoading } from 'pages/LoginPage';
+import { Alert } from 'shared/UI/Alert';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { login } from '../../model/services/Login';
 import { LoginPageReducer } from '../../model/slices/LoginPageSlice';
 import classes from './LoginPage.module.scss';
 
@@ -38,13 +39,16 @@ const LoginPage = memo((props: LoginPageProps) => {
     const navigate = useNavigate();
 
     const loginError = useSelector(getLoginDataError);
+    const loginIsLoading = useSelector(getLoginDataIsLoading);
 
     const [isEmailRequired, setIsEmailRequired] = useState<boolean>(false);
     const [isPhoneRequired, setIsPhoneRequired] = useState<boolean>(false);
 
     const SignupSchema = Yup.object({
         email: isEmailRequired
-            ? Yup.string().email('Неправильно введена почта').required('Обязательное поле')
+            ? Yup.string()
+                .email('Неправильно введена почта')
+                .required('Обязательное поле')
             : Yup.string(),
 
         phoneNumber: isPhoneRequired
@@ -55,8 +59,8 @@ const LoginPage = memo((props: LoginPageProps) => {
 
         password: Yup.string()
             .required('Обязательное поле')
-            // .min(4, 'Слишком короткий')
-            // .max(15, 'Слишком длинный')
+            .min(4, 'Слишком короткий')
+            .max(15, 'Слишком длинный')
             .matches(/[!@#$%^&*(),.?:{}|<>]/, 'Пароль должен содержать специальные символы'),
     }).required();
 
@@ -70,11 +74,7 @@ const LoginPage = memo((props: LoginPageProps) => {
     const phoneNumber = watch('phoneNumber');
 
     const onSubmit = handleSubmit((data) => {
-        if (email) {
-            dispatch(loginByUsername(data));
-        } else if (phoneNumber) {
-            dispatch(loginByPhoneNumber(data));
-        }
+        dispatch(login(data));
     });
 
     useEffect(() => {
@@ -162,15 +162,21 @@ const LoginPage = memo((props: LoginPageProps) => {
                         )}
 
                         {loginError && (
-                            <h3>{loginError}</h3>
+                            <Alert
+                                className={classes.alert}
+                                variant="danger"
+                            >
+                                {loginError}
+                            </Alert>
                         )}
 
                         <Button
                             style={{ marginTop: 20 }}
                             variant="primary"
                             type="submit"
+                            disabled={loginIsLoading}
                         >
-                            Отправить
+                            {loginIsLoading ? 'Подождите...' : 'Войти'}
                         </Button>
                     </form>
                     <HStack max justify="center">
@@ -182,7 +188,7 @@ const LoginPage = memo((props: LoginPageProps) => {
                         </AppLink>
                         <AppLink
                             className={classes.link}
-                            to="/registration"
+                            to={RoutePath.register}
                         >
                             Не регистрировались ранее?
                         </AppLink>

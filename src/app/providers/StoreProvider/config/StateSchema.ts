@@ -8,6 +8,7 @@ import { rtkApi } from 'shared/api/rtkApi';
 import { PlatformSchema } from 'entities/Platform';
 import { GetPlatformsSchema } from 'features/getPlatforms';
 import { LoginPageSchema } from 'pages/LoginPage';
+import { RegisterPageSchema } from 'pages/RegisterPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -16,6 +17,7 @@ export interface StateSchema {
 
     // asynchronous reducers
     loginPage?: LoginPageSchema;
+    registerPage?: RegisterPageSchema;
     platform?: PlatformSchema;
     getPlatforms?: GetPlatformsSchema;
 }

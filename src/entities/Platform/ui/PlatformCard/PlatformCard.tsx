@@ -16,7 +16,7 @@ export const PlatformCard = memo((props: PlatformProps) => {
 
     if (type === 'searchCard') {
         return (
-            <HStack max gap="32">
+            <HStack max gap="32" className={classes.PlatformCard}>
                 <VStack max>
                     <p className={classes.title}>{platform?.name}</p>
                     <HStack max align="center">

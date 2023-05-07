@@ -5,5 +5,4 @@ export {
     getLoginDataError,
     getLoginDataIsLoading,
 } from './model/selectors/getLoginData';
-export { loginByPhoneNumber } from './model/services/LoginByPhoneNumber';
-export { loginByUsername } from './model/services/LoginByUsername';
+export { login } from './model/services/Login';
