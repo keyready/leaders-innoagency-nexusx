@@ -1,6 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
 import { useEffect } from 'react';
+import { Tabs } from 'shared/UI/Tabs';
 import classes from './NotFound.module.scss';
 
 interface NotFoundProps {

@@ -1,0 +1,36 @@
+.Tabs {
+    background: #ecf0f1;
+}
+
+.Tab {
+    cursor: pointer;
+    width: 225px;
+    height: 50px;
+    border: none;
+    color: #b7b8b9;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    line-height: 23px;
+}
+
+.TabsContentList {
+
+}
+
+.TabsContent {
+
+}
+
+.selected {
+    border-radius: 15px;
+    color: #323232;
+    background: linear-gradient(93.03deg, rgb(154 187 236 / 20%) 0%, rgb(97 150 228 / 20%) 100%);
+    font-size: 16px;
+    font-weight: 700;
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    line-height: 23px;
+}

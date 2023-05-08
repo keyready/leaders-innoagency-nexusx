@@ -1,5 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import React, { memo, useEffect, useState } from 'react';
+import React, {
+    memo, useCallback, useEffect, useMemo, useState,
+} from 'react';
 import {
     DynamicModuleLoader,
     ReducersList,
@@ -17,9 +19,10 @@ import GoogleIcon from 'shared/assets/icons/google-signin-logo.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import { getLoginDataError, getLoginDataIsLoading } from 'pages/LoginPage';
 import { Alert } from 'shared/UI/Alert';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { TabContent, Tabs } from 'shared/UI/Tabs';
+import { getLoginDataError, getLoginDataIsLoading } from '../../model/selectors/getLoginData';
 import { login } from '../../model/services/Login';
 import { LoginPageReducer } from '../../model/slices/LoginPageSlice';
 import classes from './LoginPage.module.scss';
@@ -72,6 +75,7 @@ const LoginPage = memo((props: LoginPageProps) => {
 
     const email = watch('email');
     const phoneNumber = watch('phoneNumber');
+    const password = watch('password');
 
     const onSubmit = handleSubmit((data) => {
         dispatch(login(data));
@@ -87,6 +91,58 @@ const LoginPage = memo((props: LoginPageProps) => {
             setValue('email', '');
         } else setIsPhoneRequired(false);
     }, [email, phoneNumber, setValue]);
+
+    const inputs: TabContent[] = useMemo(() => [
+        {
+            title: 'По почте',
+            content: (
+                <VStack max align="start" justify="center">
+                    <input
+                        placeholder="Email"
+                        className={classNames(classes.input, {
+                            [classes.error]: !!errors.email,
+                        })}
+                        {...register('email')}
+                    />
+                    {errors.email && (
+                        <span
+                            className={classes.errorMessage}
+                        >
+                            {`${errors.email.message}`}
+                        </span>
+                    )}
+                </VStack>
+            ),
+        },
+        {
+            title: 'По номеру телефона',
+            content: (
+                <VStack max align="start" justify="center">
+                    <input
+                        placeholder="Номер телефона"
+                        className={classNames(classes.input, {
+                            [classes.error]: !!errors.phoneNumber,
+                        })}
+                        {...register('phoneNumber')}
+                        id="phoneNumber"
+                    />
+                    {errors.phoneNumber && (
+                        <span
+                            className={classes.errorMessage}
+                        >
+                            {`${errors.phoneNumber.message}`}
+                        </span>
+                    )}
+                </VStack>
+            ),
+        },
+    ], [errors, register]);
+
+    const clearInputsOnChangeTabs = useCallback(() => {
+        setValue('password', '');
+        setValue('phoneNumber', '');
+        setValue('email', '');
+    }, [setValue]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -106,43 +162,19 @@ const LoginPage = memo((props: LoginPageProps) => {
                         {' '}
                         <b>номер</b>
                     </p>
+                </VStack>
+
+                <VStack
+                    className={classes.TabsWrapper}
+                    gap="20"
+                    justify="start"
+                    align="center"
+                >
                     <form
                         onSubmit={onSubmit}
                         className={classes.Form}
                     >
-                        <input
-                            placeholder="Email"
-                            className={classNames(classes.input, {
-                                [classes.error]: !!errors.email,
-                            })}
-                            {...register('email')}
-                            disabled={isPhoneRequired}
-                        />
-                        {errors.email && (
-                            <span
-                                className={classes.errorMessage}
-                            >
-                                {`* ${errors.email.message}`}
-                            </span>
-                        )}
-
-                        <input
-                            placeholder="Номер телефона"
-                            className={classNames(classes.input, {
-                                [classes.error]: !!errors.phoneNumber,
-                            })}
-                            {...register('phoneNumber')}
-                            disabled={isEmailRequired}
-                            id="phoneNumber"
-                        />
-                        {errors.phoneNumber && (
-                            <span
-                                className={classes.errorMessage}
-                            >
-                                {`* ${errors.phoneNumber.message}`}
-                            </span>
-                        )}
-
+                        <Tabs content={inputs} onChangeTrigger={clearInputsOnChangeTabs} />
                         <input
                             placeholder="Пароль"
                             className={classNames(classes.input, {
@@ -157,7 +189,7 @@ const LoginPage = memo((props: LoginPageProps) => {
                             <span
                                 className={classes.errorMessage}
                             >
-                                {`* ${errors.password.message}`}
+                                {`${errors.password.message}`}
                             </span>
                         )}
 
@@ -179,6 +211,8 @@ const LoginPage = memo((props: LoginPageProps) => {
                             {loginIsLoading ? 'Подождите...' : 'Войти'}
                         </Button>
                     </form>
+
+                    {/* доп экшены */}
                     <HStack max justify="center">
                         <AppLink
                             className={classes.link}
