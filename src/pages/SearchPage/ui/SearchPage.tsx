@@ -66,17 +66,17 @@ const SearchPage = memo((props: SearchPageProps) => {
                     <p className={classes.subtitle}>
                         Найти через ПОИСК
                     </p>
-                    <Input
-                        className={classNames(
-                            classes.searchInput,
-                            { [classes.expandSearch]: searchQuery !== '' },
-                        )}
-                        placeholder="Поиск"
-                        inputType="search"
-                        value={searchQuery}
-                        onChange={setSearchQueryHandler}
-                        onSubmit={onSubmitSearch}
-                    />
+                    {/* <Input */}
+                    {/*    className={classNames( */}
+                    {/*        classes.searchInput, */}
+                    {/*        { [classes.expandSearch]: searchQuery !== '' }, */}
+                    {/*    )} */}
+                    {/*    placeholder="Поиск" */}
+                    {/*    inputType="search" */}
+                    {/*    value={searchQuery} */}
+                    {/*    onChange={setSearchQueryHandler} */}
+                    {/*    onSubmit={onSubmitSearch} */}
+                    {/* /> */}
                 </VStack>
                 <div className={classes.searchResults}>
                     {platforms

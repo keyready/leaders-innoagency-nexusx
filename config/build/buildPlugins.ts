@@ -26,11 +26,11 @@ export function buildPlugins(
             __API__: JSON.stringify(apiUrl),
         }),
 
-        // new CopyPlugin({
-        //     patterns: [
-        //         { from: paths.locales, to: paths.buildLocales },
-        //     ],
-        // }),
+        new CopyPlugin({
+            patterns: [
+                { from: paths.localesFrom, to: paths.localesTo },
+            ],
+        }),
     ];
 
     if (isDev) {

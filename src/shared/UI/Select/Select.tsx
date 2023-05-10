@@ -42,11 +42,13 @@ export const Select = memo((props: SelectProps) => {
 
     return (
         <div className={classNames(classes.Select, {}, [className])}>
-            <label
-                className={classNames(classes.label, { [classes.readonly]: readonly }, [])}
-            >
-                {`${label}>`}
-            </label>
+            {label && (
+                <label
+                    className={classNames(classes.label, { [classes.readonly]: readonly }, [])}
+                >
+                    {`${label}>`}
+                </label>
+            )}
             <select
                 disabled={readonly}
                 className={classes.select}

@@ -42,6 +42,7 @@ module.exports = {
         'react/no-unused-prop-types': 'off',
         'react/no-array-index-key': 'off',
         'react/react-in-jsx-scope': 'off',
+        'no-unused-expressions': 'off',
         'react/button-has-type': 'off',
         'no-underscore-dangle': 'off',
         'no-restricted-syntax': 'off',

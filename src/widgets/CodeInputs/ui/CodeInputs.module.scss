@@ -30,6 +30,13 @@
     }
 }
 
+.icon {
+    width: 48px;
+    height: 48px;
+    transition: 200ms;
+    fill: #6196e4;
+}
+
 .clearButton {
     &:disabled {
         .icon {
@@ -46,11 +53,4 @@
             fill: #6196e4;
         }
     }
-}
-
-.icon {
-    width: 48px;
-    height: 48px;
-    transition: 200ms;
-    fill: #6196e4;
 }

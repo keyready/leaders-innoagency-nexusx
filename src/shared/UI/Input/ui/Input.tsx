@@ -1,6 +1,6 @@
 /* eslint-disable fsd-path-checker-keyready/path-checker-fsd */
 import { classNames } from 'shared/lib/classNames/classNames';
-import {
+import React, {
     ChangeEvent, InputHTMLAttributes, memo,
     MouseEvent, ReactNode, useCallback, useEffect, useState,
 } from 'react';
@@ -9,33 +9,43 @@ import SearchIcon from 'shared/assets/icons/search.svg';
 import EyeIcon from 'shared/assets/icons/eye.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { Button } from 'shared/UI/Button';
-import { HStack } from 'shared/UI/Stack';
-import { FieldErrors, FieldValues } from 'react-hook-form';
+import { HStack, VStack } from 'shared/UI/Stack';
+import {
+    FieldError, FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormWatch,
+} from 'react-hook-form';
 import classes from './Input.module.scss';
 
-interface InputProps extends Omit<
-        InputHTMLAttributes<HTMLInputElement
-    >,
-    'value' | 'onChange'> {
+interface InputProps<T extends FieldValues = FieldValues, K extends Path<T> = Path<T>>
+    extends Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
     className?: string;
-    value?: string;
+    placeholder?: string;
     onChange?: (value: string) => void;
+
     inputType?: 'input' | 'search' | 'password';
     onSubmit?: () => void;
-    onFocus?: () => void;
-    onBlur?: () => void;
+
+    name: K;
+    register: UseFormRegister<T>;
+    errors: Record<K, FieldError>;
+    watch: UseFormWatch<T>
+    setValue: UseFormSetValue<T>;
+    isValid: boolean;
 }
 
 export const Input = memo((props: InputProps) => {
     const {
         className,
         onChange,
-        value,
         placeholder,
         inputType = 'input',
         onSubmit,
-        onFocus,
-        onBlur,
+
+        name,
+        register,
+        errors,
+        watch,
+        isValid,
+        setValue,
     } = props;
 
     useEffect(() => {
@@ -44,19 +54,15 @@ export const Input = memo((props: InputProps) => {
                 onSubmit?.();
             }
         });
-
-        // return () => {
-        //     document.removeEventListener('keypress');
-        // };
     }, [onSubmit]);
 
     const [isCrossVisible, setIsCrossVisible] = useState<boolean>(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     useEffect(() => {
-        if (value !== '') setIsCrossVisible(true);
+        if (watch(name) !== '') setIsCrossVisible(true);
         else setIsCrossVisible(false);
-    }, [value]);
+    }, [name, watch]);
 
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         onChange?.(e.target.value);
@@ -65,8 +71,8 @@ export const Input = memo((props: InputProps) => {
     const onClearButtonClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         event.stopPropagation();
-        onChange?.('');
-    }, [onChange]);
+        setValue?.(name, '');
+    }, [name, setValue]);
 
     const onSubmitClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -91,15 +97,15 @@ export const Input = memo((props: InputProps) => {
     };
 
     return (
-        <span className={classNames(classes.InputWrapper, {}, [className])}>
+        <VStack className={classNames(classes.InputWrapper, {}, [className])}>
             <input
                 placeholder={placeholder}
-                className={classNames(classes.Input, {}, [className])}
-                value={value}
-                onChange={onChangeHandler}
                 type={type()}
-                onFocus={onFocus}
-                onBlur={onBlur}
+                className={classNames(classes.Input, {
+                    [classes.error]: !isValid,
+                    [classes.valid]: isValid,
+                })}
+                {...register(name)}
             />
             <HStack
                 className={classes.btnWrapper}
@@ -137,6 +143,13 @@ export const Input = memo((props: InputProps) => {
                     </Button>
                 )}
             </HStack>
-        </span>
+            {errors[name] && (
+                <span
+                    className={classes.errorMessage}
+                >
+                    {`${errors[name].message}`}
+                </span>
+            )}
+        </VStack>
     );
 });

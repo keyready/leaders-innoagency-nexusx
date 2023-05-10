@@ -22,6 +22,7 @@ import { useSelector } from 'react-redux';
 import { Alert } from 'shared/UI/Alert';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { TabContent, Tabs } from 'shared/UI/Tabs';
+import { Input } from 'shared/UI/Input';
 import { getLoginDataError, getLoginDataIsLoading } from '../../model/selectors/getLoginData';
 import { login } from '../../model/services/Login';
 import { LoginPageReducer } from '../../model/slices/LoginPageSlice';
@@ -192,6 +193,13 @@ const LoginPage = memo((props: LoginPageProps) => {
                                 {`${errors.password.message}`}
                             </span>
                         )}
+
+                        <Input
+                            // @ts-ignore
+                            errors={errors}
+                            register={register}
+                            name="email"
+                        />
 
                         {loginError && (
                             <Alert

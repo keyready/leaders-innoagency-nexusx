@@ -31,3 +31,22 @@
     width: 30px;
     height: 30px;
 }
+
+.error {
+    background: rgb(255 0 0 / 20%);
+    outline: 2px solid crimson;
+}
+
+.errorMessage {
+    width: 100%;
+    color: #ff9191;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 20px;
+}
+
+.valid {
+    background: rgb(0 255 0 / 20%);
+    outline: 2px solid green;
+}

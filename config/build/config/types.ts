@@ -4,6 +4,8 @@ export interface buildPaths {
     dist: string;
     html: string;
     src: string;
+    localesFrom: string;
+    localesTo: string;
 }
 
 export interface BuildOptions {
@@ -18,4 +20,5 @@ export interface BuildEnv {
     port: number
     mode: buildMode
     apiUrl: string;
+    buildPath: string;
 }

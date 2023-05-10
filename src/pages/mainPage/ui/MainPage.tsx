@@ -22,6 +22,7 @@ import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoade
 import { useSelector } from 'react-redux';
 import { CostBadges } from 'shared/UI/CostBadges';
 import { PlatformCard } from 'entities/Platform';
+import { useTranslation } from 'react-i18next';
 import classes from './MainPage.module.scss';
 
 const reducers: ReducersList = {
@@ -29,6 +30,8 @@ const reducers: ReducersList = {
 };
 
 const MainPage = () => {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
@@ -62,7 +65,7 @@ const MainPage = () => {
                         ПРОЩЕ
                     </h1>
                     <p className={classes.subtitle}>
-                        Найти через ПОИСК
+                        {t('mainPageSearch')}
                     </p>
                     <Combobox
                         className={classNames(
@@ -82,7 +85,7 @@ const MainPage = () => {
                         }}
                     />
                     <p>или</p>
-                    <h2 className={classes.subheader}>Популярные категории</h2>
+                    <h2 className={classes.subheader}>{t('mainPagePopular')}</h2>
                 </VStack>
                 <VStack
                     gap="16"
