@@ -22,6 +22,11 @@ server.get('/error', (req, res) => {
     res.status(401).json({ data: 'хых, ошибка' });
 });
 
+server.post('/submit_code', (req, res) => {
+    //
+    res.status(404).json({ message: 'Извините, но код неверный' });
+});
+
 // Эндпоинт для логина
 server.post('/login', (req, res) => {
     try {

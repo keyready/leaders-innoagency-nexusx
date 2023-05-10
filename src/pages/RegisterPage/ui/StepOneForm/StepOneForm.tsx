@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { Input } from 'shared/UI/Input';
+import { useTranslation } from 'react-i18next';
 import classes from './StepOneForm.module.scss';
 
 interface StepOneFormProps {
@@ -18,6 +19,8 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
         onSubmit,
     } = props;
 
+    const { t } = useTranslation('RegisterPage');
+
     const SignupSchema = Yup.object({
         email: Yup.string()
             .email('Неправильно введена почта')
@@ -29,10 +32,8 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
     }).required();
 
     const {
-        register, formState: { errors },
-    } = useForm({
-        resolver: yupResolver(SignupSchema),
-    });
+        register, setValue, watch, formState: { errors },
+    } = useForm();
 
     return (
         <VStack className={classes.formWrapper} gap="4" justify="start" align="center">
@@ -40,28 +41,37 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
                 onSubmit={onSubmit}
                 className={classes.Form}
             >
-
-                <p className={classes.orWrapper}>или</p>
-
-                <input
-                    placeholder="Номер телефона"
+                <Input
+                    placeholder={t('Email') as string}
                     className={classNames(classes.input, {
                         [classes.error]: !!errors.phoneNumber,
                     })}
-                    {...register('phoneNumber')}
-                    id="phoneNumber"
+                    watch={watch}
+                    setValue={setValue}
+                    register={register}
+                    name="email"
+                    // @ts-ignore
+                    errors={errors}
                 />
-                {errors.phoneNumber && (
-                    <span
-                        className={classes.errorMessage}
-                    >
-                        {`* ${errors.phoneNumber.message}`}
-                    </span>
-                )}
+
+                <p className={classes.orWrapper}>{t('или')}</p>
+
+                <Input
+                    placeholder={t('Номер телефона') as string}
+                    className={classNames(classes.input, {
+                        [classes.error]: !!errors.phoneNumber,
+                    })}
+                    watch={watch}
+                    setValue={setValue}
+                    register={register}
+                    name="phoneNumber"
+                    // @ts-ignore
+                    errors={errors}
+                />
 
                 <p className={classes.sendWrapper}>
-                    На него мы отправим код
-                    <b>{' подтверждения'}</b>
+                    {t('На него мы отправим код')}
+                    <b>{t('подтверждения')}</b>
                     .
                 </p>
             </form>

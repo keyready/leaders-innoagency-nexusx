@@ -1,4 +1,5 @@
 export interface RegisterPageSchema {
     isLoading: boolean;
-    error?: string
+    registerError?: string;
+    codeError?: string;
 }

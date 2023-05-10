@@ -15,6 +15,7 @@ import GoogleIcon from 'shared/assets/icons/google-signin-logo.svg';
 import { useNavigate } from 'react-router';
 import { FieldError, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useTranslation } from 'react-i18next';
 import { StepOneForm } from '../StepOneForm/StepOneForm';
 import { StepFourForm } from '../StepFourForm/StepFourForm';
 import { StepThreeForm } from '../StepThreeForm/StepThreeForm';
@@ -39,6 +40,7 @@ type FormValues = {
 const RegisterPage = memo((props: RegisterPageProps) => {
     const { className } = props;
 
+    const { t } = useTranslation('RegisterPage');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -47,29 +49,11 @@ const RegisterPage = memo((props: RegisterPageProps) => {
 
     const [currentStep, setCurrentStep] = useState<number>(1);
 
-    const SignupSchema = Yup.object({
-        email: Yup.string()
-            .email('Неправильно введена почта')
-            .required('Обязательное поле'),
-
-        phoneNumber: Yup.string()
-            .matches(/^\d{11}$/, 'Неправильно введен номер телефона')
-            .required('Обязательное поле'),
-
-        password: Yup.string()
-            .required('Обязательное поле')
-            .min(4, 'Слишком короткий')
-            .max(15, 'Слишком длинный')
-            .matches(/[!@#$%^&*(),.?:{}|<>]/, 'Пароль должен содержать специальные символы'),
-    }).required();
-
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<FormValues>({
-        resolver: yupResolver(SignupSchema),
-    });
+    } = useForm<FormValues>();
 
     // const onSubmit = handleSubmit((data) => {
     //     dispatch(login(data));
@@ -80,7 +64,7 @@ const RegisterPage = memo((props: RegisterPageProps) => {
             <Page className={classNames(classes.RegisterPage, {}, [className])}>
                 <VStack gap="20" justify="start" align="center">
                     <h1 className={classes.mainHeader}>
-                        регистрация
+                        {t('регистрация')}
                     </h1>
                     <p className={classes.subtitle}>
                         Займет не более
@@ -98,7 +82,12 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                     />
                 )}
                 {currentStep === 2 && (
-                    <StepTwoForm />
+                    <StepTwoForm onSubmit={
+                        () => {
+                            setCurrentStep((prevState) => prevState + 1);
+                        }
+                    }
+                    />
                 )}
                 {currentStep === 3 && (
                     <StepThreeForm />

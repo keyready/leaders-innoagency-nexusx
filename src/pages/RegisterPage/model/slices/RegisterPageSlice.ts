@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { register } from 'pages/RegisterPage';
+import { register } from '../services/Register';
+import { submitCode } from '../services/SubmitCode';
 import { RegisterPageSchema } from '../types/RegisterPageSchema';
 
 const initialState: RegisterPageSchema = {
@@ -17,7 +18,7 @@ export const RegisterPageSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(register.pending, (state) => {
-                state.error = undefined;
+                state.registerError = undefined;
                 state.isLoading = true;
             })
             .addCase(register.fulfilled, (state) => {
@@ -26,7 +27,20 @@ export const RegisterPageSlice = createSlice({
             .addCase(register.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
-                state.error = action.payload.message;
+                state.registerError = action.payload.message;
+            })
+
+            .addCase(submitCode.pending, (state) => {
+                state.codeError = undefined;
+                state.isLoading = true;
+            })
+            .addCase(submitCode.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(submitCode.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.codeError = action.payload.message;
             });
     },
 });
