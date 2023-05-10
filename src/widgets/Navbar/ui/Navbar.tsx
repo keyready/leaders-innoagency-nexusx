@@ -48,6 +48,7 @@ export const Navbar = memo(({ className }: NavbarProps) => {
             </Button>
             <HStack gap="32">
                 <Select
+                    value={i18n.language}
                     option={[
                         {
                             value: 'ru',

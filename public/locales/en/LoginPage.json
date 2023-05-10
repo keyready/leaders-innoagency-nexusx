@@ -1,0 +1,18 @@
+{
+  "invalid_email": "Invalid Email",
+  "required_field": "Required Filed",
+  "invalid_number": "Invalid Phone number",
+  "spec_symbols": "It's important to use special symbols",
+  "too_long": "It's too looong",
+  "too_short": "It's too short",
+  "вход": "Login",
+  "По почте": "Using email",
+  "По номеру телефона": "Using phone number",
+  "Номер телефона": "Phone number",
+  "Пароль": "Password",
+  "Не регистрировались ранее?": "Doesn't have an account?",
+  "Забыли пароль?": "Forgot password?",
+  "ПРОЩЕ": "EASIER",
+  "войти через": "login via",
+  "или": "or"
+}

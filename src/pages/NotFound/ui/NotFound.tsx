@@ -1,7 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Page } from 'widgets/Page/Page';
 import { useEffect } from 'react';
-import { YMaps } from 'widgets/YMaps';
 import { useTranslation } from 'react-i18next';
 import classes from './NotFound.module.scss';
 

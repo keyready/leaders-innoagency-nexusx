@@ -23,6 +23,7 @@ import { Alert } from 'shared/UI/Alert';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { TabContent, Tabs } from 'shared/UI/Tabs';
 import { Input } from 'shared/UI/Input';
+import { useTranslation } from 'react-i18next';
 import { getLoginDataError, getLoginDataIsLoading } from '../../model/selectors/getLoginData';
 import { login } from '../../model/services/Login';
 import { LoginPageReducer } from '../../model/slices/LoginPageSlice';
@@ -39,6 +40,7 @@ const reducers: ReducersList = {
 const LoginPage = memo((props: LoginPageProps) => {
     const { className } = props;
 
+    const { t } = useTranslation('LoginPage');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
@@ -51,21 +53,21 @@ const LoginPage = memo((props: LoginPageProps) => {
     const SignupSchema = Yup.object({
         email: isEmailRequired
             ? Yup.string()
-                .email('Неправильно введена почта')
-                .required('Обязательное поле')
+                .email(t('invalid_email') as string)
+                .required(t('required_field') as string)
             : Yup.string(),
 
         phoneNumber: isPhoneRequired
             ? Yup.string()
-                .matches(/^\d{11}$/, 'Неправильно введен номер телефона')
-                .required('Обязательное поле')
+                .matches(/^\d{11}$/, t('invalid_number') as string)
+                .required(t('required_field') as string)
             : Yup.string(),
 
         password: Yup.string()
-            .required('Обязательное поле')
-            .min(4, 'Слишком короткий')
-            .max(15, 'Слишком длинный')
-            .matches(/[!@#$%^&*(),.?:{}|<>]/, 'Пароль должен содержать специальные символы'),
+            .required(t('required_field') as string)
+            .min(4, t('too_short') as string)
+            .max(15, t('too_long') as string)
+            .matches(/[!@#$%^&*(),.?:{}|<>]/, t('spec_symbols') as string),
     }).required();
 
     const {
@@ -76,7 +78,6 @@ const LoginPage = memo((props: LoginPageProps) => {
 
     const email = watch('email');
     const phoneNumber = watch('phoneNumber');
-    const password = watch('password');
 
     const onSubmit = handleSubmit((data) => {
         dispatch(login(data));
@@ -95,49 +96,34 @@ const LoginPage = memo((props: LoginPageProps) => {
 
     const inputs: TabContent[] = useMemo(() => [
         {
-            title: 'По почте',
+            title: t('По почте'),
             content: (
-                <VStack max align="start" justify="center">
-                    <input
-                        placeholder="Email"
-                        className={classNames(classes.input, {
-                            [classes.error]: !!errors.email,
-                        })}
-                        {...register('email')}
-                    />
-                    {errors.email && (
-                        <span
-                            className={classes.errorMessage}
-                        >
-                            {`${errors.email.message}`}
-                        </span>
-                    )}
-                </VStack>
+                <Input
+                    // @ts-ignore
+                    errors={errors}
+                    register={register}
+                    placeholder="Email"
+                    name="email"
+                    watch={watch}
+                    setValue={setValue}
+                />
             ),
         },
         {
-            title: 'По номеру телефона',
+            title: t('По номеру телефона'),
             content: (
-                <VStack max align="start" justify="center">
-                    <input
-                        placeholder="Номер телефона"
-                        className={classNames(classes.input, {
-                            [classes.error]: !!errors.phoneNumber,
-                        })}
-                        {...register('phoneNumber')}
-                        id="phoneNumber"
-                    />
-                    {errors.phoneNumber && (
-                        <span
-                            className={classes.errorMessage}
-                        >
-                            {`${errors.phoneNumber.message}`}
-                        </span>
-                    )}
-                </VStack>
+                <Input
+                    // @ts-ignore
+                    errors={errors}
+                    register={register}
+                    placeholder={t('Номер телефона') as string}
+                    name="phoneNumber"
+                    watch={watch}
+                    setValue={setValue}
+                />
             ),
         },
-    ], [errors, register]);
+    ], [errors, register, t]);
 
     const clearInputsOnChangeTabs = useCallback(() => {
         setValue('password', '');
@@ -150,7 +136,7 @@ const LoginPage = memo((props: LoginPageProps) => {
             <Page className={classNames(classes.LoginPage, {}, [className])}>
                 <VStack gap="20" justify="start" align="center">
                     <h1 className={classes.mainHeader}>
-                        вход
+                        {t('вход')}
                     </h1>
                     <p className={classes.subtitle}>
                         Чтобы войти в аккаунт, достаточно
@@ -177,14 +163,12 @@ const LoginPage = memo((props: LoginPageProps) => {
                     >
                         <Tabs content={inputs} onChangeTrigger={clearInputsOnChangeTabs} />
                         <input
-                            placeholder="Пароль"
+                            placeholder={t('Пароль') as string}
                             className={classNames(classes.input, {
                                 [classes.error]: !!errors.password,
                             })}
                             type="password"
-                            {...register('password', {
-                                required: true,
-                            })}
+                            {...register('password')}
                         />
                         {errors.password && (
                             <span
@@ -193,13 +177,6 @@ const LoginPage = memo((props: LoginPageProps) => {
                                 {`${errors.password.message}`}
                             </span>
                         )}
-
-                        <Input
-                            // @ts-ignore
-                            errors={errors}
-                            register={register}
-                            name="email"
-                        />
 
                         {loginError && (
                             <Alert
@@ -226,13 +203,13 @@ const LoginPage = memo((props: LoginPageProps) => {
                             className={classes.link}
                             to="/reset"
                         >
-                            Забыли пароль?
+                            {t('Забыли пароль?')}
                         </AppLink>
                         <AppLink
                             className={classes.link}
                             to={RoutePath.register}
                         >
-                            Не регистрировались ранее?
+                            {t('Не регистрировались ранее?')}
                         </AppLink>
                     </HStack>
 
@@ -242,8 +219,8 @@ const LoginPage = memo((props: LoginPageProps) => {
                         justify="center"
                         align="center"
                     >
-                        <span className={classes.smallMainHeader}>ПРОЩЕ</span>
-                        <span className={classes.signInHelpers}>войти через:</span>
+                        <span className={classes.smallMainHeader}>{t('ПРОЩЕ')}</span>
+                        <span className={classes.signInHelpers}>{t('войти через')}</span>
                         <Button
                             style={{ marginRight: 30 }}
                             variant="clear"
@@ -258,7 +235,7 @@ const LoginPage = memo((props: LoginPageProps) => {
                                 <b style={{ fontSize: 16 }}>Яндекс ID</b>
                             </HStack>
                         </Button>
-                        <span className={classes.signInHelpers}>или</span>
+                        <span className={classes.signInHelpers}>{t('или')}</span>
                         <Button
                             variant="clear"
                             onClick={() => navigate('/google-login-link')}

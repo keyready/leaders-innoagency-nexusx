@@ -29,7 +29,6 @@ interface InputProps<T extends FieldValues = FieldValues, K extends Path<T> = Pa
     errors: Record<K, FieldError>;
     watch: UseFormWatch<T>
     setValue: UseFormSetValue<T>;
-    isValid: boolean;
 }
 
 export const Input = memo((props: InputProps) => {
@@ -44,7 +43,6 @@ export const Input = memo((props: InputProps) => {
         register,
         errors,
         watch,
-        isValid,
         setValue,
     } = props;
 
@@ -60,8 +58,11 @@ export const Input = memo((props: InputProps) => {
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     useEffect(() => {
-        if (watch(name) !== '') setIsCrossVisible(true);
-        else setIsCrossVisible(false);
+        if (watch(name) !== '') {
+            setIsCrossVisible(true);
+            return;
+        }
+        setIsCrossVisible(false);
     }, [name, watch]);
 
     const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -102,8 +103,7 @@ export const Input = memo((props: InputProps) => {
                 placeholder={placeholder}
                 type={type()}
                 className={classNames(classes.Input, {
-                    [classes.error]: !isValid,
-                    [classes.valid]: isValid,
+                    [classes.error]: !!errors[name],
                 })}
                 {...register(name)}
             />
