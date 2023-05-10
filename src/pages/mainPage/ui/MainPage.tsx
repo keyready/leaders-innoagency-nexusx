@@ -30,7 +30,7 @@ const reducers: ReducersList = {
 };
 
 const MainPage = () => {
-    const { t } = useTranslation();
+    const { t } = useTranslation('MainPage');
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
