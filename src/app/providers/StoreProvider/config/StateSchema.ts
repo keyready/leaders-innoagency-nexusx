@@ -9,6 +9,7 @@ import { PlatformSchema } from 'entities/Platform';
 import { GetPlatformsSchema } from 'features/getPlatforms';
 import { LoginPageSchema } from 'pages/LoginPage';
 import { RegisterPageSchema } from 'pages/RegisterPage';
+import { CommentSchema } from 'entities/Comment';
 
 export interface StateSchema {
     user: UserSchema;
@@ -19,6 +20,7 @@ export interface StateSchema {
     loginPage?: LoginPageSchema;
     registerPage?: RegisterPageSchema;
     platform?: PlatformSchema;
+    comment?: CommentSchema;
     getPlatforms?: GetPlatformsSchema;
 }
 

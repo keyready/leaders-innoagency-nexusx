@@ -19,6 +19,8 @@ import {
 } from 'features/getPlatforms';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { AppLink } from 'shared/UI/AppLink';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import classes from './SearchPage.module.scss';
 
 interface SearchPageProps {
@@ -37,6 +39,7 @@ const SearchPage = memo((props: SearchPageProps) => {
     const { search } = useLocation();
     const params = new URLSearchParams(search);
     const searchQueryFromUrl = params.get('q');
+
     const [searchQuery, setSearchQuery] = useState<string>(searchQueryFromUrl || '');
 
     const dispatch = useAppDispatch();
@@ -66,26 +69,17 @@ const SearchPage = memo((props: SearchPageProps) => {
                     <p className={classes.subtitle}>
                         Найти через ПОИСК
                     </p>
-                    {/* <Input */}
-                    {/*    className={classNames( */}
-                    {/*        classes.searchInput, */}
-                    {/*        { [classes.expandSearch]: searchQuery !== '' }, */}
-                    {/*    )} */}
-                    {/*    placeholder="Поиск" */}
-                    {/*    inputType="search" */}
-                    {/*    value={searchQuery} */}
-                    {/*    onChange={setSearchQueryHandler} */}
-                    {/*    onSubmit={onSubmitSearch} */}
-                    {/* /> */}
                 </VStack>
                 <div className={classes.searchResults}>
                     {platforms
                         .map((platform) => (
-                            <PlatformCard
-                                key={platform._id}
-                                platform={platform}
-                                type="searchCard"
-                            />
+                            <AppLink to={`${RoutePath.platform_page}${platform._id}`}>
+                                <PlatformCard
+                                    key={platform._id}
+                                    platform={platform}
+                                    type="searchCard"
+                                />
+                            </AppLink>
                         ))}
                 </div>
             </Page>

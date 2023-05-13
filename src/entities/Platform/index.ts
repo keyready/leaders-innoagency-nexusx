@@ -9,3 +9,4 @@ export {
     getPlatformIsLoading,
     getPlatformError,
 } from './model/selectors/getPlatform';
+export { getPlatformById } from './model/services/getPlatformById';

@@ -1,0 +1,28 @@
+.CarouselWrapper {
+    width: 100%;
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+
+.arrowsWrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:first-child {
+        left: 0;
+    }
+
+    &:last-child {
+        right: 0;
+    }
+}
+
+.arrows {
+    width: 60px;
+    height: 60px;
+}

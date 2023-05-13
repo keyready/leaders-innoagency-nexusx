@@ -14,8 +14,13 @@ export interface Platform {
     subtitle: string;
     cost: number | null;
     description: string;
-    mainPhoto: string;
+    images: string[];
     date: Date;
     type: 'coworking' | 'gallery' | 'event' | 'mc' | 'lecture' | 'festival' | 'film';
     bookings: Booking[];
+    tel: string;
+    email: string;
+    whatsapp: string;
+    telegram: string;
+    vkontakte: string
 }

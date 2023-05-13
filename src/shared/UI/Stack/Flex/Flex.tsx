@@ -3,13 +3,14 @@ import { ReactNode, DetailedHTMLProps, HTMLAttributes } from 'react';
 import classes from './Flex.module.scss';
 
 export type FlexDirection = 'row' | 'column';
-export type FlexAlign = 'center' | 'start' | 'end';
-export type FlexJustify = 'center' | 'start' | 'end' | 'between';
+export type FlexAlign = 'center' | 'start' | 'end' | 'stretch';
+export type FlexJustify = 'center' | 'start' | 'end' | 'between' | 'stretch';
 export type FlexGap = '4' | '8' | '16' | '20' | '32'
 
 const alignClasses: Record<FlexAlign, string> = {
     center: classes.alignCenter,
     end: classes.alignEnd,
+    stretch: classes.alignStretch,
     start: classes.alignStart,
 };
 
@@ -17,6 +18,7 @@ const justifyClasses: Record<FlexJustify, string> = {
     center: classes.justifyCenter,
     end: classes.justifyEnd,
     start: classes.justifyStart,
+    stretch: classes.justifyStretch,
     between: classes.justifyBetween,
 };
 

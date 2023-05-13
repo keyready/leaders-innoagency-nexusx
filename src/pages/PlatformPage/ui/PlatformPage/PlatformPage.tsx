@@ -1,0 +1,56 @@
+import { classNames } from 'shared/lib/classNames/classNames';
+import { memo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Page } from 'widgets/Page/Page';
+import { useParams } from 'react-router-dom';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { PlatformReducer } from 'entities/Platform/model/slices/PlatformSlice';
+import { getPlatformById, getPlatformData } from 'entities/Platform';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useSelector } from 'react-redux';
+import { CommentReducer } from 'entities/Comment';
+import { PlatformBody } from '../PlatformBody/PlatformBody';
+import { PlatformHeader } from '../PlatformHeader/PlatformHeader';
+import classes from './PlatformPage.module.scss';
+
+interface PlatformPageProps {
+    className?: string;
+}
+
+const reducers: ReducersList = {
+    platform: PlatformReducer,
+    comment: CommentReducer,
+};
+
+const PlatformPage = memo((props: PlatformPageProps) => {
+    const { className } = props;
+
+    const { t } = useTranslation('PlatformPage');
+    const dispatch = useAppDispatch();
+    const { id } = useParams();
+
+    const platform = useSelector(getPlatformData);
+
+    useEffect(() => {
+        if (id) {
+            dispatch(getPlatformById(id));
+        } else {
+            throw new Error();
+        }
+    }, [dispatch, id]);
+
+    return (
+        <DynamicModuleLoader reducers={reducers}>
+            <Page className={classNames(classes.PlatformPage, {}, [className])}>
+                <PlatformHeader
+                    className={classes.header}
+                    name={platform?.name}
+                    image={platform?.images[0]}
+                />
+                <PlatformBody platform={platform} />
+            </Page>
+        </DynamicModuleLoader>
+    );
+});
+
+export default PlatformPage;

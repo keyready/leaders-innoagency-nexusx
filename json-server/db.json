@@ -1,12 +1,14 @@
 {
   "users": [
     {
-      "name": "Родион",
+      "id": "super-user-228-1337-the-best-frontender",
+      "firstname": "Родион",
       "lastname": "Корчак",
       "middlename": "Дмитриевич",
       "email": "dallss13@bk.ru",
       "phoneNumber": "89243093207",
-      "password": "Rodion13star!"
+      "password": "Rodion13star!",
+      "avatar": "/users/user1.jpg"
     },
     {
       "name": "Андрей",
@@ -38,23 +40,28 @@
         }
       ],
       "cost": null,
-      "date": "2023-05-07T00:00:00.000Z",
-      "description": "Здесь придумай небольшое описание",
-      "mainPhoto": "/images/image1.png",
+      "date": "06.05.2020",
+      "description": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla.",
+      "images": ["/images/platform1_1.png", "/images/image1.png"],
       "metro": "Ст. метро Адмиралтейская",
       "name": "“Война и мир” на Петроградке",
       "subtitle": "А тут чел внезапно решит написать войну и мир и пойдет нахуй, потому что максимум 250 символов ебать!",
-      "type": "lecture"
+      "type": "lecture",
+      "tel": "8 924 309 32 07",
+      "email": "dallss13@bk.ru",
+      "whatsapp": "",
+      "telegram": "t.me/keyrea_dy",
+      "vkontakte": "vk.com"
     },
     {
       "_id": "sfkjlsf987wrnsd",
       "address": "ул. Большая Конюшенная, д. 19",
       "bookings": [],
       "cost": 1500,
-      "date": "2023-05-10T00:00:00.000Z",
+      "date": "2023-05-06T15:40:12.345Z",
       "description": "Здесь придумай небольшое описание",
       "type": "lecture",
-      "mainPhoto": "/images/image2.png",
+      "images": ["/images/image2.png"],
       "metro": "Ст. метро Невский проспект",
       "name": "Выставка живописи “Пейзажи Карелии”",
       "subtitle": "Пейзажи Карелии в галерее на Невском"
@@ -62,7 +69,7 @@
     {
       "_id": "sdfjkgklsrnf49",
       "cost": null,
-      "mainPhoto": "/images/image3.png",
+      "images": ["/images/image3.png"],
       "name": "Квест “Загадочный остров”",
       "subtitle": "Приключение на загадочном острове",
       "description": "Здесь придумай небольшое описание",
@@ -83,7 +90,7 @@
     {
       "_id": "oiywoern98gdfk",
       "cost": null,
-      "mainPhoto": "/images/image5.png",
+      "images": ["/images/image5.png"],
       "name": "Выставка фотографии “Города мира”",
       "subtitle": "Фотографии городов со всего мира",
       "type": "lecture",
@@ -107,6 +114,15 @@
           "userId": "uytrewq"
         }
       ]
+    }
+  ],
+  "comments": [
+    {
+      "_id": "1234fewgf",
+      "platformId": "jksnfg43qnwfmlk",
+      "userId": "super-user-228-1337-the-best-frontender",
+      "rate": "4.4",
+      "body": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla."
     }
   ]
 }
