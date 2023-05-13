@@ -1,3 +1,41 @@
 .StepOneForm {
 
 }
+
+.Form {
+    width: 450px;
+}
+
+.input {
+    &:first-child {
+        margin-top: 20px;
+    }
+}
+
+.orWrapper {
+    margin: 5px 0;
+    color: #b7b8b9;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    font-family: "Istok Web", sans-serif;
+    line-height: 23px;
+}
+
+.sendWrapper {
+    margin: 10px 0;
+    color: #323232;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    line-height: 120%;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    white-space: pre-line;
+    text-align: center;
+}

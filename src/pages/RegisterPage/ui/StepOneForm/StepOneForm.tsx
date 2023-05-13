@@ -1,42 +1,69 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { VStack } from 'shared/UI/Stack';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Input } from 'shared/UI/Input';
 import { useTranslation } from 'react-i18next';
+import { Button } from 'shared/UI/Button';
 import classes from './StepOneForm.module.scss';
 
 interface StepOneFormProps {
     className?: string;
-    onSubmit: () => void;
+    onSubmitStep: (data: FieldValues) => void;
 }
 
 export const StepOneForm = memo((props: StepOneFormProps) => {
     const {
         className,
-        onSubmit,
+        onSubmitStep,
     } = props;
 
     const { t } = useTranslation('RegisterPage');
+    const [registerType, setRegisterType] = useState <boolean>(true);
 
     const SignupSchema = Yup.object({
-        email: Yup.string()
-            .email('Неправильно введена почта')
-            .required('Обязательное поле'),
+        email: registerType
+            ? Yup.string()
+            : Yup.string()
+                .email('Неправильно введена почта')
+                .required('Обязательное поле'),
 
-        phoneNumber: Yup.string()
-            .matches(/^\d{11}$/, 'Неправильно введен номер телефона')
-            .required('Обязательное поле'),
+        phoneNumber: registerType
+            ? Yup.string()
+                .matches(/^\d{11}$/, 'Неправильно введен номер телефона')
+                .required('Обязательное поле')
+            : Yup.string(),
     }).required();
 
     const {
-        register, setValue, watch, formState: { errors },
-    } = useForm();
+        register, setValue, watch, formState: { errors }, handleSubmit,
+    } = useForm({
+        resolver: yupResolver(SignupSchema),
+    });
+
+    useEffect(() => {
+        if (watch('email') && !watch('phoneNumber')) {
+            setRegisterType(false);
+        } else {
+            setRegisterType(true);
+        }
+    }, [watch('email'), watch('phoneNumber')]);
+
+    const onSubmit = handleSubmit((data) => {
+        onSubmitStep(data);
+    });
 
     return (
         <VStack className={classes.formWrapper} gap="4" justify="start" align="center">
+            <p className={classes.subtitle}>
+                Займет не более
+                {' '}
+                <b>5 минут</b>
+                {',\n '}
+                а в будущем сэкономит часы!
+            </p>
             <form
                 onSubmit={onSubmit}
                 className={classes.Form}
@@ -74,6 +101,8 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
                     <b>{t('подтверждения')}</b>
                     .
                 </p>
+
+                <Button style={{ width: '100%' }} type="submit">Далее</Button>
             </form>
         </VStack>
     );

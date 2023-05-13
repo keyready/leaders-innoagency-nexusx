@@ -24,7 +24,39 @@ server.get('/error', (req, res) => {
 
 server.post('/submit_code', (req, res) => {
     //
-    res.status(404).json({ message: 'Извините, но код неверный' });
+    res.status(201).json({ message: 'Отлично! все круто' });
+});
+
+server.post('/register', (req, res) => {
+    //
+    res.status(201).json({ message: 'Регистрация норм' });
+});
+
+server.post('/checkEmail', (req, res) => {
+    const { email, phoneNumber } = req.body;
+
+    const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
+    const { users = [] } = db;
+
+    const userEmail = users.find(
+        (user) => user.email === email,
+    );
+
+    const userPhone = users.find(
+        (user) => user.phoneNumber === phoneNumber,
+    );
+
+    if (userEmail) {
+        res.status(403).json({ message: 'Пользователь с таким Email уже существует' });
+        return;
+    }
+
+    if (userPhone) {
+        res.status(403).json({ message: 'Пользователь с таким номером телефона уже существует' });
+        return;
+    }
+
+    res.status(201).json({ message: 'Регистрация норм' });
 });
 
 // Эндпоинт для логина

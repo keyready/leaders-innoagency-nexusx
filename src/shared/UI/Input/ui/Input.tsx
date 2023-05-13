@@ -21,7 +21,7 @@ interface InputProps<T extends FieldValues = FieldValues, K extends Path<T> = Pa
     placeholder?: string;
     onChange?: (value: string) => void;
 
-    inputType?: 'input' | 'search' | 'password';
+    inputType?: string;
     onSubmit?: () => void;
 
     name: K;
@@ -36,8 +36,9 @@ export const Input = memo((props: InputProps) => {
         className,
         onChange,
         placeholder,
-        inputType = 'input',
+        inputType = 'text',
         onSubmit,
+        defaultValue,
 
         name,
         register,
@@ -94,7 +95,7 @@ export const Input = memo((props: InputProps) => {
         if (inputType === 'password' && !isPasswordVisible) {
             return 'password';
         }
-        return 'text';
+        return inputType;
     };
 
     return (
@@ -106,6 +107,8 @@ export const Input = memo((props: InputProps) => {
                     [classes.error]: !!errors[name],
                 })}
                 {...register(name)}
+                disabled={!!defaultValue}
+                defaultValue={defaultValue}
             />
             <HStack
                 className={classes.btnWrapper}
@@ -114,6 +117,7 @@ export const Input = memo((props: InputProps) => {
             >
                 {inputType === 'password' && (
                     <Button
+                        tabIndex={-1}
                         variant="clear"
                         onClick={passwordVisibilityHandler}
                     >
@@ -122,18 +126,24 @@ export const Input = memo((props: InputProps) => {
                         </HStack>
                     </Button>
                 )}
-                {inputType !== 'password' && isCrossVisible && (
-                    <Button
-                        variant="clear"
-                        onClick={onClearButtonClick}
-                    >
-                        <HStack max align="center">
-                            <Icon Svg={CrossIcon} className={classes.icon} />
-                        </HStack>
-                    </Button>
-                )}
+                {inputType !== 'password'
+                    && isCrossVisible
+                    && inputType !== 'date'
+                    && !defaultValue
+                    && (
+                        <Button
+                            tabIndex={-1}
+                            variant="clear"
+                            onClick={onClearButtonClick}
+                        >
+                            <HStack max align="center">
+                                <Icon Svg={CrossIcon} className={classes.icon} />
+                            </HStack>
+                        </Button>
+                    )}
                 {inputType === 'search' && (
                     <Button
+                        tabIndex={-1}
                         variant="clear"
                         onClick={onSubmitClick}
                     >

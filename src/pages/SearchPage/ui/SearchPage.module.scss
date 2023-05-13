@@ -33,9 +33,9 @@
 }
 
 .searchResults {
-    margin-top: 70px;
     display: grid;
     gap: 20px;
+    margin-top: 70px;
     justify-items: center;
     grid-template-columns: 2fr 2fr;
 }

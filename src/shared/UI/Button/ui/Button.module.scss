@@ -10,6 +10,12 @@
     outline: none;
 }
 
+.disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
 .clear {
     margin: 0;
     padding: 0;
@@ -47,10 +53,4 @@
         color: var(--inverted-bg-color);
         background: var(--accent-grad);
     }
-}
-
-.disabled {
-    cursor: not-allowed;
-    opacity: 0.8;
-    pointer-events: auto;
 }

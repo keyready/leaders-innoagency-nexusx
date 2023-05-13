@@ -6,7 +6,10 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { Alert } from 'shared/UI/Alert';
 import { submitCode } from '../../model/services/SubmitCode';
-import { getRegisterCodeError, getRegisterError } from '../../model/selectors/getRegisterData';
+import {
+    getRegisterCodeError,
+    getRegisterIsCodeCorrect,
+} from '../../model/selectors/getRegisterData';
 import classes from './StepTwoForm.module.scss';
 
 interface StepTwoFormProps {
@@ -28,21 +31,24 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
     const formRef = useRef<HTMLFormElement>(null);
 
     const submitCodeError = useSelector(getRegisterCodeError);
+    const isCodeCorrect = useSelector(getRegisterIsCodeCorrect);
 
     const getCode = useCallback((code: string) => {
-        if (formRef.current) {
-            dispatch(submitCode(code));
+        dispatch(submitCode(code));
+
+        if (isCodeCorrect) {
+            onSubmit?.();
         }
-    }, [dispatch]);
+    }, [dispatch, isCodeCorrect, onSubmit]);
 
     return (
         <div className={classNames(classes.StepTwoForm, {}, [className])}>
-            <h2>{t('Пожалуйста, введите код подтверждения')}</h2>
+            <p className={classes.text}>{t('Пожалуйста, введите код подтверждения')}</p>
             <form
                 ref={formRef}
                 onSubmit={onSubmit}
             >
-                <CodeInputs getCode={getCode} />
+                <CodeInputs className={classes.codes} getCode={getCode} />
             </form>
             {submitCodeError && (
                 <Alert variant="danger">{submitCodeError}</Alert>

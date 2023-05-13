@@ -9,4 +9,5 @@ export {
     getRegisterError,
     getRegisterIsLoading,
     getRegisterCodeError,
+    getRegisterIsCodeCorrect,
 } from './model/selectors/getRegisterData';

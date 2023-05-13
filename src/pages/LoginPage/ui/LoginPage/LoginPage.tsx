@@ -62,12 +62,6 @@ const LoginPage = memo((props: LoginPageProps) => {
                 .matches(/^\d{11}$/, t('invalid_number') as string)
                 .required(t('required_field') as string)
             : Yup.string(),
-
-        password: Yup.string()
-            .required(t('required_field') as string)
-            .min(4, t('too_short') as string)
-            .max(15, t('too_long') as string)
-            .matches(/[!@#$%^&*(),.?:{}|<>]/, t('spec_symbols') as string),
     }).required();
 
     const {

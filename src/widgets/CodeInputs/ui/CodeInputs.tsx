@@ -86,35 +86,39 @@ export const CodeInputs = memo((props: CodeInputsProps) => {
         >
             <input
                 className={classes.input}
-                type="text"
+                type="number"
                 value={code[0]}
                 onChange={(event) => handleInputChange(event, 0)}
                 maxLength={1}
                 ref={inputRefs[0]}
+                pattern="/d [0-9]"
             />
             <input
                 className={classes.input}
-                type="text"
+                type="number"
                 value={code[1]}
                 onChange={(event) => handleInputChange(event, 1)}
                 maxLength={1}
                 ref={inputRefs[1]}
+                pattern="/d [0-9]"
             />
             <input
                 className={classes.input}
-                type="text"
+                type="number"
                 value={code[2]}
                 onChange={(event) => handleInputChange(event, 2)}
                 maxLength={1}
                 ref={inputRefs[2]}
+                pattern="/d [0-9]"
             />
             <input
                 className={classes.input}
-                type="text"
+                type="number"
                 value={code[3]}
                 onChange={(event) => handleInputChange(event, 3)}
                 maxLength={1}
                 ref={inputRefs[3]}
+                pattern="/d [0-9]"
             />
             <Button
                 type="button"

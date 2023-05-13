@@ -1,28 +1,34 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { Page } from 'widgets/Page/Page';
 import { HStack, VStack } from 'shared/UI/Stack';
 import { Button } from 'shared/UI/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
-import * as Yup from 'yup';
 import { AppLink } from 'shared/UI/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Icon } from 'shared/UI/Icon/Icon';
 import YandexIcon from 'shared/assets/icons/yandex-signin-logo.svg';
 import GoogleIcon from 'shared/assets/icons/google-signin-logo.svg';
 import { useNavigate } from 'react-router';
-import { FieldError, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useTranslation } from 'react-i18next';
+import { Alert } from 'shared/UI/Alert';
+import { FieldValues } from 'react-hook-form';
+import { register } from '../../model/services/Register';
+import { StepFifthForm } from '../StepFifthForm/StepFifthForm';
 import { StepOneForm } from '../StepOneForm/StepOneForm';
 import { StepFourForm } from '../StepFourForm/StepFourForm';
 import { StepThreeForm } from '../StepThreeForm/StepThreeForm';
 import { StepTwoForm } from '../StepTwoForm/StepTwoForm';
-import { getRegisterError, getRegisterIsLoading } from '../../model/selectors/getRegisterData';
+import {
+    getRegisterDataAvailable,
+    getRegisterError,
+    getRegisterIsLoading,
+} from '../../model/selectors/getRegisterData';
 import { RegisterPageReducer } from '../../model/slices/RegisterPageSlice';
 import classes from './RegisterPage.module.scss';
+import { checkEmail } from '../../model/services/CheckEmail';
 
 interface RegisterPageProps {
     className?: string;
@@ -32,9 +38,13 @@ const reducers: ReducersList = {
     registerPage: RegisterPageReducer,
 };
 
-type FormValues = {
-    email: string;
-    password: string;
+type IRegisterForm = {
+    email?: string;
+    phoneNumber?: string;
+    password?: string;
+    dateOfBirth?: Date;
+    name?: string;
+    lastname?: string
 };
 
 const RegisterPage = memo((props: RegisterPageProps) => {
@@ -46,18 +56,53 @@ const RegisterPage = memo((props: RegisterPageProps) => {
 
     const registerIsLoading = useSelector(getRegisterIsLoading);
     const registerError = useSelector(getRegisterError);
+    const dataAvailable = useSelector(getRegisterDataAvailable);
+
+    const [registerForm, setRegisterForm] = useState<IRegisterForm>({});
 
     const [currentStep, setCurrentStep] = useState<number>(1);
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<FormValues>();
+    const checkRegisterData = useCallback(async (data: FieldValues) => {
+        if (currentStep === 1) {
+            setRegisterForm({
+                ...registerForm,
+                email: data.email,
+                phoneNumber: data.phoneNumber,
+            });
+        } else if (currentStep === 4) {
+            setRegisterForm({
+                ...registerForm,
+                dateOfBirth: data.dateOfBirth,
+                email: data.email
+                    ? data.email
+                    : registerForm.email,
+                phoneNumber: data.phoneNumber
+                    ? data.phoneNumber
+                    : registerForm.phoneNumber,
+            });
+        }
 
-    // const onSubmit = handleSubmit((data) => {
-    //     dispatch(login(data));
-    // });
+        const result = await dispatch(checkEmail({
+            email: data.email
+                ? data.email
+                : '',
+            phoneNumber: data.phoneNumber
+                ? data.phoneNumber
+                : '',
+        }));
+
+        if (result.meta.requestStatus === 'fulfilled') {
+            setCurrentStep((prevState) => prevState + 1);
+        }
+    }, [currentStep, dispatch, registerForm]);
+
+    const onSubmit = useCallback(async () => {
+        const result = await dispatch(register(registerForm));
+
+        if (result.meta.requestStatus === 'fulfilled') {
+            navigate('/');
+        }
+    }, [dispatch, navigate, registerForm]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
@@ -66,45 +111,97 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                     <h1 className={classes.mainHeader}>
                         {t('регистрация')}
                     </h1>
-                    <p className={classes.subtitle}>
-                        Займет не более
-                        {' '}
-                        <b>5 минут</b>
-                        {',\n '}
-                        а в будущем сэкономит часы!
-                    </p>
                 </VStack>
 
-                {currentStep === 1 && (
-                    <StepOneForm onSubmit={
-                        () => setCurrentStep((prevState) => prevState + 1)
-                    }
-                    />
-                )}
-                {currentStep === 2 && (
-                    <StepTwoForm onSubmit={
-                        () => {
-                            setCurrentStep((prevState) => prevState + 1);
+                <VStack
+                    className={classes.formWrapper}
+                    gap="4"
+                    justify="start"
+                    align="center"
+                >
+                    {currentStep === 1 && (
+                        <>
+                            <StepOneForm onSubmitStep={checkRegisterData} />
+                            { dataAvailable && (
+                                <Alert variant="danger">
+                                    {dataAvailable}
+                                </Alert>
+                            )}
+                        </>
+                    )}
+                    {currentStep === 2 && (
+                        <StepTwoForm onSubmit={
+                            () => {
+                                setCurrentStep((prevState) => prevState + 1);
+                            }
                         }
-                    }
-                    />
-                )}
-                {currentStep === 3 && (
-                    <StepThreeForm />
-                )}
-                {currentStep === 4 && (
-                    <StepFourForm />
-                )}
+                        />
+                    )}
+                    {currentStep === 3 && (
+                        <StepThreeForm onSubmitStep={
+                            (data) => {
+                                setCurrentStep((prevState) => prevState + 1);
+                                setRegisterForm({
+                                    ...registerForm,
+                                    password: data.password,
+                                });
+                            }
+                        }
+                        />
+                    )}
+                    {currentStep === 4 && (
+                        <StepFourForm onSubmitStep={
+                            (data) => {
+                                setCurrentStep((prevState) => prevState + 1);
+                                setRegisterForm({
+                                    ...registerForm,
+                                    name: data.name,
+                                    lastname: data.lastname,
+                                });
+                            }
+                        }
+                        />
+                    )}
+                    {currentStep === 5 && (
+                        <>
+                            <StepFifthForm
+                                email={registerForm.email}
+                                phoneNumber={registerForm.phoneNumber}
+                                onSubmitStep={checkRegisterData}
+                            />
+                            { dataAvailable && (
+                                <Alert variant="danger">
+                                    {dataAvailable}
+                                </Alert>
+                            )}
+                        </>
+                    )}
 
-                <VStack className={classes.formWrapper} gap="4" justify="start" align="center">
-                    <Button
-                        style={{ marginTop: 20 }}
-                        variant="primary"
-                        onClick={() => setCurrentStep((prevState) => prevState + 1)}
-                        type="button"
-                    >
-                        Следующий шаг
-                    </Button>
+                    {currentStep > 5 && (
+                        <VStack justify="start" align="center">
+                            <h2 className={classes.congratsHeader}>
+                                {t('Отлично')}
+                            </h2>
+                            <p className={classes.congratsText}>
+                                {t('congrats')}
+                            </p>
+                            <Button
+                                className={classes.submitButton}
+                                variant="primary"
+                                type="button"
+                                onClick={onSubmit}
+                                disabled={registerIsLoading}
+                            >
+                                {registerIsLoading ? 'Подождите...' : 'На главную!'}
+                            </Button>
+
+                            {registerError && (
+                                <Alert variant="danger">
+                                    {registerError}
+                                </Alert>
+                            )}
+                        </VStack>
+                    )}
 
                     <HStack max justify="center">
                         <AppLink
