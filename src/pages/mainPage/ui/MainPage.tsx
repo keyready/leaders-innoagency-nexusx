@@ -62,7 +62,7 @@ const MainPage = () => {
             <Page>
                 <VStack gap="20" justify="start" align="center">
                     <h1 className={classes.mainHeader}>
-                        ПРОЩЕ
+                        {t('ПРОЩЕ')}
                     </h1>
                     <p className={classes.subtitle}>
                         {t('mainPageSearch')}
@@ -77,7 +77,7 @@ const MainPage = () => {
                         setQuery={setComboQuery}
                         selectedPerson={selected}
                         setSelectedPerson={setSelected}
-                        placeholder="Поиск"
+                        placeholder={t('Поиск') as string}
                         onFocus={() => setBlurBackground(true)}
                         onBlur={() => setBlurBackground(false)}
                         onResultsClick={() => {
@@ -97,19 +97,19 @@ const MainPage = () => {
                             size={CardSize.EXPAND}
                         >
                             <Icon Svg={CalendarIcon} className={classes.mainIcons} />
-                            <h2 className={classes.typesTitle}>Коворкинги</h2>
+                            <h2 className={classes.typesTitle}>{t('Коворкинги')}</h2>
                         </Card>
                         <Card
                             size={CardSize.EXPAND}
                         >
                             <Icon Svg={BookIcon} className={classes.mainIcons} />
-                            <h2 className={classes.typesTitle}>Мероприятия</h2>
+                            <h2 className={classes.typesTitle}>{t('Мероприятия')}</h2>
                         </Card>
                         <Card
                             size={CardSize.EXPAND}
                         >
                             <Icon Svg={PaintingIcon} className={classes.mainIcons} />
-                            <h2 className={classes.typesTitle}>Выставки</h2>
+                            <h2 className={classes.typesTitle}>{t('Выставки')}</h2>
                         </Card>
                     </HStack>
                     <HStack gap="16" max justify="center">
@@ -117,13 +117,13 @@ const MainPage = () => {
                             size={CardSize.EXPAND}
                         >
                             <Icon Svg={BagIcon} className={classes.mainIcons} />
-                            <h2 className={classes.typesTitle}>Мастер-классы</h2>
+                            <h2 className={classes.typesTitle}>{t('Мастер-классы')}</h2>
                         </Card>
                         <Card
                             size={CardSize.EXPAND}
                         >
                             <Icon Svg={MarkerIcon} className={classes.mainIcons} />
-                            <h2 className={classes.typesTitle}>Аренда помещений</h2>
+                            <h2 className={classes.typesTitle}>{t('Аренда помещений')}</h2>
                         </Card>
                     </HStack>
                 </VStack>
@@ -135,15 +135,15 @@ const MainPage = () => {
                     align="center"
                 >
                     <h1 className={classes.mainHeader}>
-                        ПРОЩЕ
+                        {t('ПРОЩЕ')}
                     </h1>
                     <p className={classes.subtitle}>
-                        Агрегатор креатива
+                        {t('Агрегатор креатива')}
                     </p>
                     <h2 className={classes.subheader}>
-                        Что мы помогаем делать
+                        {t('Что мы помогаем делать')}
                         <b>
-                            {' ПРОЩЕ'}
+                            {t(' ПРОЩЕ')}
                         </b>
                         ?
                     </h2>
@@ -153,13 +153,11 @@ const MainPage = () => {
                                 <HStack gap="32" max justify="center">
                                     <Icon Svg={PaintingIcon} className={classes.cardIcon} />
                                     <VStack max justify="start">
-                                        <h3 className={classes.cardTitle}>Творить</h3>
+                                        <h3 className={classes.cardTitle}>{t('Творить')}</h3>
                                         <p className={classes.cardText}>
-                                            <b>ПРОЩЕ</b>
+                                            <b>{t('ПРОЩЕ')}</b>
                                             {' '}
-                                            помогает найти не только интересные мероприятия, но и новые знакомства среди
-                                            таких же креативных людей, как и Вы! Творите вместе, познавайте, изучайте и
-                                            просто приятно проводите время.
+                                            {t('adv_1')}
                                         </p>
                                     </VStack>
                                 </HStack>
@@ -168,11 +166,9 @@ const MainPage = () => {
                                 <HStack gap="32" max justify="center">
                                     <Icon Svg={SearchIcon} className={classes.cardIcon} />
                                     <VStack max justify="start">
-                                        <h3 className={classes.cardTitle}>Найти</h3>
+                                        <h3 className={classes.cardTitle}>{t('Найти')}</h3>
                                         <p className={classes.cardText}>
-                                            Собираем мероприятия и места со всего Интернета в одном месте. Затем
-                                            сортируем, распределяем по категориям, фильтруем и модерируем, чтобы Вам
-                                            осталось только выбрать самое лучшее!
+                                            {t('adv_2')}
                                         </p>
                                     </VStack>
                                 </HStack>
@@ -183,11 +179,9 @@ const MainPage = () => {
                                 <HStack gap="32" max justify="center">
                                     <Icon Svg={CalendarIcon} className={classes.cardIcon} />
                                     <VStack max justify="start">
-                                        <h3 className={classes.cardTitle}>Забронировать</h3>
+                                        <h3 className={classes.cardTitle}>{t('Забронировать')}</h3>
                                         <p className={classes.cardText}>
-                                            Связываем с организаторами и арендодателями, сохраняем Ваши билеты в удобной
-                                            системе и помогаем не заблудиться на месте. Мы с Вами на всем пути и поможем
-                                            связаться с администраторами, если возникнут сложности!
+                                            {t('adv_3')}
                                         </p>
                                     </VStack>
                                 </HStack>
@@ -196,14 +190,9 @@ const MainPage = () => {
                                 <HStack gap="32" max justify="center">
                                     <Icon Svg={BagIcon} className={classes.cardIcon} />
                                     <VStack max justify="start">
-                                        <h3 className={classes.cardTitle}>Организовать</h3>
+                                        <h3 className={classes.cardTitle}>{t('Организовать')}</h3>
                                         <p className={classes.cardText}>
-                                            Мы понимаем, что организаторам приходится непросто. Но можем сделать Вашу
-                                            задачу сильно
-                                            {' '}
-                                            <b>ПРОЩЕ</b>
-                                            : удобный и понятный интерфейс, выверенная система оповещений и, конечно,
-                                            сбор статистики.
+                                            {t('adv_4')}
                                         </p>
                                     </VStack>
                                 </HStack>
@@ -219,19 +208,19 @@ const MainPage = () => {
                     align="center"
                 >
                     <h2 className={classes.subheader}>
-                        Кому мы помогаем?
+                        {t('Кому мы помогаем?')}
                     </h2>
                     <HStack gap="32" max justify="center">
                         <Card className={classes.helpsCard}>
                             <VStack max align="center">
                                 <Icon Svg={MoscowIcon} className={classes.helpsIcon} />
-                                <h2 className={classes.helpsText}>Активным москвичам</h2>
+                                <h2 className={classes.helpsText}>{t('Активным москвичам')}</h2>
                             </VStack>
                         </Card>
                         <Card>
                             <VStack max align="center">
                                 <Icon Svg={TicketIcon} className={classes.helpsIcon} />
-                                <h2 className={classes.helpsText}>Организаторам</h2>
+                                <h2 className={classes.helpsText}>{t('Организаторам')}</h2>
                             </VStack>
                         </Card>
                     </HStack>

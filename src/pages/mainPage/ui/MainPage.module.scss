@@ -39,6 +39,7 @@
 
 .cardText {
     font-size: 16px;
+    white-space: pre-wrap;
     font-style: normal;
     line-height: 23px;
 }
@@ -84,10 +85,6 @@
 
 .wrapper {
     transition: 200ms ease-in-out;
-}
-
-.expandSearch {
-    //width: 700px;
 }
 
 .mainIcons {
