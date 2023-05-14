@@ -1,3 +1,4 @@
 import { StateSchema } from 'app/providers/StoreProvider';
 
-export const getFetchPlatformError = (state: StateSchema) => state.getPlatforms?.error;
+export const getFetchPlatformsError = (state: StateSchema) => state.getPlatforms?.error;
+export const getFetchPlatformsIsLoading = (state: StateSchema) => state.getPlatforms?.isLoading;

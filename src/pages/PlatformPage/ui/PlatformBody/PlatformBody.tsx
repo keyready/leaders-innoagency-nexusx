@@ -12,17 +12,20 @@ import VkIcon from 'shared/assets/socials/vk.svg';
 import MetroIcon from 'shared/assets/icons/marker.svg';
 import ClockIcon from 'shared/assets/icons/clock.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
+import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import classes from './PlatformBody.module.scss';
 
 interface PlatformBodyProps {
     className?: string;
     platform?: Platform;
+    isLoading?: boolean;
 }
 
 export const PlatformBody = memo((props: PlatformBodyProps) => {
     const {
         className,
         platform,
+        isLoading,
     } = props;
     const { t } = useTranslation('PlatformPage');
 
@@ -34,6 +37,41 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
     useEffect(() => {
         console.log(new Date());
     }, []);
+
+    if (isLoading) {
+        return (
+            <HStack max justify="between" align="start">
+                <VStack
+                    className={classes.mainWrapper}
+                    gap="16"
+                >
+                    {new Array(20)
+                        .fill(0)
+                        .map((_, index) => (
+                            <Skeleton key={index} width="100%" height={12} border="5px" />
+                        ))}
+                    <Skeleton width={690} height={440} border="10px" />
+                </VStack>
+                <VStack align="start" justify="center" gap="20">
+                    <Skeleton
+                        width={350}
+                        height={100}
+                        border="35px"
+                    />
+                    <Skeleton
+                        width={350}
+                        height={270}
+                        border="35px"
+                    />
+                    <Skeleton
+                        width={350}
+                        height={370}
+                        border="35px"
+                    />
+                </VStack>
+            </HStack>
+        );
+    }
 
     return (
         <HStack

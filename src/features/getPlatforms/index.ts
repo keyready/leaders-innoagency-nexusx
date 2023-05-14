@@ -7,5 +7,6 @@ export {
 } from './model/slices/getPlatformsSlice';
 export { fetchPlatforms } from './model/services/fetchPlatforms';
 export {
-    getFetchPlatformError,
+    getFetchPlatformsError,
+    getFetchPlatformsIsLoading,
 } from './model/selectors/platfromsSelectors';

@@ -16,7 +16,7 @@ import { useNavigate } from 'react-router';
 import { Combobox, ComboboxItem } from 'shared/UI/Combobox';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import {
-    fetchPlatforms, getFetchPlatformError, getPlatforms, getPlatformsReducer,
+    fetchPlatforms, getFetchPlatformsError, getPlatforms, getPlatformsReducer,
 } from 'features/getPlatforms';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useSelector } from 'react-redux';
@@ -50,7 +50,7 @@ const MainPage = () => {
     }, [blurBackground, dispatch, navigate, selected.value]);
 
     const platforms = useSelector(getPlatforms.selectAll);
-    const error = useSelector(getFetchPlatformError);
+    const error = useSelector(getFetchPlatformsError);
 
     const getPlatformItems = useCallback(() => platforms.map((platform) => ({
         value: platform.name,

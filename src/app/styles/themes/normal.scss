@@ -24,8 +24,8 @@
     --danger-bg-color: #b1291a;
 
     // skeleton
-    --skeleton-shadow: #275594;
-    --skeleton-color: #0e0e75;
+    --skeleton-shadow: var(--accent-color-main);
+    --skeleton-color: var(--accent-color-sec);
 
     // card
     --card-bg: #8ca3c2;

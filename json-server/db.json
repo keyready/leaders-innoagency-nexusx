@@ -43,7 +43,7 @@
       "date": "06.05.2020",
       "description": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla.",
       "images": ["/images/platform1_1.png", "/images/image1.png"],
-      "metro": "Ст. метро Адмиралтейская",
+      "metro": "ст. метро Адмиралтейская",
       "name": "“Война и мир” на Петроградке",
       "subtitle": "А тут чел внезапно решит написать войну и мир и пойдет нахуй, потому что максимум 250 символов ебать!",
       "type": "lecture",
@@ -62,7 +62,7 @@
       "description": "Здесь придумай небольшое описание",
       "type": "lecture",
       "images": ["/images/image2.png"],
-      "metro": "Ст. метро Невский проспект",
+      "metro": "ст. метро Невский проспект",
       "name": "Выставка живописи “Пейзажи Карелии”",
       "subtitle": "Пейзажи Карелии в галерее на Невском"
     },
@@ -74,7 +74,7 @@
       "subtitle": "Приключение на загадочном острове",
       "description": "Здесь придумай небольшое описание",
       "address": "наб. реки Фонтанки, 56",
-      "metro": "Ст. метро Гостиный Двор",
+      "metro": "ст. метро Гостиный Двор",
       "date": "2023-05-13T00:00:00.000Z",
       "type": "lecture",
       "bookings": [
@@ -95,7 +95,7 @@
       "subtitle": "Фотографии городов со всего мира",
       "type": "lecture",
       "description": "Здесь придумай небольшое описание",
-      "metro": "Ст. метро Владимирская",
+      "metro": "ст. метро Владимирская",
       "address": "ул. Владимирская, д. 1",
       "date": "2023-05-20T00:00:00.000Z",
       "bookings": [

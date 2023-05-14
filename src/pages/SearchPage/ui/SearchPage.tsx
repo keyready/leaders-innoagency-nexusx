@@ -8,19 +8,18 @@ import React, {
     memo, useCallback, useEffect, useState,
 } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Input } from 'shared/UI/Input';
-import { HStack, VStack } from 'shared/UI/Stack';
+import { VStack } from 'shared/UI/Stack';
 import { addQueryParams } from 'shared/url/addQueryParams/addQueryParams';
-import { CostBadges } from 'shared/UI/CostBadges';
 import { PlatformCard } from 'entities/Platform';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import {
-    fetchPlatforms, getFetchPlatformError, getPlatforms, getPlatformsReducer,
+    fetchPlatforms, getFetchPlatformsIsLoading, getPlatforms, getPlatformsReducer,
 } from 'features/getPlatforms';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { AppLink } from 'shared/UI/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import classes from './SearchPage.module.scss';
 
 interface SearchPageProps {
@@ -44,6 +43,8 @@ const SearchPage = memo((props: SearchPageProps) => {
 
     const dispatch = useAppDispatch();
     const platforms = useSelector(getPlatforms.selectAll);
+    const isLoading = useSelector(getFetchPlatformsIsLoading);
+
     useEffect(() => {
         if (platforms.length) return;
         dispatch(fetchPlatforms({ query: 'sdkjfgn' }));
@@ -59,7 +60,7 @@ const SearchPage = memo((props: SearchPageProps) => {
     }, [searchQuery]);
 
     return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader removeAfterUnmount={false} reducers={reducers}>
             <Page className={classNames(classes.SearchPage, {}, [className])}>
                 <VStack gap="20" justify="start" align="center">
                     {/* TODO переписать этот дублирующийся код (с мейн пейдж) */}
@@ -71,8 +72,8 @@ const SearchPage = memo((props: SearchPageProps) => {
                     </p>
                 </VStack>
                 <div className={classes.searchResults}>
-                    {platforms
-                        .map((platform) => (
+                    {platforms.length
+                        ? platforms.map((platform) => (
                             <AppLink to={`${RoutePath.platform_page}${platform._id}`}>
                                 <PlatformCard
                                     key={platform._id}
@@ -80,7 +81,17 @@ const SearchPage = memo((props: SearchPageProps) => {
                                     type="searchCard"
                                 />
                             </AppLink>
-                        ))}
+                        ))
+                        : new Array(5)
+                            .fill(0)
+                            .map((_, index) => (
+                                <Skeleton
+                                    key={index}
+                                    width="100%"
+                                    height={120}
+                                    border="35px"
+                                />
+                            ))}
                 </div>
             </Page>
         </DynamicModuleLoader>

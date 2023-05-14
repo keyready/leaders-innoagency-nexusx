@@ -4,6 +4,7 @@ export type {
     Platform,
     Booking,
 } from './model/types/Platform';
+export { PlatformReducer, PlatformActions } from './model/slices/PlatformSlice';
 export {
     getPlatformData,
     getPlatformIsLoading,
