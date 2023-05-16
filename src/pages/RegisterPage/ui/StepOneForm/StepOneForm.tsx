@@ -12,12 +12,14 @@ import classes from './StepOneForm.module.scss';
 interface StepOneFormProps {
     className?: string;
     onSubmitStep: (data: FieldValues) => void;
+    isLoading?: boolean;
 }
 
 export const StepOneForm = memo((props: StepOneFormProps) => {
     const {
         className,
         onSubmitStep,
+        isLoading,
     } = props;
 
     const { t } = useTranslation('RegisterPage');
@@ -79,6 +81,7 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
                     name="email"
                     // @ts-ignore
                     errors={errors}
+                    disabled={isLoading}
                 />
 
                 <p className={classes.orWrapper}>{t('или')}</p>
@@ -94,6 +97,7 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
                     name="phoneNumber"
                     // @ts-ignore
                     errors={errors}
+                    disabled={isLoading}
                 />
 
                 <p className={classes.sendWrapper}>
@@ -102,7 +106,13 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
                     .
                 </p>
 
-                <Button style={{ width: '100%' }} type="submit">Далее</Button>
+                <Button
+                    style={{ width: '100%' }}
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? t('Подождите...') : t('Далее')}
+                </Button>
             </form>
         </VStack>
     );

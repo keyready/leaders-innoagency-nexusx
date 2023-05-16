@@ -11,12 +11,14 @@ import classes from './StepFourForm.module.scss';
 interface StepFourFormProps {
     className?: string;
     onSubmitStep: (data: FieldValues) => void;
+    isLoading?: boolean;
 }
 
 export const StepFourForm = memo((props: StepFourFormProps) => {
     const {
         className,
         onSubmitStep,
+        isLoading,
     } = props;
 
     const { t } = useTranslation('RegisterPage');
@@ -72,7 +74,9 @@ export const StepFourForm = memo((props: StepFourFormProps) => {
                     setValue={setValue}
                 />
 
-                <Button style={{ width: '100%' }} type="submit">Далее</Button>
+                <Button style={{ width: '100%' }} type="submit" disabled={isLoading}>
+                    {isLoading ? t('Подождите...') : t('Далее')}
+                </Button>
             </form>
         </div>
     );

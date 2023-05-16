@@ -5,6 +5,8 @@ import { CodeInputs } from 'widgets/CodeInputs';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { Alert } from 'shared/UI/Alert';
+import { Loader } from 'shared/UI/Loader';
+import { HStack } from 'shared/UI/Stack';
 import { submitCode } from '../../model/services/SubmitCode';
 import {
     getRegisterCodeError,
@@ -16,12 +18,14 @@ interface StepTwoFormProps {
     className?: string;
     onSubmit: () => void;
     code?: string;
+    isLoading?: boolean
 }
 
 export const StepTwoForm = memo((props: StepTwoFormProps) => {
     const {
         className,
         onSubmit,
+        isLoading,
         code,
     } = props;
 
@@ -33,10 +37,10 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
     const submitCodeError = useSelector(getRegisterCodeError);
     const isCodeCorrect = useSelector(getRegisterIsCodeCorrect);
 
-    const getCode = useCallback((code: string) => {
-        dispatch(submitCode(code));
+    const getCode = useCallback(async (code: string) => {
+        const result = await dispatch(submitCode(code));
 
-        if (isCodeCorrect) {
+        if (result.meta.requestStatus === 'fulfilled') {
             onSubmit?.();
         }
     }, [dispatch, isCodeCorrect, onSubmit]);
@@ -49,6 +53,11 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
                 onSubmit={onSubmit}
             >
                 <CodeInputs className={classes.codes} getCode={getCode} />
+                {isLoading && (
+                    <HStack max justify="center">
+                        <Loader />
+                    </HStack>
+                )}
             </form>
             {submitCodeError && (
                 <Alert variant="danger">{submitCodeError}</Alert>

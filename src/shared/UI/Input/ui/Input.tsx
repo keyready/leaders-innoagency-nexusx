@@ -39,6 +39,7 @@ export const Input = memo((props: InputProps) => {
         inputType = 'text',
         onSubmit,
         defaultValue,
+        disabled,
 
         name,
         register,
@@ -107,7 +108,7 @@ export const Input = memo((props: InputProps) => {
                     [classes.error]: !!errors[name],
                 })}
                 {...register(name)}
-                disabled={!!defaultValue}
+                disabled={!!defaultValue || disabled}
                 defaultValue={defaultValue}
             />
             <HStack

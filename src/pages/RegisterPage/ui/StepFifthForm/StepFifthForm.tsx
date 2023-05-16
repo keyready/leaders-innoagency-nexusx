@@ -13,6 +13,7 @@ interface StepFifthFormProps {
     onSubmitStep: (data: FieldValues) => void;
     email?: string;
     phoneNumber?: string;
+    isLoading?: boolean;
 }
 
 export const StepFifthForm = memo((props: StepFifthFormProps) => {
@@ -21,6 +22,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
         onSubmitStep,
         phoneNumber,
         email,
+        isLoading,
     } = props;
 
     const { t } = useTranslation('RegisterPage');
@@ -89,6 +91,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
                     watch={watch}
                     setValue={setValue}
                     defaultValue={phoneNumber}
+                    disabled={isLoading}
                 />
 
                 <Input
@@ -100,9 +103,16 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
                     register={register}
                     watch={watch}
                     setValue={setValue}
+                    disabled={isLoading}
                 />
 
-                <Button style={{ width: '100%' }} type="submit">Далее</Button>
+                <Button
+                    style={{ width: '100%' }}
+                    type="submit"
+                    disabled={isLoading}
+                >
+                    {isLoading ? t('Подождите...') : t('Далее')}
+                </Button>
             </form>
         </div>
     );

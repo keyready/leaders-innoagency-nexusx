@@ -121,7 +121,10 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                 >
                     {currentStep === 1 && (
                         <>
-                            <StepOneForm onSubmitStep={checkRegisterData} />
+                            <StepOneForm
+                                isLoading={registerIsLoading}
+                                onSubmitStep={checkRegisterData}
+                            />
                             { dataAvailable && (
                                 <Alert variant="danger">
                                     {dataAvailable}
@@ -130,36 +133,41 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                         </>
                     )}
                     {currentStep === 2 && (
-                        <StepTwoForm onSubmit={
-                            () => {
-                                setCurrentStep((prevState) => prevState + 1);
+                        <StepTwoForm
+                            isLoading={registerIsLoading}
+                            onSubmit={
+                                () => {
+                                    setCurrentStep((prevState) => prevState + 1);
+                                }
                             }
-                        }
                         />
                     )}
                     {currentStep === 3 && (
-                        <StepThreeForm onSubmitStep={
-                            (data) => {
-                                setCurrentStep((prevState) => prevState + 1);
-                                setRegisterForm({
-                                    ...registerForm,
-                                    password: data.password,
-                                });
+                        <StepThreeForm
+                            onSubmitStep={
+                                (data) => {
+                                    setCurrentStep((prevState) => prevState + 1);
+                                    setRegisterForm({
+                                        ...registerForm,
+                                        password: data.password,
+                                    });
+                                }
                             }
-                        }
                         />
                     )}
                     {currentStep === 4 && (
-                        <StepFourForm onSubmitStep={
-                            (data) => {
-                                setCurrentStep((prevState) => prevState + 1);
-                                setRegisterForm({
-                                    ...registerForm,
-                                    name: data.name,
-                                    lastname: data.lastname,
-                                });
+                        <StepFourForm
+                            isLoading={registerIsLoading}
+                            onSubmitStep={
+                                (data) => {
+                                    setCurrentStep((prevState) => prevState + 1);
+                                    setRegisterForm({
+                                        ...registerForm,
+                                        name: data.name,
+                                        lastname: data.lastname,
+                                    });
+                                }
                             }
-                        }
                         />
                     )}
                     {currentStep === 5 && (
@@ -168,6 +176,7 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                                 email={registerForm.email}
                                 phoneNumber={registerForm.phoneNumber}
                                 onSubmitStep={checkRegisterData}
+                                isLoading={registerIsLoading}
                             />
                             { dataAvailable && (
                                 <Alert variant="danger">
@@ -203,14 +212,16 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                         </VStack>
                     )}
 
-                    <HStack max justify="center">
-                        <AppLink
-                            className={classes.link}
-                            to={RoutePath.login}
-                        >
-                            Уже есть аккаунт?
-                        </AppLink>
-                    </HStack>
+                    {currentStep === 1 && (
+                        <HStack max justify="center">
+                            <AppLink
+                                className={classes.link}
+                                to={RoutePath.login}
+                            >
+                                {t('Уже есть аккаунт?')}
+                            </AppLink>
+                        </HStack>
+                    )}
 
                     <HStack
                         className={classes.signInHelpersWrapper}
