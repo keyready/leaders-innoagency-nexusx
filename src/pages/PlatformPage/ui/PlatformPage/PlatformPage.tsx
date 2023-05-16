@@ -36,8 +36,6 @@ const PlatformPage = memo((props: PlatformPageProps) => {
     useEffect(() => {
         if (id) {
             dispatch(getPlatformById(id));
-        } else {
-            throw new Error();
         }
     }, [dispatch, id]);
 

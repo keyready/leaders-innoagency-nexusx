@@ -27,16 +27,13 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
         platform,
         isLoading,
     } = props;
+
     const { t } = useTranslation('PlatformPage');
 
     const copyOrgEmail = useCallback(() => {
         navigator.clipboard.writeText(platform?.email || '')
             .then(() => alert('Почта скопирована!'));
     }, [platform?.email]);
-
-    useEffect(() => {
-        console.log(new Date());
-    }, []);
 
     if (isLoading) {
         return (
@@ -171,7 +168,10 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                         </HStack>
                     </VStack>
                 </Card>
-                <CommentCard header platformId={platform?._id} />
+                <CommentCard
+                    header
+                    platformId={platform?._id}
+                />
             </VStack>
         </HStack>
     );
