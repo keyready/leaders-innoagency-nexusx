@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'shared/UI/Alert';
 import { FieldValues } from 'react-hook-form';
+import { Card } from 'shared/UI/Card/Card';
 import { register } from '../../model/services/Register';
 import { StepFifthForm } from '../StepFifthForm/StepFifthForm';
 import { StepOneForm } from '../StepOneForm/StepOneForm';
@@ -63,25 +64,6 @@ const RegisterPage = memo((props: RegisterPageProps) => {
     const [currentStep, setCurrentStep] = useState<number>(1);
 
     const checkRegisterData = useCallback(async (data: FieldValues) => {
-        if (currentStep === 1) {
-            setRegisterForm({
-                ...registerForm,
-                email: data.email,
-                phoneNumber: data.phoneNumber,
-            });
-        } else if (currentStep === 4) {
-            setRegisterForm({
-                ...registerForm,
-                dateOfBirth: data.dateOfBirth,
-                email: data.email
-                    ? data.email
-                    : registerForm.email,
-                phoneNumber: data.phoneNumber
-                    ? data.phoneNumber
-                    : registerForm.phoneNumber,
-            });
-        }
-
         const result = await dispatch(checkEmail({
             email: data.email
                 ? data.email
@@ -92,6 +74,25 @@ const RegisterPage = memo((props: RegisterPageProps) => {
         }));
 
         if (result.meta.requestStatus === 'fulfilled') {
+            if (currentStep === 1) {
+                setRegisterForm({
+                    ...registerForm,
+                    email: data.email,
+                    phoneNumber: data.phoneNumber,
+                });
+            } else {
+                setRegisterForm({
+                    ...registerForm,
+                    dateOfBirth: data.dateOfBirth,
+                    email: data.email
+                        ? data.email
+                        : registerForm.email,
+                    phoneNumber: data.phoneNumber
+                        ? data.phoneNumber
+                        : registerForm.phoneNumber,
+                });
+            }
+
             setCurrentStep((prevState) => prevState + 1);
         }
     }, [currentStep, dispatch, registerForm]);
@@ -107,6 +108,22 @@ const RegisterPage = memo((props: RegisterPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames(classes.RegisterPage, {}, [className])}>
+                {/* {currentStep !== 1 && ( */}
+                {/*    <Card className={classes.infoCard}> */}
+                {/*        <p style={{ textAlign: 'center' }}>{t('Введенные данные')}</p> */}
+                {/*        <VStack justify="start" align="center"> */}
+                {/*            {Object.keys(registerForm).map((key) => { */}
+                {/*                const val = registerForm[key as keyof IRegisterForm]; */}
+                {/*                return ( */}
+                {/*                    <p> */}
+                {/*                        {val?.toString() !== '' && `${t(key)}: ${val?.toString()}`} */}
+                {/*                    </p> */}
+                {/*                ); */}
+                {/*            })} */}
+                {/*        </VStack> */}
+                {/*    </Card> */}
+                {/* )} */}
+
                 <VStack gap="20" justify="start" align="center">
                     <h1 className={classes.mainHeader}>
                         {t('регистрация')}
