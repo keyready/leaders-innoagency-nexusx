@@ -10,6 +10,7 @@ import { GetPlatformsSchema } from 'features/getPlatforms';
 import { LoginPageSchema } from 'pages/LoginPage';
 import { RegisterPageSchema } from 'pages/RegisterPage';
 import { CommentSchema } from 'entities/Comment';
+import { GetMetroStationSchema } from 'features/getMetroStation';
 
 export interface StateSchema {
     user: UserSchema;
@@ -22,6 +23,7 @@ export interface StateSchema {
     platform?: PlatformSchema;
     comment?: CommentSchema;
     getPlatforms?: GetPlatformsSchema;
+    metroStation?: GetMetroStationSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

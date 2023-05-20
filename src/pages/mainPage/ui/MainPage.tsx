@@ -23,6 +23,7 @@ import { useSelector } from 'react-redux';
 import { CostBadges } from 'shared/UI/CostBadges';
 import { PlatformCard } from 'entities/Platform';
 import { useTranslation } from 'react-i18next';
+import { getMetroStationData, getMetroStationReducer } from 'features/getMetroStation';
 import classes from './MainPage.module.scss';
 
 const reducers: ReducersList = {
@@ -40,6 +41,7 @@ const MainPage = () => {
     const [blurBackground, setBlurBackground] = useState<boolean>(false);
 
     useEffect(() => {
+        document.title = 'ПРОЩЕ | Агрегатор креативных площадок';
         dispatch(fetchPlatforms());
 
         const handleSearchEnter = (ev: KeyboardEvent) => {

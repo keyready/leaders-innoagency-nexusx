@@ -78,6 +78,8 @@ const LoginPage = memo((props: LoginPageProps) => {
     });
 
     useEffect(() => {
+        document.title = 'ПРОЩЕ | Вход';
+
         if (email && email.length >= 0) {
             setIsEmailRequired(true);
             setValue('phoneNumber', '');

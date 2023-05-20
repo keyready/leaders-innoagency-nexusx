@@ -1,5 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import React, { memo, useCallback, useState } from 'react';
+import React, {
+    memo, useCallback, useEffect, useState,
+} from 'react';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { Page } from 'widgets/Page/Page';
 import { HStack, VStack } from 'shared/UI/Stack';
@@ -50,6 +52,10 @@ type IRegisterForm = {
 
 const RegisterPage = memo((props: RegisterPageProps) => {
     const { className } = props;
+
+    useEffect(() => {
+        document.title = 'ПРОЩЕ | Регистрация';
+    }, []);
 
     const { t } = useTranslation('RegisterPage');
     const dispatch = useAppDispatch();

@@ -46,6 +46,8 @@ const SearchPage = memo((props: SearchPageProps) => {
     const isLoading = useSelector(getFetchPlatformsIsLoading);
 
     useEffect(() => {
+        document.title = 'ПРОЩЕ | Поиск';
+
         if (platforms.length) return;
         dispatch(fetchPlatforms({ query: 'sdkjfgn' }));
     }, [dispatch, platforms.length]);

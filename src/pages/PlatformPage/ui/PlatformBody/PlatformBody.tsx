@@ -37,7 +37,7 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
 
     if (isLoading) {
         return (
-            <HStack max justify="between" align="start">
+            <HStack max justify="between" align="start" gap="20">
                 <VStack
                     className={classes.mainWrapper}
                     gap="16"
@@ -76,10 +76,9 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
             justify="between"
             align="start"
             className={classNames(classes.PlatformBody, {}, [className])}
+            gap="20"
         >
             <VStack
-                // justify="start"
-                // align="center"
                 className={classes.mainWrapper}
             >
                 <p className={classes.platformDescription}>

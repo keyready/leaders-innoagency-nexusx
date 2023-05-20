@@ -13,7 +13,10 @@ export const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
     if (config.headers) {
-        config.headers.Authorization = localStorage.getItem(USER_LOCALSTORAGE_KEY) || 'hello';
+        const auth: any = config.headers.Authorization;
+        if (!auth) {
+            config.headers.Authorization = localStorage.getItem(USER_LOCALSTORAGE_KEY) || '';
+        }
         config.headers.language = localStorage.getItem('i18nextLng') || '';
     }
 

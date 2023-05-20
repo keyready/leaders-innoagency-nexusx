@@ -1,0 +1,143 @@
+.calendarWrapper {
+    width: 500px;
+    margin: 0 auto;
+    padding: 25px;
+    border-radius: 5px;
+    background: rgb(236 240 241 / 50%);
+}
+
+.react-calendar__navigation__prev-button {
+    // стрелочка предыдущего месяца
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border: none;
+    border-radius: 50%;
+    background: #ecf0f1;
+    outline: none;
+    box-shadow: 0 2.21429px 5.53571px -2.76786px rgb(118 138 159 / 10%);
+}
+
+.react-calendar__navigation__prev2-button {
+    // стрелочка предыдущего года
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    background: yellow;
+    display: none;
+    outline: none;
+}
+
+.react-calendar__navigation__next-button {
+    // стрелочка следующего месяца
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    border: none;
+    border-radius: 50%;
+    background: #ecf0f1;
+    outline: none;
+    box-shadow: 0 2.21429px 5.53571px -2.76786px rgb(118 138 159 / 10%);
+}
+
+.react-calendar__navigation__next2-button {
+    // стрелочка следующего года
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    background: orange;
+    display: none;
+    outline: none;
+}
+
+.react-calendar__navigation {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    // навбар календаря
+    margin-bottom: 5px;
+}
+
+.react-calendar__navigation__label {
+    // ячейка с название месяца и года
+    border: none;
+    color: #323232;
+    background: transparent;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    line-height: 23px;
+}
+
+.react-calendar__month-view__days {
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    // названия дней недели
+    color: #323232;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    line-height: 23px;
+
+    * {
+        text-decoration: none;
+    }
+}
+
+.react-calendar__tile {
+    // ячейка календарика
+    cursor: pointer;
+    padding: 5px;
+    border: none;
+    border-radius: 3px;
+    color: #323232;
+    background: rgb(236 240 241 / 50%);
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Istok Web", sans-serif;
+    font-style: normal;
+    line-height: 20px;
+    text-align: center;
+}
+
+.react-calendar__tile--active {
+    // тыкнутая ячейка
+    background: red;
+    font-weight: bold;
+}
+
+.react-calendar__month-view__days__day--weekend {
+    // выходные
+    // color: red;
+    // background: lightpink;
+}
+
+.react-calendar__month-view__weekdays__weekday--weekend {
+    // сб и вс
+    color: #ff9090;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    // ячейки соседних месяцев
+    color: #b7b8b9;
+    background: rgb(183 184 185 / 30%);
+    outline: none;
+}
+
+.react-calendar__tile--active {
+    // тыкнутая ячейка
+    color: black;
+    background: #9abbec;
+}

@@ -1,15 +1,8 @@
 .BookPlatform {
-    margin: 0 60px 0 250px;
+    margin-top: 20px;
+    margin-left: 250px;
     border-radius: var(--border-radius);
     background: rgb(154 187 236 / 10%);
-}
-
-.Form {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    gap: 10px;
 }
 
 .header {
