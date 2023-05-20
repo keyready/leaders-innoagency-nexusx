@@ -42,11 +42,17 @@ const MainPage = () => {
     useEffect(() => {
         dispatch(fetchPlatforms());
 
-        document.addEventListener('keypress', (ev) => {
+        const handleSearchEnter = (ev: KeyboardEvent) => {
             if (ev.key === 'Enter' && blurBackground) {
                 navigate(`/search?q=${selected.value}`);
             }
-        });
+        };
+
+        document.addEventListener('keypress', handleSearchEnter);
+
+        return () => {
+            document.removeEventListener('keypress', handleSearchEnter);
+        };
     }, [blurBackground, dispatch, navigate, selected.value]);
 
     const platforms = useSelector(getPlatforms.selectAll);

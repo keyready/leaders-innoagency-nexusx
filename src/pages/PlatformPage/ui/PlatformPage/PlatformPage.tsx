@@ -10,6 +10,8 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { CommentReducer } from 'entities/Comment';
+import { BookPlatformCard } from 'features/bookPlatform';
+import { YMaps } from 'widgets/YMaps';
 import { PlatformBody } from '../PlatformBody/PlatformBody';
 import { PlatformHeader } from '../PlatformHeader/PlatformHeader';
 import classes from './PlatformPage.module.scss';
@@ -49,6 +51,8 @@ const PlatformPage = memo((props: PlatformPageProps) => {
                     isLoading={isPlatformLoading}
                 />
                 <PlatformBody platform={platform} isLoading={isPlatformLoading} />
+                <BookPlatformCard />
+                <YMaps place="г. Санкт-Петербург, Пионерская 26" />
             </Page>
         </DynamicModuleLoader>
     );

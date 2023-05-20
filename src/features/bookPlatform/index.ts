@@ -1,4 +1,4 @@
-export { BookPlatform } from './ui/BookPlatform/BookPlatform';
+export { BookPlatformCard } from './ui/BookPlatform/BookPlatformCard';
 export type { BookPlatformSchema } from './model/types/bookPlatformSchema';
 export {
     bookPlatformActions,
