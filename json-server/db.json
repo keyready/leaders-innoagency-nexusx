@@ -1,128 +1,181 @@
 {
-  "users": [
-    {
-      "id": "super-user-228-1337-the-best-frontender",
-      "firstname": "Родион",
-      "lastname": "Корчак",
-      "middlename": "Дмитриевич",
-      "email": "dallss13@bk.ru",
-      "phoneNumber": "89243093207",
-      "password": "Rodion13star!",
-      "avatar": "/users/user1.jpg"
-    },
-    {
-      "name": "Андрей",
-      "lastname": "Корчак",
-      "middlename": "Дмитриевич"
-    },
-    {
-      "name": "Анюта",
-      "lastname": "Корчак",
-      "middlename": "Дмитриевич"
-    },
-    {
-      "name": "Роман",
-      "lastname": "Корчак",
-      "middlename": "Дмитриевич"
-    }
-  ],
-  "platforms": [
-    {
-      "_id": "jksnfg43qnwfmlk",
-      "address": "ул. Гороховая, д. 18",
-      "bookings": [
+    "users": [
         {
-          "_id": "234234",
-          "date": "2023-05-06T15:40:12.345Z",
-          "startTime": "2023-05-07T06:00:00.000Z",
-          "endTime": "2023-05-07T14:00:00.000Z",
-          "userId": "kjsdfgnjk34n"
-        }
-      ],
-      "cost": null,
-      "date": "06.05.2020",
-      "description": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla.",
-      "images": ["/images/platform1_1.png", "/images/platform1_2.jpeg", "/images/platform1_3.jpeg"],
-      "metro": "ст. метро Адмиралтейская",
-      "name": "“Война и мир” на Петроградке",
-      "subtitle": "А тут чел внезапно решит написать войну и мир и пойдет нахуй, потому что максимум 250 символов ебать!",
-      "type": "lecture",
-      "tel": "8 924 309 32 07",
-      "email": "dallss13@bk.ru",
-      "whatsapp": "",
-      "telegram": "t.me/keyrea_dy",
-      "vkontakte": "vk.com"
-    },
-    {
-      "_id": "sfkjlsf987wrnsd",
-      "address": "ул. Большая Конюшенная, д. 19",
-      "bookings": [],
-      "cost": 1500,
-      "date": "2023-05-06T15:40:12.345Z",
-      "description": "Здесь придумай небольшое описание",
-      "type": "lecture",
-      "images": ["/images/platform1_1.png", "/images/platform1_2.jpeg", "/images/platform1_3.jpeg"],
-      "metro": "ст. метро Невский проспект",
-      "name": "Выставка живописи “Пейзажи Карелии”",
-      "subtitle": "Пейзажи Карелии в галерее на Невском"
-    },
-    {
-      "_id": "sdfjkgklsrnf49",
-      "images": ["/images/platform1_1.png", "/images/platform1_2.jpeg", "/images/platform1_3.jpeg"],
-      "cost": null,
-      "name": "Квест “Загадочный остров”",
-      "subtitle": "Приключение на загадочном острове",
-      "description": "Здесь придумай небольшое описание",
-      "address": "наб. реки Фонтанки, 56",
-      "metro": "ст. метро Гостиный Двор",
-      "date": "2023-05-13T00:00:00.000Z",
-      "type": "lecture",
-      "bookings": [
-        {
-          "_id": "2435uyfgv",
-          "date": "2023-05-06T15:42:12.345Z",
-          "startTime": "2023-05-13T12:00:00.000Z",
-          "endTime": "2023-05-13T14:00:00.000Z",
-          "userId": "ghnmjkiou8"
-        }
-      ]
-    },
-    {
-      "_id": "oiywoern98gdfk",
-      "images": ["/images/platform1_1.png", "/images/platform1_2.jpeg", "/images/platform1_3.jpeg"],
-      "cost": null,
-      "name": "Выставка фотографии “Города мира”",
-      "subtitle": "Фотографии городов со всего мира",
-      "type": "lecture",
-      "description": "Здесь придумай небольшое описание",
-      "metro": "ст. метро Владимирская",
-      "address": "ул. Владимирская, д. 1",
-      "date": "2023-05-20T00:00:00.000Z",
-      "bookings": [
-        {
-          "_id": "erwer234",
-          "date": "2023-05-06T15:43:12.345Z",
-          "startTime": "2023-05-20T10:00:00.000Z",
-          "endTime": "2023-05-20T12:00:00.000Z",
-          "userId": "mnvbvcxh"
+            "id": "super-user-228-1337-the-best-frontender",
+            "firstname": "Родион",
+            "lastname": "Корчак",
+            "middlename": "Дмитриевич",
+            "email": "dallss13@bk.ru",
+            "phoneNumber": "89243093207",
+            "password": "Rodion13star!",
+            "avatar": "/users/user1.jpg"
         },
         {
-          "_id": "ioj2345",
-          "date": "2023-05-06T15:44:12.345Z",
-          "startTime": "2023-05-20T13:00:00.000Z",
-          "endTime": "2023-05-20T15:00:00.000Z",
-          "userId": "uytrewq"
+            "name": "Андрей",
+            "lastname": "Корчак",
+            "middlename": "Дмитриевич"
+        },
+        {
+            "name": "Анюта",
+            "lastname": "Корчак",
+            "middlename": "Дмитриевич"
+        },
+        {
+            "name": "Роман",
+            "lastname": "Корчак",
+            "middlename": "Дмитриевич"
         }
-      ]
-    }
-  ],
-  "comments": [
-    {
-      "_id": "1234fewgf",
-      "platformId": "jksnfg43qnwfmlk",
-      "userId": "super-user-228-1337-the-best-frontender",
-      "rate": "4.4",
-      "body": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla."
-    }
-  ]
+    ],
+    "platforms": [
+        {
+            "_id": "plt1",
+            "address": "ул. Нижняя Сыромятническая, д. 10",
+            "bookings": [
+                {
+                    "_id": "booking001",
+                    "date": "2023-06-15T10:30:00.000Z",
+                    "startTime": "2023-06-15T10:30:00.000Z",
+                    "endTime": "2023-06-15T12:00:00.000Z",
+                    "userId": "user123",
+                    "places": 2
+                },
+                {
+                    "_id": "booking002",
+                    "date": "2023-06-20T14:00:00.000Z",
+                    "startTime": "2023-06-20T14:00:00.000Z",
+                    "endTime": "2023-06-20T15:30:00.000Z",
+                    "userId": "user456",
+                    "places": 1
+                }
+            ],
+            "cost": 0,
+            "date": "",
+            "description": "Творческий и деловой квартал, где открыты мастерские, дизайнерские и архитектурные бюро, шоу-румы, магазины, а также организована инфраструктура для комфортного времяпрепровождения: кафе и рестораны, кинозал, клуб, книжный магазин.",
+            "images": [],
+            "metro": "",
+            "name": "Artplay",
+            "subtitle": "",
+            "type": "workspace",
+            "tel": "+7 (495) 620-08-83",
+            "email": "ic@artplay.ru",
+            "whatsapp": "+7 (495) 620-08-83",
+            "telegram": "+7 (495) 620-08-83",
+            "vkontakte": "",
+            "web": "https://www.artplay.ru/",
+            "workHours": {
+                "startTime": "10:00 AM",
+                "endTime": "9:00 PM"
+            },
+            "maxGuests": 10
+        },
+        {
+            "_id": "plt2",
+            "address": "Холодильный переулок, д. 3, корп. 1, стр. 4",
+            "bookings": [],
+            "cost": 110,
+            "date": "",
+            "description": "Лофт-квартал Товарищество Рябовской Мануфактуры предлагает коммерческие помещения под различные бизнес направления. Выгодное расположение близко к станции метро в центре делового района.",
+            "images": [],
+            "metro": "",
+            "name": "Товарищество Рябовской мануфактуры",
+            "subtitle": "",
+            "type": "workspace",
+            "tel": "+7 (495) 126-04-82",
+            "email": "arenda@tovarishestvo.com",
+            "whatsapp": "+7 (495) 126-04-82",
+            "telegram": "+7 (495) 126-04-82",
+            "vkontakte": "",
+            "web": "https://tovarishestvo.com/",
+            "workHours": {
+                "startTime": "10:00 AM",
+                "endTime": "9:00 PM"
+            },
+            "maxGuests": 20
+        },
+        {
+            "_id": "plt3",
+            "address": "Комсомольский проспект, 28",
+            "bookings": [
+                {
+                    "_id": "booking001",
+                    "date": "2023-06-15T10:30:00.000Z",
+                    "startTime": "2023-06-15T10:30:00.000Z",
+                    "endTime": "2023-06-15T12:00:00.000Z",
+                    "userId": "user123",
+                    "places": 2
+                },
+                {
+                    "_id": "booking002",
+                    "date": "2023-06-20T14:00:00.000Z",
+                    "startTime": "2023-06-20T14:00:00.000Z",
+                    "endTime": "2023-06-20T15:30:00.000Z",
+                    "userId": "user456",
+                    "places": 1
+                }
+            ],
+            "cost": 0,
+            "date": "",
+            "description": "Уникальная территория, объединяющая крупнейший в москве театрально-культурный центр, разнообразные пространства для творчества и креативных индустрий, место для отдыха, развлечений и семейного досуга.",
+            "images": [],
+            "metro": "",
+            "name": "Московский дворец молодежи",
+            "subtitle": "",
+            "type": "workspace",
+            "tel": "+7 (499) 248-57-81",
+            "email": "infomaska@mdm-theatre.ru",
+            "whatsapp": "+7 (499) 248-57-81",
+            "telegram": "+7 (499) 248-57-81",
+            "vkontakte": "",
+            "web": "https://mdmpalace.ru/",
+            "workHours": {},
+            "maxGuests": 1000
+        },
+        {
+            "_id": "plt4",
+            "address": "ул. Большая Новодмитровская, 36",
+            "bookings": [
+                {
+                    "_id": "booking001",
+                    "date": "2023-06-15T10:30:00.000Z",
+                    "startTime": "2023-06-15T10:30:00.000Z",
+                    "endTime": "2023-06-15T12:00:00.000Z",
+                    "userId": "user123",
+                    "places": 2
+                },
+                {
+                    "_id": "booking002",
+                    "date": "2023-06-20T14:00:00.000Z",
+                    "startTime": "2023-06-20T14:00:00.000Z",
+                    "endTime": "2023-06-20T15:30:00.000Z",
+                    "userId": "user456",
+                    "places": 1
+                }
+            ],
+            "cost": 50,
+            "date": "",
+            "description": "Креативный кластер в здании хрустально-стекольного завода: мастер-классы, студии, агентства, магазины, кафе.",
+            "images": [],
+            "metro": "",
+            "name": "Флакон",
+            "subtitle": "",
+            "type": "workspace",
+            "tel": "+7 (495) 790-79-01",
+            "email": "info@flacon.ru",
+            "whatsapp": "+7 (495) 790-79-01",
+            "telegram": "+7 (495) 790-79-01",
+            "vkontakte": "",
+            "web": "http://flacon.ru/",
+            "workHours": {},
+            "maxGuests": 60
+        }
+    ],
+    "comments": [
+        {
+            "_id": "cm1",
+            "platformId": "plt1",
+            "userId": "super-user-228-1337-the-best-frontender",
+            "rate": "4.4",
+            "body": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla."
+        }
+    ]
 }
