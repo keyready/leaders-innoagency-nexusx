@@ -1,13 +1,15 @@
+/* eslint-disable camelcase */
 const fs = require('fs');
 const jsonServer = require('json-server');
 const path = require('path');
+const { generateAccessToken, generateRefreshToken } = require('./tokens');
 
 const server = jsonServer.create();
 const PORT = 9999;
-const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 
 server.use(jsonServer.defaults({}));
 server.use(jsonServer.bodyParser);
+const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 
 // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
 server.use(async (req, res, next) => {
@@ -63,38 +65,51 @@ server.post('/checkEmail', (req, res) => {
 server.post('/login', (req, res) => {
     try {
         const { email, phoneNumber, password } = req.body;
-        const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'));
-        const { users = [] } = db;
+        const { db } = router;
 
-        let userFromBd;
+        let user;
         if (email && password) {
-            userFromBd = users.find(
-                (user) => user.email === email,
-            );
-            if (!userFromBd) {
+            user = db.get('users').find(
+                { email },
+            ).value();
+            if (!user) {
                 return res.status(403).json({
                     message: 'Пользователь с такой почтой не найден',
                 });
             }
         }
         if (phoneNumber && password) {
-            userFromBd = users.find(
-                (user) => user.phoneNumber === phoneNumber,
-            );
-            if (!userFromBd) {
+            user = db.get('users').find(
+                { phoneNumber },
+            ).value();
+            if (!user) {
                 return res.status(403).json({
                     message: 'Пользователь с таким номером телефона не найден',
                 });
             }
         }
 
-        if (password !== userFromBd.password) {
+        if (password !== user.password) {
             return res.status(401).json({
                 message: 'Неверный пароль',
             });
         }
 
-        return res.json(userFromBd);
+        const newAccessToken = generateAccessToken();
+        const newRefreshToken = generateRefreshToken();
+
+        user.access_token = newAccessToken;
+        user.refresh_token = newRefreshToken;
+
+        db.get('users')
+            .find({ id: user._id })
+            .assign({
+                access_token: newAccessToken,
+                refresh_token: newRefreshToken,
+            })
+            .write();
+
+        return res.status(200).json(user);
     } catch (e) {
         return res.status(500).json({ message: e.message });
     }
@@ -103,11 +118,29 @@ server.post('/login', (req, res) => {
 // проверяем, авторизован ли пользователь
 // eslint-disable-next-line
 server.use((req, res, next) => {
-    if (!req.headers.authorization) {
+    const { db } = router;
+    const cookies = req.headers.cookie.split(' ');
+
+    let access_token = cookies.find((str) => str.includes('access_token')).split('=')[1];
+
+    if (access_token.includes(';')) {
+        access_token = access_token.slice(0, -1);
+    }
+
+    const user = db
+        .get('users')
+        .find({ access_token })
+        .value();
+
+    if (!user) {
+        return res.status(444).json({ message: 'Not auth' });
+    }
+
+    if (req.headers.authorization !== `Bearer ${user.access_token}`) {
         return res.status(403).json({ message: 'AUTH ERROR' });
     }
 
-    next();
+    return next();
 });
 
 server.use(router);

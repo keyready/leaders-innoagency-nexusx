@@ -73,8 +73,12 @@ const LoginPage = memo((props: LoginPageProps) => {
     const email = watch('email');
     const phoneNumber = watch('phoneNumber');
 
-    const onSubmit = handleSubmit((data) => {
-        dispatch(login(data));
+    const onSubmit = handleSubmit(async (data) => {
+        const loginResult = await dispatch(login(data));
+
+        if (loginResult.meta.requestStatus === 'fulfilled') {
+            navigate('/feed');
+        }
     });
 
     useEffect(() => {

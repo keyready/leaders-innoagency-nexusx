@@ -1,9 +1,5 @@
 import { UserBooking, UserRoles } from '../consts/consts';
 
-/**
- *
- */
-
 export interface User {
     _id: string;
     username: string;
@@ -13,4 +9,6 @@ export interface User {
     avatar?: string;
     booking?: UserBooking[];
     roles?: UserRoles[];
+    access_token?: string;
+    refresh_token?: string;
 }

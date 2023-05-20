@@ -8,7 +8,9 @@
       "email": "dallss13@bk.ru",
       "phoneNumber": "89243093207",
       "password": "Rodion13star!",
-      "avatar": "/users/user1.jpg"
+      "avatar": "/users/user1.jpg",
+      "access_token": "pynrnzgbw2hdd4o0awlf",
+      "refresh_token": "dpnv4m1wd7vy7mnaf5cnf"
     },
     {
       "name": "Андрей",
@@ -51,7 +53,11 @@
       "cost": 0,
       "date": "",
       "description": "Творческий и деловой квартал, где открыты мастерские, дизайнерские и архитектурные бюро, шоу-румы, магазины, а также организована инфраструктура для комфортного времяпрепровождения: кафе и рестораны, кинозал, клуб, книжный магазин.",
-      "images": ["/images/platform1_1.png", "/images/platform1_3.jpeg", "/images/platform1_3.jpeg"],
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
       "metro": "Комендантский проспект",
       "name": "Artplay",
       "subtitle": "",
@@ -75,7 +81,11 @@
       "cost": 110,
       "date": "",
       "description": "Лофт-квартал Товарищество Рябовской Мануфактуры предлагает коммерческие помещения под различные бизнес направления. Выгодное расположение близко к станции метро в центре делового района.",
-      "images": ["/images/platform1_1.png", "/images/platform1_3.jpeg", "/images/platform1_3.jpeg"],
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
       "metro": "Адмиралтейская",
       "name": "Товарищество Рябовской мануфактуры",
       "subtitle": "",
@@ -116,7 +126,11 @@
       "cost": 0,
       "date": "",
       "description": "Уникальная территория, объединяющая крупнейший в москве театрально-культурный центр, разнообразные пространства для творчества и креативных индустрий, место для отдыха, развлечений и семейного досуга.",
-      "images": ["/images/platform1_1.png", "/images/platform1_3.jpeg", "/images/platform1_3.jpeg"],
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
       "metro": "Адмиралтейская",
       "name": "Московский дворец молодежи",
       "subtitle": "",
@@ -154,7 +168,11 @@
       "cost": 50,
       "date": "",
       "description": "Креативный кластер в здании хрустально-стекольного завода: мастер-классы, студии, агентства, магазины, кафе.",
-      "images": ["/images/platform1_1.png", "/images/platform1_3.jpeg", "/images/platform1_3.jpeg"],
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
       "metro": "Адмиралтейская",
       "name": "Флакон",
       "subtitle": "",

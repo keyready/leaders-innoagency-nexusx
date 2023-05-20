@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { User } from 'entities/User';
+import { User, userActions } from 'entities/User';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
+import Cookies from 'js-cookie';
+import { USER_ACCESSTOKEN_KEY, USER_REFRESHTOKEN_KEY } from 'shared/const';
 
 export const login = createAsyncThunk<
     User,
@@ -18,8 +20,9 @@ export const login = createAsyncThunk<
                     throw new Error();
                 }
 
-                // localStorage.setItem(USER_LOCALSTORAGE_KEY, JSON.stringify(response.data));
-                // dispatch(userActions.setAuthData(response.data));
+                Cookies.set(USER_REFRESHTOKEN_KEY, response.data.refresh_token || '');
+                Cookies.set(USER_ACCESSTOKEN_KEY, response.data.access_token || '');
+                dispatch(userActions.setAuthData(response.data));
 
                 return response.data;
             } catch (error) {
