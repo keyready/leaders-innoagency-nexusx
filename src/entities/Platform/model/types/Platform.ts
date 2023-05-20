@@ -1,10 +1,4 @@
-export interface Booking {
-    _id: string;
-    userId: string;
-    date?: Date;
-    startTime: Date;
-    endTime: Date;
-}
+import { Booking } from 'features/bookPlatform';
 
 export interface Platform {
     _id: string;
