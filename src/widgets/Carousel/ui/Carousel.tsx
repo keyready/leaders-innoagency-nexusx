@@ -1,4 +1,6 @@
-import { memo, useCallback, useState } from 'react';
+import {
+    memo, ReactNode, useCallback, useState,
+} from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { Button } from 'shared/UI/Button';
@@ -8,48 +10,46 @@ import PrevArrowIcon from '../icons/prevArrow.svg';
 
 interface CarouselProps {
     className?: string;
-    images: string[];
+    content: ReactNode[];
 }
 
 export const Carousel = memo((props: CarouselProps) => {
     const {
         className,
-        images,
+        content,
     } = props;
 
-    const [currentImage, setCurrentImage] = useState<number>(0);
+    const [currentNode, setCurrentNode] = useState<number>(0);
 
-    const prevImage = useCallback(() => {
-        if (currentImage <= 0) {
+    const prevNode = useCallback(() => {
+        if (currentNode <= 0) {
             return;
         }
-        setCurrentImage((prevState) => prevState - 1);
-    }, [currentImage]);
+        setCurrentNode((prevState) => prevState - 1);
+    }, [currentNode]);
 
-    const nextImage = useCallback(() => {
-        if (currentImage >= images.length - 1) {
+    const nextNode = useCallback(() => {
+        if (currentNode >= content.length - 1) {
             return;
         }
-        setCurrentImage((prevState) => prevState + 1);
-    }, [currentImage, images.length]);
+        setCurrentNode((prevState) => prevState + 1);
+    }, [currentNode, content.length]);
 
     return (
         <div className={classNames(classes.CarouselWrapper, {}, [className])}>
             <Button
                 className={classes.arrowsWrapper}
-                onClick={prevImage}
+                onClick={prevNode}
                 variant="clear"
             >
                 <Icon Svg={PrevArrowIcon} className={classes.arrows} />
             </Button>
-            <img
-                className={classes.image}
-                src={images[currentImage]}
-                alt=""
-            />
+            <div className={classes.image}>
+                {content[currentNode]}
+            </div>
             <Button
                 className={classes.arrowsWrapper}
-                onClick={nextImage}
+                onClick={nextNode}
                 variant="clear"
             >
                 <Icon Svg={NextArrowIcon} className={classes.arrows} />

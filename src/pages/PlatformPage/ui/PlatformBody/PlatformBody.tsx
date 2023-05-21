@@ -35,6 +35,16 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
             .then(() => alert('Почта скопирована!'));
     }, [platform?.email]);
 
+    const platformImages = () => platform?.images.map((image, index) => (
+        <img
+            key={index}
+            className={classes.platformPhoto}
+            src={image}
+            alt=""
+        />
+    ));
+    const carouselContent = platformImages();
+
     if (isLoading) {
         return (
             <HStack max justify="between" align="start" gap="20">
@@ -85,7 +95,10 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                     {platform?.description}
                 </p>
                 {platform?.images && (
-                    <Carousel className={classes.carousel} images={platform?.images} />
+                    <Carousel
+                        className={classes.carousel}
+                        content={carouselContent || []}
+                    />
                 )}
             </VStack>
             <VStack

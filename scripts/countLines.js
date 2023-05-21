@@ -25,7 +25,7 @@ function countLinesInDirectory(dirPath) {
     return totalCount;
 }
 
-const directoryPath = path.resolve(__dirname, '../../'); // Замените на путь к вашей директории
+const directoryPath = path.resolve(__dirname, '../src'); // Замените на путь к вашей директории
 
 const totalLines = countLinesInDirectory(directoryPath);
 console.log(`Общее количество строк: ${totalLines}`);
