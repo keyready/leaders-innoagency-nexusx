@@ -9,5 +9,6 @@ export interface Booking {
 export interface BookPlatformSchema {
     data?: Booking;
     isLoading: boolean;
-    error?: string
+    error?: string;
+    successMessage?: string;
 }

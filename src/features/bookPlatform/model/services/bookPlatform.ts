@@ -3,9 +3,10 @@ import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
 
 interface BookPlatformProps {
+    platformId?: string;
     date?: Date;
     startTime?: Date;
-    finishTime?: Date;
+    endTime?: Date;
     comment?: string;
     bookedPlaces?: number;
 }
@@ -25,7 +26,8 @@ export const bookPlatform = createAsyncThunk<
                     throw new Error();
                 }
 
-                return response.data;
+                // @ts-ignore
+                return response.data.message;
             } catch (error) {
                 const axiosError = error as AxiosError;
                 return rejectWithValue(axiosError.response?.data);

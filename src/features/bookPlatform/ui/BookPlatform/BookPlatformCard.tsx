@@ -13,18 +13,32 @@ import { Button } from 'shared/UI/Button';
 import { TextArea } from 'shared/UI/TextArea/TextArea';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { bookPlatform } from 'features/bookPlatform';
+import { Alert } from 'shared/UI/Alert';
+import { useSelector } from 'react-redux';
+import { Platform } from 'entities/Platform';
+import platformPage from 'pages/PlatformPage/ui/PlatformPage/PlatformPage';
+import {
+    getBookPlatformError,
+    getBookPlatformIsLoading,
+    getBookPlatformSuccessMessage,
+} from '../../model/selectors/getBookPlatformData';
+import { bookPlatform } from '../../model/services/bookPlatform';
 import classes from './BookPlatform.module.scss';
 
 interface BookPlatformCardProps {
     className?: string;
+    platform?: Platform;
 }
 
 export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
-    const { className } = props;
+    const { className, platform } = props;
 
     const { t } = useTranslation('PlatformPage');
     const dispatch = useAppDispatch();
+
+    const bookingSuccessMessage = useSelector(getBookPlatformSuccessMessage);
+    const bookingError = useSelector(getBookPlatformError);
+    const bookingIsProcessing = useSelector(getBookPlatformIsLoading);
 
     const [selectedDate, setSelectedDate] = useState<Date>('' as unknown as Date);
     const [selectedTime, setSelectedTime] = useState<SelectedTime>({});
@@ -51,11 +65,12 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
         else setBookedPlaces(value);
     }, []);
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(async (data) => {
         dispatch(bookPlatform({
+            platformId: platform?._id,
             date: selectedDate,
             startTime: selectedTime.startTime,
-            finishTime: selectedTime.finishTime,
+            endTime: selectedTime.finishTime,
             comment: bookComment,
             bookedPlaces,
         }));
@@ -174,13 +189,29 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                                 </VStack>
                             </HStack>
 
-                            <Button
-                                disabled={!watch('checkbox')}
-                                type="submit"
-                                variant="primary-outline"
-                            >
-                                Забронировать
-                            </Button>
+                            <VStack gap="8" align="stretch">
+                                {bookingError && (
+                                    <Alert variant="danger">
+                                        {bookingError}
+                                    </Alert>
+                                )}
+                                {bookingSuccessMessage && (
+                                    <Alert variant="success">
+                                        {bookingSuccessMessage}
+                                    </Alert>
+                                )}
+                                {!bookingSuccessMessage && (
+                                    <Button
+                                        disabled={!watch('checkbox') || bookingIsProcessing}
+                                        type="submit"
+                                        variant="primary-outline"
+                                    >
+                                        {bookingIsProcessing
+                                            ? t('В процессе')
+                                            : t('Забронировать')}
+                                    </Button>
+                                )}
+                            </VStack>
                         </VStack>
                     </form>
                 )}
@@ -194,7 +225,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                             || !selectedTime.finishTime}
                         onClick={() => setCurrentStep(currentStep + 1)}
                     >
-                        Далее
+                        {t('Далее')}
                     </Button>
                 )}
             </VStack>

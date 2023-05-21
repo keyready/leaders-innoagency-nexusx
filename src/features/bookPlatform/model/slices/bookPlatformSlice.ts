@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { bookPlatform } from 'features/bookPlatform';
 import { BookPlatformSchema } from '../types/bookPlatformSchema';
 
 const initialState: BookPlatformSchema = {
@@ -13,21 +14,22 @@ export const bookPlatformSlice = createSlice({
 
         },
     },
-    // extraReducers: (builder) => {
-    //     builder
-    //         .addCase(.pending, (state) => {
-    //             state.error = undefined;
-    //             state.isLoading = true;
-    //         })
-    //         .addCase(.fulfilled, (state) => {
-    //             state.isLoading = false;
-    //         })
-    //         .addCase(.rejected, (state, action) => {
-    //             state.isLoading = false;
-    //             // @ts-ignore
-    //             state.error = action.payload.message;
-    //         });
-    // },
+    extraReducers: (builder) => {
+        builder
+            .addCase(bookPlatform.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(bookPlatform.fulfilled, (state, action: PayloadAction<string>) => {
+                state.isLoading = false;
+                state.successMessage = action.payload;
+            })
+            .addCase(bookPlatform.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            });
+    },
 });
 
 export const { actions: bookPlatformActions } = bookPlatformSlice;

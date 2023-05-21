@@ -10,7 +10,7 @@ import {
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { CommentReducer } from 'entities/Comment';
-import { BookPlatformCard } from 'features/bookPlatform';
+import { BookPlatformCard, bookPlatformReducer } from 'features/bookPlatform';
 import { YMaps } from 'widgets/YMaps';
 import {
     getMetroStationCoords,
@@ -31,6 +31,7 @@ const reducers: ReducersList = {
     platform: PlatformReducer,
     comment: CommentReducer,
     metroStation: getMetroStationReducer,
+    bookPlatform: bookPlatformReducer,
 };
 
 const PlatformPage = memo((props: PlatformPageProps) => {
@@ -67,7 +68,7 @@ const PlatformPage = memo((props: PlatformPageProps) => {
                     isLoading={isPlatformLoading}
                 />
                 <PlatformBody platform={platform} isLoading={isPlatformLoading} />
-                <BookPlatformCard />
+                <BookPlatformCard platform={platform} />
                 {!isPlatformLoading && (
                     <div className={classes.contactsWrapper}>
                         <h2>Где нас найти?</h2>

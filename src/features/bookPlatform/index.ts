@@ -8,3 +8,8 @@ export type { Booking } from './model/types/bookPlatformSchema';
 export {
     bookPlatform,
 } from './model/services/bookPlatform';
+export {
+    getBookPlatformError,
+    getBookPlatformIsLoading,
+    getBookPlatformSuccessMessage,
+} from './model/selectors/getBookPlatformData';

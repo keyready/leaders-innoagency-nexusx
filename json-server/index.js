@@ -23,7 +23,9 @@ server.get('/error', (req, res) => {
     //
     res.status(401).json({ data: 'хых, ошибка' });
 });
-
+server.post('/book_platform', (req, res) => {
+    res.status(201).json({ message: 'Успешно забронировано' });
+});
 server.post('/refresh', (req, res) => {
     const { refresh_token } = req.body;
     const { db } = router;
