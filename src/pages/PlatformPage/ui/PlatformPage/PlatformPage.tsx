@@ -1,5 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useEffect, useState } from 'react';
+import {
+    memo, useCallback, useEffect, useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page } from 'widgets/Page/Page';
 import { useParams } from 'react-router-dom';
@@ -17,6 +19,9 @@ import {
     getMetroStationData,
     getMetroStationReducer,
 } from 'features/getMetroStation';
+import { Card } from 'shared/UI/Card/Card';
+import { VStack } from 'shared/UI/Stack';
+import { RestrictionsSection } from 'pages/PlatformPage/ui/RestrictionsSection';
 import { PlatformBody } from '../PlatformBody/PlatformBody';
 import { PlatformHeader } from '../PlatformHeader/PlatformHeader';
 import classes from './PlatformPage.module.scss';
@@ -58,6 +63,10 @@ const PlatformPage = memo((props: PlatformPageProps) => {
         }
     }, [dispatch, platform?.metro]);
 
+    const reloadPlatformData = useCallback(() => {
+        if (platform?._id) dispatch(getPlatformById(platform?._id));
+    }, [dispatch, platform?._id]);
+
     return (
         <DynamicModuleLoader removeAfterUnmount={false} reducers={reducers}>
             <Page className={classNames(classes.PlatformPage, {}, [className])}>
@@ -68,7 +77,10 @@ const PlatformPage = memo((props: PlatformPageProps) => {
                     isLoading={isPlatformLoading}
                 />
                 <PlatformBody platform={platform} isLoading={isPlatformLoading} />
-                <BookPlatformCard platform={platform} />
+                {platform?.restrictions && (
+                    <RestrictionsSection platform={platform} />
+                )}
+                <BookPlatformCard platform={platform} onSuccessBooking={reloadPlatformData} />
                 {!isPlatformLoading && (
                     <div className={classes.contactsWrapper}>
                         <h2>Где нас найти?</h2>

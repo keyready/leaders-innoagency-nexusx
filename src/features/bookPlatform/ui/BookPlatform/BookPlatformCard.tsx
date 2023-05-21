@@ -15,8 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Alert } from 'shared/UI/Alert';
 import { useSelector } from 'react-redux';
-import { Platform } from 'entities/Platform';
-import platformPage from 'pages/PlatformPage/ui/PlatformPage/PlatformPage';
+import { getPlatformById, Platform } from 'entities/Platform';
 import {
     getBookPlatformError,
     getBookPlatformIsLoading,
@@ -28,10 +27,11 @@ import classes from './BookPlatform.module.scss';
 interface BookPlatformCardProps {
     className?: string;
     platform?: Platform;
+    onSuccessBooking?: () => void;
 }
 
 export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
-    const { className, platform } = props;
+    const { className, platform, onSuccessBooking } = props;
 
     const { t } = useTranslation('PlatformPage');
     const dispatch = useAppDispatch();
@@ -66,7 +66,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
     }, []);
 
     const onSubmit = handleSubmit(async (data) => {
-        dispatch(bookPlatform({
+        const bookResult = await dispatch(bookPlatform({
             platformId: platform?._id,
             date: selectedDate,
             startTime: selectedTime.startTime,
@@ -74,6 +74,10 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
             comment: bookComment,
             bookedPlaces,
         }));
+
+        if (bookResult.meta.requestStatus === 'fulfilled') {
+            onSuccessBooking?.();
+        }
     });
 
     const formatDate = useCallback((date: Date): string => new Intl.DateTimeFormat('ru-RU', {

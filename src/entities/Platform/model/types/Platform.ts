@@ -16,5 +16,8 @@ export interface Platform {
     email: string;
     whatsapp: string;
     telegram: string;
-    vkontakte: string
+    vkontakte: string;
+    maxGuests: number;
+    freeSpace: number;
+    restrictions: string[]
 }

@@ -88,7 +88,11 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                     <Carousel className={classes.carousel} images={platform?.images} />
                 )}
             </VStack>
-            <VStack justify="start" align="stretch" gap="20">
+            <VStack
+                justify="start"
+                align="stretch"
+                gap="20"
+            >
                 <Card>
                     <VStack align="start" justify="center">
                         <HStack max gap="8">
@@ -123,7 +127,7 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                         <h3 className={classes.orgTitle}>{t('Об организаторе')}</h3>
                         <HStack max justify="center" align="center">
                             <img
-                                src="фото_организатора"
+                                src="/images/image1.png"
                                 alt="фото"
                                 className={classes.orgImage}
                             />
@@ -167,11 +171,18 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                         </HStack>
                     </VStack>
                 </Card>
-                <CommentCard
-                    header
-                    platformId={platform?._id}
-                />
+                <Card>
+                    <VStack justify="start" align="center">
+                        <h3>{t('Доступно мест')}</h3>
+                        <h1>{platform?.freeSpace}</h1>
+                    </VStack>
+                </Card>
             </VStack>
+            {/* TODO добавить комментарии */}
+            {/* <CommentCard */}
+            {/*    header */}
+            {/*    platformId={platform?._id} */}
+            {/* /> */}
         </HStack>
     );
 });
