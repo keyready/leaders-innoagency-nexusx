@@ -5,7 +5,7 @@ import { Platform } from '../types/Platform';
 
 export const getPlatformById = createAsyncThunk<
     Platform,
-    string,
+    string | undefined,
     ThunkConfig<string>>(
         'platform/getPlatformById',
         async (id, thunkAPI) => {

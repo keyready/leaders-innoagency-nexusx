@@ -1,4 +1,5 @@
+import { PlatformPageCommentsSchema } from './PlatformPageCommentsSchema';
+
 export interface PlatformPageSchema {
-    isLoading: boolean;
-    error?: string
+    comments: PlatformPageCommentsSchema
 }

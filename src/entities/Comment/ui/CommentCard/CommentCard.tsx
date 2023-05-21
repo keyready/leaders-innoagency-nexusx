@@ -1,37 +1,21 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { memo } from 'react';
 import { Card } from 'shared/UI/Card/Card';
 import { HStack, VStack } from 'shared/UI/Stack';
-import { useSelector } from 'react-redux';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
-import { getCommentData, getCommentIsLoading } from '../../model/selectors/getCommentData';
+import { Comment } from '../../model/types/CommentSchema';
 import classes from './CommentCard.module.scss';
-import { fetchCommentById } from '../../model/services/fetchCommentById';
 
 interface CommentCardProps {
     className?: string;
-    platformId?: string;
-    header?: boolean;
+    comment?: Comment;
+    isLoading?: boolean;
 }
 
 export const CommentCard = memo((props: CommentCardProps) => {
     const {
-        className, platformId, header,
+        className, comment, isLoading,
     } = props;
-
-    const { t } = useTranslation();
-    const dispatch = useAppDispatch();
-
-    const comment = useSelector(getCommentData);
-    const isLoading = useSelector(getCommentIsLoading);
-
-    useEffect(() => {
-        if (platformId) {
-            dispatch(fetchCommentById(platformId));
-        }
-    }, [dispatch, platformId]);
 
     if (isLoading) {
         return (
@@ -65,9 +49,6 @@ export const CommentCard = memo((props: CommentCardProps) => {
             className={classNames(classes.Comment, {}, [className])}
         >
             <VStack justify="stretch" gap="20">
-                {header && (
-                    <h2 className={classes.header}>Отзывы</h2>
-                )}
                 <HStack max align="center" justify="center" gap="32">
                     <img
                         className={classes.avatar}

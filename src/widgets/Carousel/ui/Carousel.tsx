@@ -44,9 +44,7 @@ export const Carousel = memo((props: CarouselProps) => {
             >
                 <Icon Svg={PrevArrowIcon} className={classes.arrows} />
             </Button>
-            <div className={classes.image}>
-                {content[currentNode]}
-            </div>
+            {content[currentNode]}
             <Button
                 className={classes.arrowsWrapper}
                 onClick={nextNode}

@@ -12,6 +12,7 @@ import { RegisterPageSchema } from 'pages/RegisterPage';
 import { CommentSchema } from 'entities/Comment';
 import { GetMetroStationSchema } from 'features/getMetroStation';
 import { BookPlatformSchema } from 'features/bookPlatform';
+import { PlatformPageSchema } from 'pages/PlatformPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -20,6 +21,7 @@ export interface StateSchema {
 
     // asynchronous reducers
     loginPage?: LoginPageSchema;
+    platformPage?: PlatformPageSchema;
     registerPage?: RegisterPageSchema;
     platform?: PlatformSchema;
     comment?: CommentSchema;

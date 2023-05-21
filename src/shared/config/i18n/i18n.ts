@@ -10,7 +10,7 @@ i18n
     .use(initReactI18next)
     .init({
         fallbackLng: 'ru',
-        debug: IS_DEV,
+        debug: false,
     });
 
 export default i18n;

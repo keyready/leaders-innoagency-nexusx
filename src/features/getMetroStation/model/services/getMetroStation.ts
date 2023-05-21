@@ -5,7 +5,7 @@ import { MetroStation } from '../types/getMetroStationSchema';
 
 export const getMetroStationData = createAsyncThunk<
     MetroStation,
-    string,
+    string | undefined,
     ThunkConfig<string>
 >(
     'metroStations/getMetroStations',

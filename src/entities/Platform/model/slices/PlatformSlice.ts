@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Platform } from 'entities/Platform';
+import { Platform } from '../types/Platform';
 import { PlatformSchema } from '../types/PlatformSchema';
 import { getPlatformById } from '../services/getPlatformById';
 

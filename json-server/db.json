@@ -10,7 +10,7 @@
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
       "access_token": "lokaiw2m1um4aqa70b9pzo",
-      "refresh_token": "6bmkviwetlh6rle48215r"
+      "refresh_token": "l83rvcb47i7dxqbrrf7l3"
     },
     {
       "name": "Андрей",
@@ -514,7 +514,42 @@
       "platformId": "plt1",
       "userId": "super-user-228-1337-the-best-frontender",
       "rate": "4.4",
-      "body": "Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis. Lorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla ipsum eleifend orci. Non tortor pellentesque ac vitae ipsum tempor gravida morbi fermentum convallis aliquam iaculis.\nLorem ipsum dolor sit amet consectetur. Cursus adipiscing massa vel eu id fringilla."
+      "body": "Комментарий до 100 символовУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
+    },
+    {
+      "_id": "cm8",
+      "platformId": "plt1",
+      "userId": "super-user-228-1337-the-best-frontender",
+      "rate": "3.8",
+      "body": "Интересные задания и практические задачиУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
+    },
+    {
+      "_id": "cm7",
+      "platformId": "plt1",
+      "userId": "super-user-228-1337-the-best-frontender",
+      "rate": "3.2",
+      "body": "Отличная поддержка пользователейУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
+    },
+    {
+      "_id": "cm6",
+      "platformId": "plt1",
+      "userId": "super-user-228-1337-the-best-frontender",
+      "rate": "4.8",
+      "body": "Удобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация"
+    },
+    {
+      "_id": "cm5",
+      "platformId": "plt1",
+      "userId": "super-user-228-1337-the-best-frontender",
+      "rate": "5",
+      "body": "Много полезных материалов для изученияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
+    },
+    {
+      "_id": "cm4",
+      "platformId": "plt1",
+      "userId": "super-user-228-1337-the-best-frontender",
+      "rate": "4",
+      "body": "Рекомендую эту платформу всемУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     }
   ]
 }

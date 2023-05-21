@@ -187,15 +187,10 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                 <Card>
                     <VStack justify="start" align="center">
                         <h3>{t('Доступно мест')}</h3>
-                        <h1>{platform?.freeSpace}</h1>
+                        <h1>{platform?.maxGuests}</h1>
                     </VStack>
                 </Card>
             </VStack>
-            {/* TODO добавить комментарии */}
-            {/* <CommentCard */}
-            {/*    header */}
-            {/*    platformId={platform?._id} */}
-            {/* /> */}
         </HStack>
     );
 });

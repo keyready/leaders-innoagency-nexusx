@@ -1,6 +1,11 @@
 export { PlatformPageLazy as PlatformPage } from './ui/PlatformPage/PlatformPage.lazy';
-export type { PlatformPageSchema } from './model/types/PlatformPageSchema';
+export type { PlatformPageCommentsSchema, PlatformPageSchema } from './model/types/index';
+export { fetchCommentsByPlatformId } from './model/services/fetchCommentsByPlatformId';
 export {
-    PlatformPageActions,
-    PlatformPageReducer,
-} from './model/slices/PlatformPageSlice';
+    getPlatformComments,
+    PlatformPageCommentsReducers,
+} from './model/slices/PlatformCommentsSlice';
+export {
+    getCommentsIsLoading,
+    getCommentsError,
+} from './model/selectors/getCommetsStatus';
