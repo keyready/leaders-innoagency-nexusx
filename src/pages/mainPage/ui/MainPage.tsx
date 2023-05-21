@@ -24,6 +24,8 @@ import { CostBadges } from 'shared/UI/CostBadges';
 import { PlatformCard } from 'entities/Platform';
 import { useTranslation } from 'react-i18next';
 import { getMetroStationData, getMetroStationReducer } from 'features/getMetroStation';
+import { AppLink } from 'shared/UI/AppLink';
+import { RoutePath, routerConfig } from 'shared/config/routeConfig/routeConfig';
 import classes from './MainPage.module.scss';
 
 const reducers: ReducersList = {
@@ -45,8 +47,8 @@ const MainPage = () => {
         dispatch(fetchPlatforms());
 
         const handleSearchEnter = (ev: KeyboardEvent) => {
-            if (ev.key === 'Enter' && blurBackground) {
-                navigate(`/search?q=${selected.value}`);
+            if (ev.key === 'Enter' && comboQuery) {
+                navigate(`/search?q=${comboQuery}`);
             }
         };
 
@@ -62,7 +64,11 @@ const MainPage = () => {
 
     const getPlatformItems = useCallback(() => platforms.map((platform) => ({
         value: platform.name,
-        content: (<PlatformCard platform={platform} type="searchCard" />),
+        content: (
+            <AppLink to={`${RoutePath.platform_page}${platform._id}`}>
+                <PlatformCard platform={platform} type="searchCard" />
+            </AppLink>
+        ),
     })), [platforms]);
 
     return (
@@ -86,8 +92,6 @@ const MainPage = () => {
                         selectedPerson={selected}
                         setSelectedPerson={setSelected}
                         placeholder={t('Поиск') as string}
-                        onFocus={() => setBlurBackground(true)}
-                        onBlur={() => setBlurBackground(false)}
                         onResultsClick={() => {
                             navigate(`/search?q=${comboQuery}`);
                         }}

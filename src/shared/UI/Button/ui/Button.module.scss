@@ -10,12 +10,6 @@
     outline: none;
 }
 
-.disabled {
-    cursor: not-allowed;
-    opacity: 0.8;
-    pointer-events: auto;
-}
-
 .clear {
     margin: 0;
     padding: 0;
@@ -52,5 +46,21 @@
     &:active {
         color: var(--inverted-bg-color);
         background: var(--accent-grad);
+    }
+}
+
+.disabled {
+    cursor: not-allowed;
+    color: white;
+    background: #323232;
+    opacity: 0.8;
+    pointer-events: auto;
+    outline: none;
+
+    &:hover {
+        border: none;
+        color: white;
+        background: #323232;
+        outline: none;
     }
 }

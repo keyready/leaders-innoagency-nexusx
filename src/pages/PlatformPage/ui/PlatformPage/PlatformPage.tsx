@@ -46,18 +46,16 @@ const PlatformPage = memo((props: PlatformPageProps) => {
     const metroCoords: number[] = useSelector(getMetroStationCoords);
 
     useEffect(() => {
-        document.title = platform?.name || 'ПРОЩЕ';
-
         if (id) {
             dispatch(getPlatformById(id));
         }
-    }, [dispatch, id, platform?.name]);
+    }, [dispatch, id]);
 
     useEffect(() => {
         if (platform?.metro) {
             dispatch(getMetroStationData(platform?.metro));
         }
-    }, [dispatch, isPlatformLoading, platform?.metro]);
+    }, [dispatch, platform?.metro]);
 
     return (
         <DynamicModuleLoader removeAfterUnmount={false} reducers={reducers}>

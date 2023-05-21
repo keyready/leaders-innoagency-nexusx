@@ -7,8 +7,8 @@ import { HStack } from 'shared/UI/Stack';
 import classes from './Timepicker.module.scss';
 
 export interface SelectedTime {
-    startTime: Date;
-    finishTime: Date
+    startTime?: Date;
+    finishTime?: Date
 }
 
 interface TimepickerProps {
@@ -19,7 +19,6 @@ interface TimepickerProps {
 
 export const Timepicker = memo((props: TimepickerProps) => {
     const {
-        className,
         selectedTime,
         setSelectedTime,
     } = props;
@@ -61,9 +60,9 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         >
                             <div>Время начала</div>
                             <div className={classes.timeCheck}>
-                                {localTime.startTime.getHours()
-                                    ? `${localTime.startTime.getHours().toString().padStart(2, '0')
-                                    }:${localTime.startTime.getMinutes().toString().padStart(2, '0')}`
+                                {localTime.startTime?.getHours()
+                                    ? `${localTime.startTime?.getHours().toString().padStart(2, '0')
+                                    }:${localTime.startTime?.getMinutes().toString().padStart(2, '0')}`
                                     : 'Выберите время'}
                             </div>
                         </div>
@@ -77,15 +76,16 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         >
                             <div>Время завершения</div>
                             <div className={classes.timeCheck}>
-                                {localTime.finishTime.getHours()
-                                    ? `${localTime.finishTime.getHours().toString().padStart(2, '0')
-                                    }:${localTime.finishTime.getMinutes().toString().padStart(2, '0')}`
+                                {localTime.finishTime?.getHours()
+                                    ? `${localTime.finishTime?.getHours().toString().padStart(2, '0')
+                                    }:${localTime.finishTime?.getMinutes().toString().padStart(2, '0')}`
                                     : 'Выберите время'}
                             </div>
                         </div>
                     )}
                 </Tab>
             </Tab.List>
+
             <Tab.Panels>
                 <Tab.Panel
                     className={classes.panel}
@@ -95,11 +95,13 @@ export const Timepicker = memo((props: TimepickerProps) => {
                         .map((time, index) => (
                             <div
                                 key={index}
-                                className={classes.timeCell}
+                                className={classNames(classes.timeCell, {
+                                    [classes.activeCell]: time === localTime.startTime,
+                                })}
                                 onClick={() => {
                                     setLocalTime({
-                                        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
                                         startTime: time,
+                                        finishTime: new Date('Thu, 01 Jan 1970 00:00:00'),
                                     });
                                     setSelectedTab(1);
                                 }}
@@ -115,12 +117,14 @@ export const Timepicker = memo((props: TimepickerProps) => {
                     {availableHours
                         .filter(
                             (_, index) => index > availableHours
-                                .indexOf(localTime.startTime),
+                                .indexOf(localTime.startTime || new Date()),
                         )
                         .map((time, index) => (
                             <div
                                 key={index}
-                                className={classes.timeCell}
+                                className={classNames(classes.timeCell, {
+                                    [classes.activeCell]: time === localTime.finishTime,
+                                })}
                                 onClick={() => {
                                     setLocalTime({
                                         ...localTime, finishTime: time,

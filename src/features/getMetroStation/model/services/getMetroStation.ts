@@ -25,9 +25,9 @@ export const getMetroStationData = createAsyncThunk<
                 JSON.stringify(body),
                 {
                     headers: {
+                        authorization: 'Token 5ef98f5781a106962077fb18109095f9f11ebac1',
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
-                        Authorization: 'Token 6e7fda131fb07ebf5ebb741b4a8e5cc9a7fc6de5',
                     },
                 },
             );

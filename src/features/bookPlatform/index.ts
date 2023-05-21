@@ -5,3 +5,6 @@ export {
     bookPlatformReducer,
 } from './model/slices/bookPlatformSlice';
 export type { Booking } from './model/types/bookPlatformSchema';
+export {
+    bookPlatform,
+} from './model/services/bookPlatform';

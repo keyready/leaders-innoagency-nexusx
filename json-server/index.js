@@ -12,12 +12,12 @@ server.use(jsonServer.bodyParser);
 const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 
 // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-server.use(async (req, res, next) => {
-    await new Promise((res) => {
-        setTimeout(res, 1000);
-    });
-    next();
-});
+// server.use(async (req, res, next) => {
+//     await new Promise((res) => {
+//         setTimeout(res, 1000);
+//     });
+//     next();
+// });
 
 server.get('/error', (req, res) => {
     //
@@ -52,6 +52,7 @@ server.post('/refresh', (req, res) => {
 
     return res.status(200).json(user);
 });
+server.use(router);
 
 server.post('/logout', (req, res) => {
     const { refresh_token } = req.body;
@@ -169,24 +170,22 @@ server.post('/login', (req, res) => {
 
 // проверяем, авторизован ли пользователь
 // eslint-disable-next-line
-server.use((req, res, next) => {
-    const { db } = router;
-    const access_token = req.headers.authorization;
-    console.log(access_token);
-
-    const user = db
-        .get('users')
-        .find({ access_token })
-        .value();
-
-    if (!user) {
-        return res.status(444).json({ message: 'Not auth' });
-    }
-
-    return next();
-});
-
-server.use(router);
+// server.use((req, res, next) => {
+//     const { db } = router;
+//     const access_token = req.headers.authorization;
+//     console.log(access_token);
+//
+//     const user = db
+//         .get('users')
+//         .find({ access_token })
+//         .value();
+//
+//     if (!user) {
+//         return res.status(444).json({ message: 'Not auth' });
+//     }
+//
+//     return next();
+// });
 
 // запуск сервера
 server.listen(PORT, () => {

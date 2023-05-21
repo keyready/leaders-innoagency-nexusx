@@ -15,10 +15,14 @@ export const Calendar = memo((props: CalendarProps) => {
         onChange,
     } = props;
 
+    const isBeforeToday = (date: Date) => date < new Date();
+
     return (
         <div className={classNames('calendarWrapper', {}, [className])}>
             <RCalendar
+                tileClassName={({ date }) => (isBeforeToday(date) ? 'unavailable-day' : null)}
                 onChange={onChange}
+                tileDisabled={({ date }) => isBeforeToday(date)}
             />
         </div>
     );

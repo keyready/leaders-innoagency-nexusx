@@ -17,8 +17,6 @@ interface ComboboxProps {
     setSelectedPerson: (item: ComboboxItem) => void;
     query: string;
     setQuery: (value: string) => void;
-    onFocus?: () => void;
-    onBlur?: () => void;
     onResultsClick?: () => void;
 }
 
@@ -32,8 +30,6 @@ export const Combobox = memo((props: ComboboxProps) => {
         setSelectedPerson,
         query,
         setQuery,
-        onFocus,
-        onBlur,
     } = props;
 
     const filteredPeople = query === ''
@@ -54,8 +50,6 @@ export const Combobox = memo((props: ComboboxProps) => {
                 placeholder={placeholder}
                 onChange={(event) => setQuery(event.target.value)}
                 displayValue={(item: ComboboxItem) => item.value}
-                onFocus={onFocus}
-                onBlur={onBlur}
             />
             {filteredPeople
                 ? (

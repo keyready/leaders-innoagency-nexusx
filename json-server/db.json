@@ -9,8 +9,8 @@
       "phoneNumber": "89243093207",
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
-      "access_token": "2iyn8borp7nziqdrreytde",
-      "refresh_token": "6cyidkaejgei9yefwpi1qb"
+      "access_token": "lokaiw2m1um4aqa70b9pzo",
+      "refresh_token": "olqg3ho2arni2dsoe83tzo"
     },
     {
       "name": "Андрей",
@@ -54,8 +54,8 @@
       "date": "",
       "description": "Творческий и деловой квартал, где открыты мастерские, дизайнерские и архитектурные бюро, шоу-румы, магазины, а также организована инфраструктура для комфортного времяпрепровождения: кафе и рестораны, кинозал, клуб, книжный магазин.",
       "images": [
+        "/images/platform1_2.jpeg",
         "/images/platform1_1.png",
-        "/images/platform1_3.jpeg",
         "/images/platform1_3.jpeg"
       ],
       "metro": "Комендантский проспект",
@@ -146,6 +146,320 @@
     },
     {
       "_id": "plt4",
+      "address": "г. Санкт-Петербург, ул. Большая Новодмитровская, 36",
+      "bookings": [
+        {
+          "_id": "booking001",
+          "date": "2023-06-15T10:30:00.000Z",
+          "startTime": "2023-06-15T10:30:00.000Z",
+          "endTime": "2023-06-15T12:00:00.000Z",
+          "userId": "user123",
+          "places": 2
+        },
+        {
+          "_id": "booking002",
+          "date": "2023-06-20T14:00:00.000Z",
+          "startTime": "2023-06-20T14:00:00.000Z",
+          "endTime": "2023-06-20T15:30:00.000Z",
+          "userId": "user456",
+          "places": 1
+        }
+      ],
+      "cost": 50,
+      "date": "",
+      "description": "Креативный кластер в здании хрустально-стекольного завода: мастер-классы, студии, агентства, магазины, кафе.",
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Адмиралтейская",
+      "name": "Флакон",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (495) 790-79-01",
+      "email": "info@flacon.ru",
+      "whatsapp": "+7 (495) 790-79-01",
+      "telegram": "+7 (495) 790-79-01",
+      "vkontakte": "",
+      "web": "http://flacon.ru/",
+      "workHours": {},
+      "maxGuests": 60
+    },
+    {
+      "_id": "plt5",
+      "address": "г. Санкт-Петербург, ул. Нижняя Сыромятническая, д. 10",
+      "bookings": [
+        {
+          "_id": "booking001",
+          "date": "2023-06-15T10:30:00.000Z",
+          "startTime": "2023-06-15T10:30:00.000Z",
+          "endTime": "2023-06-15T12:00:00.000Z",
+          "userId": "user123",
+          "places": 2
+        },
+        {
+          "_id": "booking002",
+          "date": "2023-06-20T14:00:00.000Z",
+          "startTime": "2023-06-20T14:00:00.000Z",
+          "endTime": "2023-06-20T15:30:00.000Z",
+          "userId": "user456",
+          "places": 1
+        }
+      ],
+      "cost": 0,
+      "date": "",
+      "description": "Творческий и деловой квартал, где открыты мастерские, дизайнерские и архитектурные бюро, шоу-румы, магазины, а также организована инфраструктура для комфортного времяпрепровождения: кафе и рестораны, кинозал, клуб, книжный магазин.",
+      "images": [
+        "/images/platform1_2.jpeg",
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Комендантский проспект",
+      "name": "Artplay",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (495) 620-08-83",
+      "email": "ic@artplay.ru",
+      "whatsapp": "+7 (495) 620-08-83",
+      "telegram": "+7 (495) 620-08-83",
+      "vkontakte": "",
+      "web": "https://www.artplay.ru/",
+      "workHours": {
+        "startTime": "10:00 AM",
+        "endTime": "9:00 PM"
+      },
+      "maxGuests": 10
+    },
+    {
+      "_id": "plt6",
+      "address": "Санкт-Петербург, Исаакиевская площадь, 4",
+      "bookings": [],
+      "cost": 110,
+      "date": "",
+      "description": "Лофт-квартал Товарищество Рябовской Мануфактуры предлагает коммерческие помещения под различные бизнес направления. Выгодное расположение близко к станции метро в центре делового района.",
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Адмиралтейская",
+      "name": "Товарищество Рябовской мануфактуры",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (495) 126-04-82",
+      "email": "arenda@tovarishestvo.com",
+      "whatsapp": "+7 (495) 126-04-82",
+      "telegram": "+7 (495) 126-04-82",
+      "vkontakte": "",
+      "web": "https://tovarishestvo.com/",
+      "workHours": {
+        "startTime": "10:00 AM",
+        "endTime": "9:00 PM"
+      },
+      "maxGuests": 20
+    },
+    {
+      "_id": "plt7",
+      "address": "г. Санкт-Петербург, Комсомольский проспект, 28",
+      "bookings": [
+        {
+          "_id": "booking001",
+          "date": "2023-06-15T10:30:00.000Z",
+          "startTime": "2023-06-15T10:30:00.000Z",
+          "endTime": "2023-06-15T12:00:00.000Z",
+          "userId": "user123",
+          "places": 2
+        },
+        {
+          "_id": "booking002",
+          "date": "2023-06-20T14:00:00.000Z",
+          "startTime": "2023-06-20T14:00:00.000Z",
+          "endTime": "2023-06-20T15:30:00.000Z",
+          "userId": "user456",
+          "places": 1
+        }
+      ],
+      "cost": 0,
+      "date": "",
+      "description": "Уникальная территория, объединяющая крупнейший в москве театрально-культурный центр, разнообразные пространства для творчества и креативных индустрий, место для отдыха, развлечений и семейного досуга.",
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Адмиралтейская",
+      "name": "Московский дворец молодежи",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (499) 248-57-81",
+      "email": "infomaska@mdm-theatre.ru",
+      "whatsapp": "+7 (499) 248-57-81",
+      "telegram": "+7 (499) 248-57-81",
+      "vkontakte": "",
+      "web": "https://mdmpalace.ru/",
+      "workHours": {},
+      "maxGuests": 1000
+    },
+    {
+      "_id": "plt8",
+      "address": "г. Санкт-Петербург, ул. Большая Новодмитровская, 36",
+      "bookings": [
+        {
+          "_id": "booking001",
+          "date": "2023-06-15T10:30:00.000Z",
+          "startTime": "2023-06-15T10:30:00.000Z",
+          "endTime": "2023-06-15T12:00:00.000Z",
+          "userId": "user123",
+          "places": 2
+        },
+        {
+          "_id": "booking002",
+          "date": "2023-06-20T14:00:00.000Z",
+          "startTime": "2023-06-20T14:00:00.000Z",
+          "endTime": "2023-06-20T15:30:00.000Z",
+          "userId": "user456",
+          "places": 1
+        }
+      ],
+      "cost": 50,
+      "date": "",
+      "description": "Креативный кластер в здании хрустально-стекольного завода: мастер-классы, студии, агентства, магазины, кафе.",
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Адмиралтейская",
+      "name": "Флакон",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (495) 790-79-01",
+      "email": "info@flacon.ru",
+      "whatsapp": "+7 (495) 790-79-01",
+      "telegram": "+7 (495) 790-79-01",
+      "vkontakte": "",
+      "web": "http://flacon.ru/",
+      "workHours": {},
+      "maxGuests": 60
+    },
+    {
+      "_id": "plt9",
+      "address": "г. Санкт-Петербург, ул. Нижняя Сыромятническая, д. 10",
+      "bookings": [
+        {
+          "_id": "booking001",
+          "date": "2023-06-15T10:30:00.000Z",
+          "startTime": "2023-06-15T10:30:00.000Z",
+          "endTime": "2023-06-15T12:00:00.000Z",
+          "userId": "user123",
+          "places": 2
+        },
+        {
+          "_id": "booking002",
+          "date": "2023-06-20T14:00:00.000Z",
+          "startTime": "2023-06-20T14:00:00.000Z",
+          "endTime": "2023-06-20T15:30:00.000Z",
+          "userId": "user456",
+          "places": 1
+        }
+      ],
+      "cost": 0,
+      "date": "",
+      "description": "Творческий и деловой квартал, где открыты мастерские, дизайнерские и архитектурные бюро, шоу-румы, магазины, а также организована инфраструктура для комфортного времяпрепровождения: кафе и рестораны, кинозал, клуб, книжный магазин.",
+      "images": [
+        "/images/platform1_2.jpeg",
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Комендантский проспект",
+      "name": "Artplay",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (495) 620-08-83",
+      "email": "ic@artplay.ru",
+      "whatsapp": "+7 (495) 620-08-83",
+      "telegram": "+7 (495) 620-08-83",
+      "vkontakte": "",
+      "web": "https://www.artplay.ru/",
+      "workHours": {
+        "startTime": "10:00 AM",
+        "endTime": "9:00 PM"
+      },
+      "maxGuests": 10
+    },
+    {
+      "_id": "plt10",
+      "address": "Санкт-Петербург, Исаакиевская площадь, 4",
+      "bookings": [],
+      "cost": 110,
+      "date": "",
+      "description": "Лофт-квартал Товарищество Рябовской Мануфактуры предлагает коммерческие помещения под различные бизнес направления. Выгодное расположение близко к станции метро в центре делового района.",
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Адмиралтейская",
+      "name": "Товарищество Рябовской мануфактуры",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (495) 126-04-82",
+      "email": "arenda@tovarishestvo.com",
+      "whatsapp": "+7 (495) 126-04-82",
+      "telegram": "+7 (495) 126-04-82",
+      "vkontakte": "",
+      "web": "https://tovarishestvo.com/",
+      "workHours": {
+        "startTime": "10:00 AM",
+        "endTime": "9:00 PM"
+      },
+      "maxGuests": 20
+    },
+    {
+      "_id": "plt11",
+      "address": "г. Санкт-Петербург, Комсомольский проспект, 28",
+      "bookings": [
+        {
+          "_id": "booking001",
+          "date": "2023-06-15T10:30:00.000Z",
+          "startTime": "2023-06-15T10:30:00.000Z",
+          "endTime": "2023-06-15T12:00:00.000Z",
+          "userId": "user123",
+          "places": 2
+        },
+        {
+          "_id": "booking002",
+          "date": "2023-06-20T14:00:00.000Z",
+          "startTime": "2023-06-20T14:00:00.000Z",
+          "endTime": "2023-06-20T15:30:00.000Z",
+          "userId": "user456",
+          "places": 1
+        }
+      ],
+      "cost": 0,
+      "date": "",
+      "description": "Уникальная территория, объединяющая крупнейший в москве театрально-культурный центр, разнообразные пространства для творчества и креативных индустрий, место для отдыха, развлечений и семейного досуга.",
+      "images": [
+        "/images/platform1_1.png",
+        "/images/platform1_3.jpeg",
+        "/images/platform1_3.jpeg"
+      ],
+      "metro": "Адмиралтейская",
+      "name": "Московский дворец молодежи",
+      "subtitle": "",
+      "type": "workspace",
+      "tel": "+7 (499) 248-57-81",
+      "email": "infomaska@mdm-theatre.ru",
+      "whatsapp": "+7 (499) 248-57-81",
+      "telegram": "+7 (499) 248-57-81",
+      "vkontakte": "",
+      "web": "https://mdmpalace.ru/",
+      "workHours": {},
+      "maxGuests": 1000
+    },
+    {
+      "_id": "plt12",
       "address": "г. Санкт-Петербург, ул. Большая Новодмитровская, 36",
       "bookings": [
         {

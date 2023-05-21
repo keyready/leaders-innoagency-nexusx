@@ -1,13 +1,17 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
+import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Card } from 'shared/UI/Card/Card';
 import { useForm } from 'react-hook-form';
-import { Input } from 'shared/UI/Input';
-import { Timepicker } from 'widgets/Timepicker';
+import { SelectedTime, Timepicker } from 'widgets/Timepicker';
 import { Calendar } from 'widgets/Calendar';
-import { VStack } from 'shared/UI/Stack';
+import { HStack, VStack } from 'shared/UI/Stack';
 import { Button } from 'shared/UI/Button';
+import { TextArea } from 'shared/UI/TextArea/TextArea';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { bookPlatform } from 'features/bookPlatform';
 import classes from './BookPlatform.module.scss';
 
 interface BookPlatformCardProps {
@@ -18,37 +22,151 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
     const { className } = props;
 
     const { t } = useTranslation('PlatformPage');
+    const dispatch = useAppDispatch();
 
     const [selectedDate, setSelectedDate] = useState<Date>('' as unknown as Date);
+    const [selectedTime, setSelectedTime] = useState<SelectedTime>({});
+    const [bookComment, setBookComment] = useState<string>('');
     const [currentStep, setCurrentStep] = useState<number>(1);
 
+    const bookingSchema = yup.object({
+        checkbox: yup.boolean().oneOf(
+            [true],
+            t('Эта галочка здесь не просто так') as string,
+        ),
+    }).required();
     const {
-        handleSubmit, setValue, watch, register, formState: { errors },
-    } = useForm();
+        register, handleSubmit, formState: { errors }, watch,
+    } = useForm({
+        resolver: yupResolver(bookingSchema),
+    });
 
     const onSubmit = handleSubmit((data) => {
-
+        dispatch(bookPlatform({
+            date: selectedDate,
+            startTime: selectedTime.startTime,
+            finishTime: selectedTime.finishTime,
+            comment: bookComment,
+        }));
     });
+
+    const formatDate = useCallback((date: Date): string => new Intl.DateTimeFormat('ru-RU', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        // era: 'long',
+    }).format(date), []);
+    const formatTimeRange = useCallback(({ startTime, finishTime }: SelectedTime): string => {
+        const startHours = startTime?.getHours().toString().padStart(2, '0');
+        const startMinutes = startTime?.getMinutes().toString().padStart(2, '0');
+        const endHours = finishTime?.getHours().toString().padStart(2, '0');
+        const endMinutes = finishTime?.getMinutes().toString().padStart(2, '0');
+
+        return `с ${startHours}:${startMinutes} до ${endHours}:${endMinutes}`;
+    }, []);
 
     return (
         <Card className={classNames(classes.BookPlatform, {}, [className])}>
-            <VStack align="center" justify="start">
+            <VStack
+                className={classes.formWrapper}
+                align="center"
+                justify="start"
+            >
                 <h3 className={classes.header}>{t('Забронировать')}</h3>
                 {currentStep === 1 && (
-                    <>
-                        <Calendar onChange={setSelectedDate} />
-                        <Button
-                            style={{ width: '100%' }}
-                            disabled={!selectedDate}
-                            onClick={() => setCurrentStep((prevState) => prevState + 1)}
-                        >
-                            Далее
-                        </Button>
-                    </>
+                    <Calendar onChange={setSelectedDate} />
                 )}
 
                 {currentStep === 2 && (
-                    <p>Выбор времени брони</p>
+                    <Timepicker
+                        selectedTime={selectedTime}
+                        setSelectedTime={setSelectedTime}
+                    />
+                )}
+
+                {currentStep === 3 && (
+                    <VStack
+                        gap="16"
+                        justify="start"
+                        align="center"
+                        className={classes.feedbackClasses}
+                    >
+                        <h4>{t('Нужно что-то сказать арендодатору?')}</h4>
+                        <TextArea
+                            className={classes.textarea}
+                            placeholder={t('Ваш комментарий') as string}
+                            value={bookComment}
+                            onChange={setBookComment}
+                        />
+                    </VStack>
+                )}
+
+                {currentStep === 4 && (
+                    <form onSubmit={onSubmit}>
+                        <VStack
+                            gap="16"
+                            justify="start"
+                            align="center"
+                            className={classes.feedbackClasses}
+                        >
+                            <h4>{t('Проверьте введенные данные')}</h4>
+                            <HStack max>
+                                <b>{`${t('Дата')}:`}</b>
+                                <p>{`${formatDate(selectedDate)}`}</p>
+                            </HStack>
+                            <HStack max>
+                                <b>{`${t('Время')}:`}</b>
+                                <p>{`${formatTimeRange(selectedTime)}`}</p>
+                            </HStack>
+                            {bookComment && (
+                                <HStack gap="8" max justify="start" align="start">
+                                    <b>{`${t('Комментарий')}:`}</b>
+                                    <p style={{ textAlign: 'justify' }}>{bookComment}</p>
+                                </HStack>
+                            )}
+
+                            <HStack max justify="start">
+                                <VStack gap="4" align="center">
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            {...register('checkbox')}
+                                            style={{ marginRight: 8 }}
+                                        />
+                                        Данные введены верно
+                                    </label>
+                                    {errors.checkbox && (
+                                        <span
+                                            className={classes.errorMessage}
+                                        >
+                                            {`${errors.checkbox.message}`}
+                                        </span>
+                                    )}
+                                </VStack>
+                            </HStack>
+
+                            <Button
+                                disabled={!watch('checkbox')}
+                                type="submit"
+                                variant="primary-outline"
+                            >
+                                Забронировать
+                            </Button>
+                        </VStack>
+                    </form>
+                )}
+
+                {currentStep < 4 && (
+                    <Button
+                        style={{ width: '50%', marginTop: 20 }}
+                        disabled={currentStep === 1
+                            ? !selectedDate
+                            : !selectedTime.startTime
+                            || !selectedTime.finishTime}
+                        onClick={() => setCurrentStep(currentStep + 1)}
+                    >
+                        Далее
+                    </Button>
                 )}
             </VStack>
         </Card>
