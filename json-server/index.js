@@ -24,6 +24,58 @@ server.get('/error', (req, res) => {
     res.status(401).json({ data: 'хых, ошибка' });
 });
 
+server.post('/refresh', (req, res) => {
+    const { refresh_token } = req.body;
+    const { db } = router;
+
+    const user = db
+        .get('users')
+        .find({ refresh_token })
+        .value();
+
+    if (!user) {
+        return res
+            .status(403)
+            .json({ message: 'Ваша сессия истекла. Авторизуйтесь повторно' });
+    }
+
+    const newRefreshToken = generateRefreshToken();
+
+    user.refresh_token = newRefreshToken;
+
+    db.get('users')
+        .find({ id: user._id })
+        .assign({
+            refresh_token: newRefreshToken,
+        })
+        .write();
+
+    return res.status(200).json(user);
+});
+
+server.post('/logout', (req, res) => {
+    const { refresh_token } = req.body;
+    const { db } = router;
+
+    const user = db.get('users').find({ refresh_token });
+
+    if (!user) {
+        return res
+            .status(403)
+            .json({ message: 'Ошибка аутентификации' });
+    }
+
+    db.get('users')
+        .find({ id: user._id })
+        .assign({
+            access_token: '',
+            refresh_token: '',
+        })
+        .write();
+
+    return res.status(200).json({ message: 'Разлогинились' });
+});
+
 server.post('/submit_code', (req, res) => {
     //
     res.status(201).json({ message: 'Отлично! все круто' });
@@ -119,13 +171,8 @@ server.post('/login', (req, res) => {
 // eslint-disable-next-line
 server.use((req, res, next) => {
     const { db } = router;
-    const cookies = req.headers.cookie.split(' ');
-
-    let access_token = cookies.find((str) => str.includes('access_token')).split('=')[1];
-
-    if (access_token.includes(';')) {
-        access_token = access_token.slice(0, -1);
-    }
+    const access_token = req.headers.authorization;
+    console.log(access_token);
 
     const user = db
         .get('users')
@@ -134,10 +181,6 @@ server.use((req, res, next) => {
 
     if (!user) {
         return res.status(444).json({ message: 'Not auth' });
-    }
-
-    if (req.headers.authorization !== `Bearer ${user.access_token}`) {
-        return res.status(403).json({ message: 'AUTH ERROR' });
     }
 
     return next();

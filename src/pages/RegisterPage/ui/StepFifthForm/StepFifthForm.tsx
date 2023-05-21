@@ -61,12 +61,9 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
     });
 
     useEffect(() => {
-        console.log(new Date(
-            new Date().getFullYear() - 16,
-            new Date().getMonth(),
-            new Date().getDate(),
-        ));
-    }, []);
+        setValue('email', email);
+        setValue('phoneNumber', phoneNumber);
+    }, [email, phoneNumber, setValue]);
 
     return (
         <div className={classNames(classes.StepFifthForm, {}, [className])}>
@@ -89,7 +86,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
                     name="phoneNumber"
                     register={register}
                     watch={watch}
-                    setValue={setValue}
+                    // setValue={setValue}
                     defaultValue={phoneNumber}
                     disabled={isLoading}
                 />
@@ -103,6 +100,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
                     register={register}
                     watch={watch}
                     setValue={setValue}
+                    // setValue={setValue}
                     disabled={isLoading}
                 />
 

@@ -10,12 +10,14 @@ import classes from './CodeInputs.module.scss';
 interface CodeInputsProps {
     className?: string;
     getCode: (code: string) => void;
+    disabled?: boolean;
 }
 
 export const CodeInputs = memo((props: CodeInputsProps) => {
     const {
         className,
         getCode,
+        disabled,
     } = props;
 
     const [code, setCode] = useState<string[]>(['', '', '', '']);
@@ -92,6 +94,7 @@ export const CodeInputs = memo((props: CodeInputsProps) => {
                 maxLength={1}
                 ref={inputRefs[0]}
                 pattern="/d [0-9]"
+                disabled={disabled}
             />
             <input
                 className={classes.input}
@@ -101,6 +104,7 @@ export const CodeInputs = memo((props: CodeInputsProps) => {
                 maxLength={1}
                 ref={inputRefs[1]}
                 pattern="/d [0-9]"
+                disabled={disabled}
             />
             <input
                 className={classes.input}
@@ -110,6 +114,7 @@ export const CodeInputs = memo((props: CodeInputsProps) => {
                 maxLength={1}
                 ref={inputRefs[2]}
                 pattern="/d [0-9]"
+                disabled={disabled}
             />
             <input
                 className={classes.input}
@@ -119,6 +124,7 @@ export const CodeInputs = memo((props: CodeInputsProps) => {
                 maxLength={1}
                 ref={inputRefs[3]}
                 pattern="/d [0-9]"
+                disabled={disabled}
             />
             <Button
                 type="button"

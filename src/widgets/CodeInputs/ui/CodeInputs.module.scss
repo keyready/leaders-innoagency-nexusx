@@ -28,6 +28,11 @@
     &:focus {
         background: rgb(154 187 236 / 20%);
     }
+
+    &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+    }
 }
 
 .icon {

@@ -18,6 +18,8 @@ export const getPlatformById = createAsyncThunk<
                     throw new Error();
                 }
 
+                console.log(response.data);
+
                 // @ts-ignore
                 return response.data[0];
             } catch (error) {

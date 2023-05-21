@@ -17,7 +17,6 @@ import classes from './StepTwoForm.module.scss';
 interface StepTwoFormProps {
     className?: string;
     onSubmit: () => void;
-    code?: string;
     isLoading?: boolean
 }
 
@@ -26,7 +25,6 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
         className,
         onSubmit,
         isLoading,
-        code,
     } = props;
 
     const { t } = useTranslation('RegisterPage');
@@ -35,7 +33,6 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
     const formRef = useRef<HTMLFormElement>(null);
 
     const submitCodeError = useSelector(getRegisterCodeError);
-    const isCodeCorrect = useSelector(getRegisterIsCodeCorrect);
 
     const getCode = useCallback(async (code: string) => {
         const result = await dispatch(submitCode(code));
@@ -43,7 +40,7 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
         if (result.meta.requestStatus === 'fulfilled') {
             onSubmit?.();
         }
-    }, [dispatch, isCodeCorrect, onSubmit]);
+    }, [dispatch, onSubmit]);
 
     return (
         <div className={classNames(classes.StepTwoForm, {}, [className])}>
@@ -52,7 +49,11 @@ export const StepTwoForm = memo((props: StepTwoFormProps) => {
                 ref={formRef}
                 onSubmit={onSubmit}
             >
-                <CodeInputs className={classes.codes} getCode={getCode} />
+                <CodeInputs
+                    disabled={isLoading}
+                    className={classes.codes}
+                    getCode={getCode}
+                />
                 {isLoading && (
                     <HStack max justify="center">
                         <Loader />

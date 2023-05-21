@@ -18,6 +18,7 @@ export type AppRoutesProps = RouteProps & {
 export enum AppRoutes {
     MAIN = 'main',
     ABOUT = 'about',
+    PROFILE = 'profile',
     LOGIN = 'login',
     REGISTER = 'register',
     PLATFORM_PAGE = 'platform_page',
@@ -33,6 +34,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     // main
     [AppRoutes.MAIN]: '/',
     [AppRoutes.ABOUT]: '/about',
+    [AppRoutes.PROFILE]: '/feed',
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.REGISTER]: '/register',
     [AppRoutes.PLATFORM_PAGE]: '/platform/',
@@ -52,6 +54,11 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ABOUT]: {
         path: RoutePath.about,
         element: <AboutPage />,
+    },
+    [AppRoutes.PROFILE]: {
+        path: RoutePath.profile,
+        element: <AboutPage />,
+        authOnly: true,
     },
     [AppRoutes.LOGIN]: {
         path: RoutePath.login,

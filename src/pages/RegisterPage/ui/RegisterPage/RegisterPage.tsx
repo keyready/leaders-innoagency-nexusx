@@ -99,7 +99,7 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                 });
             }
 
-            setCurrentStep((prevState) => prevState + 1);
+            setCurrentStep(currentStep + 1);
         }
     }, [currentStep, dispatch, registerForm]);
 
@@ -160,7 +160,7 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                             isLoading={registerIsLoading}
                             onSubmit={
                                 () => {
-                                    setCurrentStep((prevState) => prevState + 1);
+                                    setCurrentStep(currentStep + 1);
                                 }
                             }
                         />
@@ -169,7 +169,7 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                         <StepThreeForm
                             onSubmitStep={
                                 (data) => {
-                                    setCurrentStep((prevState) => prevState + 1);
+                                    setCurrentStep(currentStep + 1);
                                     setRegisterForm({
                                         ...registerForm,
                                         password: data.password,
@@ -183,7 +183,7 @@ const RegisterPage = memo((props: RegisterPageProps) => {
                             isLoading={registerIsLoading}
                             onSubmitStep={
                                 (data) => {
-                                    setCurrentStep((prevState) => prevState + 1);
+                                    setCurrentStep(currentStep + 1);
                                     setRegisterForm({
                                         ...registerForm,
                                         name: data.name,

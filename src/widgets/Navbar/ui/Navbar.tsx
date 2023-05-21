@@ -2,7 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getUserAuthData, isUserAdmin, isUserOwner, userActions,
+    getUserAuthData, isUserAdmin, isUserOwner, logout, userActions,
 } from 'entities/User';
 import { useNavigate } from 'react-router';
 import { HStack } from 'shared/UI/Stack';
@@ -14,6 +14,9 @@ import EyeIcon from 'shared/assets/icons/eye.svg';
 import { Button } from 'shared/UI/Button';
 import { useTranslation } from 'react-i18next';
 import { Select } from 'shared/UI/Select/Select';
+import { Avatar } from 'shared/UI/Avatar/Avatar';
+import { Dropdown } from 'shared/UI/Dropdown';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -30,8 +33,11 @@ export const Navbar = memo(({ className }: NavbarProps) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const onLogout = useCallback(() => {
-        dispatch(userActions.logout());
-    }, [dispatch]);
+        if (!userData?.refresh_token) {
+            return;
+        }
+        dispatch(logout(userData?.refresh_token));
+    }, [dispatch, userData?.refresh_token]);
 
     const handleChangeLanguage = useCallback((newLanguage: string) => {
         i18n.changeLanguage(newLanguage);
@@ -71,12 +77,41 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                         <span className={classes.navbarLinks}>{t('inclusive_ver')}</span>
                     </HStack>
                 </AppLink>
-                <AppLink to="/login">
-                    <HStack max gap="8" align="center">
-                        <Icon Svg={LkIcon} className={classes.icon} />
-                        <span className={classes.navbarLinks}>{t('lk')}</span>
-                    </HStack>
-                </AppLink>
+                {userData
+                    ? (
+                        <Dropdown
+                            direction="bottom left"
+                            trigger={(
+                                <HStack max gap="8" align="center">
+                                    <Avatar
+                                        src={userData.avatar}
+                                        size={55}
+                                    />
+                                    <span className={classes.navbarLinks}>
+                                        {`${userData.firstname} ${userData.lastname}`}
+                                    </span>
+                                </HStack>
+                            )}
+                            items={[
+                                {
+                                    content: 'Профиль',
+                                    href: RoutePath.profile,
+                                },
+                                {
+                                    content: 'Выйти',
+                                    onClick: onLogout,
+                                },
+                            ]}
+                        />
+                    )
+                    : (
+                        <AppLink to="/login">
+                            <HStack max gap="8" align="center">
+                                <Icon Svg={LkIcon} className={classes.icon} />
+                                <span className={classes.navbarLinks}>{t('lk')}</span>
+                            </HStack>
+                        </AppLink>
+                    )}
             </HStack>
         </HStack>
     );

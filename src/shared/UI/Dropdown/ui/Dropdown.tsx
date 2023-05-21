@@ -17,7 +17,7 @@ interface DropdownProps {
     className?: string;
     trigger: ReactNode;
     items: DropdownItems[];
-direction?: ListBoxDirections
+    direction?: ListBoxDirections
 }
 const directionsMapper: Record<ListBoxDirections, string> = {
     'bottom left': classes.directionBottomLeft,

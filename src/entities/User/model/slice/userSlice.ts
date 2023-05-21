@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_ACCESSTOKEN_KEY, USER_REFRESHTOKEN_KEY } from 'shared/const';
 import Cookies from 'js-cookie';
+import { logout } from 'entities/User';
+import { checkAuth } from '../service/checkAuth';
 import { UserSchema } from '../types/UserSchema';
 import { User } from '../types/User';
 
@@ -22,12 +24,37 @@ export const userSlice = createSlice({
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)
             state._inited = true;
         },
-        logout: (state) => {
-            // выход
-            Cookies.remove(USER_ACCESSTOKEN_KEY);
-            Cookies.remove(USER_REFRESHTOKEN_KEY);
-            state.authData = undefined;
-        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(checkAuth.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(checkAuth.fulfilled, (state, action: PayloadAction<User>) => {
+                state.isLoading = false;
+                state.authData = action.payload;
+            })
+            .addCase(checkAuth.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(logout.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.isLoading = false;
+                state.authData = undefined;
+                Cookies.remove(USER_ACCESSTOKEN_KEY);
+                Cookies.remove(USER_REFRESHTOKEN_KEY);
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            });
     },
 });
 

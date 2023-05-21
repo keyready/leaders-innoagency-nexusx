@@ -10,13 +10,14 @@
 }
 
 .app {
+    height: 100vh;
     background: var(--bg-color);
-    min-height: 100vh;
-    overflow-y: hidden;
+    overflow: hidden;
 }
 
 .page {
     display: flex;
+    overflow: hidden;
 }
 
 *::-webkit-scrollbar {
@@ -30,7 +31,7 @@
 
 *::-webkit-scrollbar-thumb {
     border: 2px solid var(--inverted-bg-color);
-    border-radius: 10px;
+    border-radius: 2px;
     background-color: var(--bg-color);
 }
 
