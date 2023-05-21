@@ -6,7 +6,8 @@ interface BookPlatformProps {
     date?: Date;
     startTime?: Date;
     finishTime?: Date;
-    comment?: string
+    comment?: string;
+    bookedPlaces?: number;
 }
 
 export const bookPlatform = createAsyncThunk<

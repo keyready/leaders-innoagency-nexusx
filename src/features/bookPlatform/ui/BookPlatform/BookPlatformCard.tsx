@@ -1,5 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import React, { memo, useCallback, useState } from 'react';
+import React, {
+    ChangeEvent, memo, useCallback, useState,
+} from 'react';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { Card } from 'shared/UI/Card/Card';
@@ -28,6 +30,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
     const [selectedTime, setSelectedTime] = useState<SelectedTime>({});
     const [bookComment, setBookComment] = useState<string>('');
     const [currentStep, setCurrentStep] = useState<number>(1);
+    const [bookedPlaces, setBookedPlaces] = useState<number>(1);
 
     const bookingSchema = yup.object({
         checkbox: yup.boolean().oneOf(
@@ -41,12 +44,20 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
         resolver: yupResolver(bookingSchema),
     });
 
+    const placesChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        const value = Number(event.target.value);
+
+        if (value > 20) setBookedPlaces(20);
+        else setBookedPlaces(value);
+    }, []);
+
     const onSubmit = handleSubmit((data) => {
         dispatch(bookPlatform({
             date: selectedDate,
             startTime: selectedTime.startTime,
             finishTime: selectedTime.finishTime,
             comment: bookComment,
+            bookedPlaces,
         }));
     });
 
@@ -85,6 +96,18 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                 )}
 
                 {currentStep === 3 && (
+                    <VStack justify="start" align="center">
+                        <h4>{t('Количество мест')}</h4>
+                        <input
+                            className={classes.input}
+                            type="number"
+                            value={bookedPlaces}
+                            onChange={placesChangeHandler}
+                        />
+                    </VStack>
+                )}
+
+                {currentStep === 4 && (
                     <VStack
                         gap="16"
                         justify="start"
@@ -101,7 +124,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                     </VStack>
                 )}
 
-                {currentStep === 4 && (
+                {currentStep === 5 && (
                     <form onSubmit={onSubmit}>
                         <VStack
                             gap="16"
@@ -118,6 +141,12 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                                 <b>{`${t('Время')}:`}</b>
                                 <p>{`${formatTimeRange(selectedTime)}`}</p>
                             </HStack>
+                            {bookedPlaces && (
+                                <HStack gap="8" max justify="start" align="start">
+                                    <b>{`${t('Места')}:`}</b>
+                                    <p>{bookedPlaces}</p>
+                                </HStack>
+                            )}
                             {bookComment && (
                                 <HStack gap="8" max justify="start" align="start">
                                     <b>{`${t('Комментарий')}:`}</b>
@@ -133,7 +162,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                                             {...register('checkbox')}
                                             style={{ marginRight: 8 }}
                                         />
-                                        Данные введены верно
+                                        {t('Данные введены верно')}
                                     </label>
                                     {errors.checkbox && (
                                         <span
@@ -156,7 +185,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
                     </form>
                 )}
 
-                {currentStep < 4 && (
+                {currentStep < 5 && (
                     <Button
                         style={{ width: '50%', marginTop: 20 }}
                         disabled={currentStep === 1
