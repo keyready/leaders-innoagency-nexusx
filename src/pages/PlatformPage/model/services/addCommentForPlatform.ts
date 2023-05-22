@@ -26,9 +26,6 @@ export const addCommentForPlatform = createAsyncThunk<
         try {
             const response = await extra.api.post<Comment[]>('/comments', props);
 
-            console.log(props);
-            debugger;
-
             if (!response.data) {
                 throw new Error();
             }
