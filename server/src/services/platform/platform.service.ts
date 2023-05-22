@@ -16,8 +16,10 @@ export class PlatformService {
         return await this.platformModel.find().exec()
     }
 
-    async getOnePlatform(id:ObjectId){
-        return await this.platformModel.findById(id)
+    async getOnePlatform(id:string){
+        const platform = await this.platformModel.findOne({_id:id})
+        console.log(typeof(platform))
+        
     }
 
     async createPlatform(createPlatformDto,image){

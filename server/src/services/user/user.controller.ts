@@ -31,24 +31,24 @@ export class UserController {
         return await this.userService.createBooking(platformId,createBookingDto,req.headers.cookie['refresh_token'])
     }
 
-    // @Post('/delete_booking')
-    // @ApiOperation({summary:'Отмена бронирования'})
-    // async deleteBooking(@Body('bookingId') bookingId:string){
-    //     return this.userService.deleteMyBooking(bookingId)        
-    // }
+    @Post('/delete_booking')
+    @ApiOperation({summary:'Отмена бронирования'})
+    async deleteBooking(@Body('bookingId') bookingId:string){
+        return this.userService.deleteMyBooking(bookingId)        
+    }
 
-    // @Get('/comments')
-    // @ApiOperation({summary:'Получение всех отзывов для конкретной платформы'})
-    // async allCommentForCurrentPlatform(@Param('platformId') platformId:string){
-    //     //TODO - массив о каждом юзере оставившем коммент.
-    //     return this.userService.allCommentsForCurrentPlatform(platformId)
-    // }
+    @Get('/comments')
+    @ApiOperation({summary:'Получение всех отзывов для конкретной платформы'})
+    async allCommentForCurrentPlatform(@Param('platformId') platformId:string){
+        //TODO - массив объектов, где объект - инфо о каждом юзере оставившем коммент.
+        return this.userService.allCommentsForCurrentPlatform(platformId)
+    }
 
     @Post('/comments')
     @ApiOperation({summary:'Создания комментария для платформы'})
     async addCommentForCurrentPlatform(@Body() createCommentForPlatform:createCommentDto){
         return this.userService.addCommentForCurrentPlatform(createCommentForPlatform)   
     }
-
+    
 }
 

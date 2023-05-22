@@ -7,6 +7,10 @@ import { Document } from "mongoose";
     collection:'platforms'
 })
 export class Platform extends Document{
+
+    @Prop({type:String,required:true,unique:true})
+    _id:string
+
     @Prop({type:String})
     metro:string
 
@@ -31,17 +35,6 @@ export class Platform extends Document{
     
     @Prop({type:Date})
     date: Date
-
-    @Prop({type:[Object]})
-    booking: {
-        id:string
-        userId: string
-        date: Date
-        startTime: Date
-        endTime: Date
-        bookedPlaces: Number
-        comment: string
-    }
 
     @Prop({type:Number})
     maxGuests: number
@@ -77,14 +70,6 @@ export class Platform extends Document{
     workHours:{
         startTime: string
         endTime: string
-    }
-
-    @Prop({type:[Object]})
-    comment:{
-        id: string
-        userId: string
-        body: string
-        rate: number
     }
 }
 

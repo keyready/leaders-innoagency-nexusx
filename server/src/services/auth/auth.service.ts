@@ -6,7 +6,7 @@ import { RegisterUserDto } from 'src/dtos/register-user.dto';
 
 import * as bcrypt from 'bcrypt';
 
-import { generateConfirmationCode } from 'src/utils/utils';
+import { generateConfirmationCode, generateUniqueId } from 'src/utils/utils';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
 
 import { MailService } from 'src/common/services/mail.service';
@@ -49,15 +49,16 @@ export class AuthService {
         if(candidate == null){
             const user = await new this.userModel()
             if (email != ''){
+                user._id = generateUniqueId()
                 user.email = email
                 user.phoneNumber = null
                 const code = generateConfirmationCode()
                 user.confirmationCode = code
-                //TODO сообщение на почту с кодом.
-                // await this.mailService.sendMailConfirmRegister(email,code)
+                await this.mailService.sendMailConfirmRegister(email,code)
                 return await user.save()
             }
             else if(phoneNumber != ''){
+                user._id = generateUniqueId()
                 user.phoneNumber = phoneNumber
                 user.email = null
                 const code = generateConfirmationCode()

@@ -26,9 +26,9 @@ export class PlatformController {
         return await this.platformService.getAllPlatforms()
     }
     
-    @Get('/platform/:id')
+    @Get('/platform/:_id')
     @ApiOperation({summary:'Просмотр конкретной площадки'})
-    async getOnePlatform(@Param('id') id: ObjectId){
+    async getOnePlatform(@Param('_id') id:string){
         return await this.platformService.getOnePlatform(id)
     }
 

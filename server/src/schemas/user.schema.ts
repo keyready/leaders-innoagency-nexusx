@@ -8,6 +8,9 @@ import { Document } from "mongoose";
 })
 export class User extends Document{
 
+    @Prop({type:String,required:true,unique:true})
+    _id:string
+
     @Prop({type:String})
     email: string;
     
@@ -31,17 +34,6 @@ export class User extends Document{
 
     @Prop({type:String})
     avatar: string;
-        
-    @Prop({type:[Object]})
-    booking: {
-        id:string,
-        platformId: string,
-        date: Date,
-        startTime: Date,
-        endTime: Date
-        bookedPlaces: Number
-        comment: string
-    }
         
     @Prop({type:[String],default:['USER']})
     roles: String[]
