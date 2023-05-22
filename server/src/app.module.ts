@@ -3,13 +3,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 import { join } from 'path';
-
+import { JwtModule } from '@nestjs/jwt'
 import { AuthModule } from './services/auth/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { PlatformModule } from './services/platform/platform.module';
 import { UserModule } from './services/user/user.module';
+import { AdminModule } from './services/admin/admin.module';
 
 @Module({
   imports: [
@@ -22,7 +23,13 @@ import { UserModule } from './services/user/user.module';
     }),
     AuthModule,
     PlatformModule,
-    UserModule
+    UserModule,
+    AdminModule,
+    JwtModule.register({
+      global:true,
+      secret:'секрет',
+      signOptions:{expiresIn:'60s'}
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

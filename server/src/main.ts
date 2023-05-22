@@ -2,9 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+// import cookieParser from 'cookie-parser'
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
+  // app.use(cookieParser());
+
   const ApiDocsConfig = new DocumentBuilder()
     .setTitle('Документация к единому сервису бронирования креативных площадок города Москвы.')
     .setDescription('Решение 1 трека | Хакатон "Лидеры цифровой трансформации 2023" | NexusX Team')

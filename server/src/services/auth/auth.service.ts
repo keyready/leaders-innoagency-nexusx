@@ -1,4 +1,4 @@
-import { Injectable,BadRequestException,UnauthorizedException,InternalServerErrorException, HttpStatus,NotFoundException } from '@nestjs/common';
+import { Injectable,BadRequestException,UnauthorizedException,InternalServerErrorException, HttpStatus,NotFoundException,HttpException, Redirect } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
@@ -10,19 +10,19 @@ import { generateConfirmationCode } from 'src/utils/utils';
 import { LoginUserDto } from 'src/dtos/login-user.dto';
 
 import { MailService } from 'src/common/services/mail.service';
-import { JwtAuthService } from 'src/common/services/jwt.service';
-
+import { JwtService } from '@nestjs/jwt';
+import { SmscService } from 'src/common/services/sms.service';
 @Injectable()
 export class AuthService {
 
     constructor(
         @InjectModel(User.name) private readonly userModel:Model<User>,
         private readonly mailService: MailService,
-        private readonly jwtService: JwtAuthService,
+        private readonly jwtService:JwtService,
+        private readonly smsServise: SmscService,    
         ){}
-        // private readonly smsServise: SmsService,    
 
-    async register(registerUserDto: RegisterUserDto){
+    async register(registerUserDto: RegisterUserDto){ 
         const user = await this.userModel.findOne({
             $or:[
                 {email:registerUserDto.email},
@@ -37,8 +37,8 @@ export class AuthService {
     }
     
     async checkUser(requestData){
-        let {email, phoneNumber} = requestData
-
+        const {email, phoneNumber} = requestData
+        
         const candidate = await this.userModel.findOne({
             $or:[
                 {email:email},
@@ -50,14 +50,20 @@ export class AuthService {
             const user = await new this.userModel()
             if (email != ''){
                 user.email = email
-                user.confirmationCode = generateConfirmationCode()
+                user.phoneNumber = null
+                const code = generateConfirmationCode()
+                user.confirmationCode = code
                 //TODO сообщение на почту с кодом.
+                // await this.mailService.sendMailConfirmRegister(email,code)
                 return await user.save()
             }
             else if(phoneNumber != ''){
                 user.phoneNumber = phoneNumber
-                user.confirmationCode = generateConfirmationCode()
+                user.email = null
+                const code = generateConfirmationCode()
+                user.confirmationCode = code
                 //TODO смс на телефон с кодом
+                // await this.smsServise.sendSmsForConfirmRegister(phoneNumber,code)
                 return await user.save()
             }
         }
@@ -68,6 +74,9 @@ export class AuthService {
         else if (phoneNumber != '' && candidate.phoneNumber == null && candidate.isActivated && candidate.email != null){
             candidate.phoneNumber = phoneNumber
             return await candidate.save()
+        }
+        else{
+            throw new BadRequestException({message:`Пользователь ${email} в системе уже есть`})
         }
     }
 
@@ -85,12 +94,13 @@ export class AuthService {
             throw new UnauthorizedException({message:'Профиль не активирован. Проверьте вашу почту или телефон'})
         }
         else{
-            const access_token = await this.jwtService.generateToken({id:user._id,roles:user.roles})
-            const refresh_token = await this.jwtService.generateToken({id:user._id,roles:user.roles})
+
+            const access_token = await this.jwtService.signAsync({id:user._id,roles:user.roles})
+            const refresh_token = await this.jwtService.signAsync({id:user._id})
 
             user.refresh_token = refresh_token
             await user.save()
-
+            
             return {
                 ...user.toJSON(),
                 access_token,
@@ -102,8 +112,7 @@ export class AuthService {
     async activateByConfirmCode(requestData){
         const {code} = requestData
         const user = await this.userModel.findOne({confirmationCode:code})
-        if(user){
-            //TODO Фикс бага с выполнением дважды.
+        if(user != null){
             user.isActivated = true
             user.confirmationCode = null
             return await user.save()
@@ -113,30 +122,68 @@ export class AuthService {
         }
     }
 
-    // async resetPassword(email:string,phoneNumber:string){
-    //     if(email != ''){
-    //         const user = await this.userModel.findOne({email:email})
+    async changePassword(newPassword:string,refresh_token:string){
+        const user = await this.userModel.findOne({refresh_token:refresh_token})
+        if (bcrypt.hashSync(newPassword,5) === user.password){
+            throw new BadRequestException({message:'Пароли не должны совпадать'})
+        }
+        user.password = await bcrypt.hashSync(newPassword,5)
+        await this.mailService.sendMailChangePassword(user.email)
+        return await user.save()
+    }
 
-    //     }
-    //     if(phoneNumber != ''){
-    //         const user = await this.userModel.findOne({phoneNumber:phoneNumber})
+    async resetPassword(requestData){
+        const { email,phoneNumber } = requestData
+        const user = await this.userModel.findOne({
+            $or:[
+                {email:email},
+                {phoneNumber:phoneNumber}
+            ]
+        })
+        if(!user){
+            throw new BadRequestException({message:'Проверьте правильность введенных данных.'})
+        }
+        
+        user.password = null
 
-    //     }
-    // }
+        const confirmationCode = generateConfirmationCode()
+        user.confirmationCode = confirmationCode
 
-    // async changePassword(id:string,newPassword:string){
-    //     const user = await this.userModel.findById(id).exec()
-    //     if(bcrypt.compareSync(newPassword,user.password)){
-    //         user.password = bcrypt.hashSync(newPassword,5)
-    //         /*TODO почта о смене пароля */
-    //         return user.save()
-    //     }
-    //     else{
-    //         throw new UnauthorizedException({message: 'Новый пароль не должен совпадать со старым'})
-    //     }
-    // }
+        if(email != ''){
+            await this.mailService.sendMailResetPassword(user.email,confirmationCode)
+        }
 
+        if(phoneNumber != ''){
+            //TODO - смс на телефон с кодом
+        }
+
+        await user.save()
+
+        //TODO - вопрос с редиректом.
+        return Redirect('/changePassword')
+    }   
+
+    async logout(refresh_token){
+        const user = await this.userModel.findOne({refresh_token:refresh_token})
+        user.refresh_token = null
+        return user.save()
+    }
+
+    async refresh(refreshToken:string){
+        const user = await this.userModel.findOne({refresh_token:refreshToken})
+        if(!user){
+            throw new UnauthorizedException({message:'Неавторизованный запрос'})
+        }
+        const ResfreshToken = await this.jwtService.signAsync({id:user._id})
+        const access_token = await this.jwtService.signAsync({id:user._id,roles:user.roles})
+
+        user.refresh_token = ResfreshToken 
+        await user.save()
+        return {
+            ...user.toJSON(),
+            access_token,
+            ResfreshToken
+        }
+    }
 
 }
-
-

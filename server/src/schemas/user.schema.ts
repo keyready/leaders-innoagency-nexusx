@@ -34,10 +34,13 @@ export class User extends Document{
         
     @Prop({type:[Object]})
     booking: {
+        id:string,
         platformId: string,
         date: Date,
         startTime: Date,
         endTime: Date
+        bookedPlaces: Number
+        comment: string
     }
         
     @Prop({type:[String],default:['USER']})
