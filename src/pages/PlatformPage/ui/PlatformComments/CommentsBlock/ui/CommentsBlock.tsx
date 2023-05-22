@@ -8,23 +8,24 @@ import { VStack } from 'shared/UI/Stack';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addCommentForPlatform } from 'pages/PlatformPage';
 import { useSelector } from 'react-redux';
-import { getUserAuthData } from 'entities/User';
+import { getUserAuthData, User } from 'entities/User';
 import { CommentsCarousel } from '../../CommentsCarousel';
 import classes from './CommentsBlock.module.scss';
 
 interface CommentsBlockProps {
     className?: string;
     platform?: Platform;
+    user?: User;
 }
 
 export const CommentsBlock = memo((props: CommentsBlockProps) => {
     const {
         className,
         platform,
+        user,
     } = props;
 
     const { t } = useTranslation();
-    const userData = useSelector(getUserAuthData);
     const dispatch = useAppDispatch();
 
     const [newCommentText, setNewCommentText] = useState<string>('');
@@ -33,10 +34,10 @@ export const CommentsBlock = memo((props: CommentsBlockProps) => {
         dispatch(addCommentForPlatform({
             body: newCommentText,
             rate: 3,
-            userId: userData?._id,
+            userId: user?._id,
             platformId: platform?._id,
         }));
-    }, [dispatch, newCommentText]);
+    }, [dispatch, newCommentText, platform?._id, user]);
 
     return (
         <div className={classNames(classes.CommentsBlock, {}, [className])}>

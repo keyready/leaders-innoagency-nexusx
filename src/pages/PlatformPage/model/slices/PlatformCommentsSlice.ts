@@ -1,6 +1,7 @@
 import { createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Comment } from 'entities/Comment';
 import { StateSchema } from 'app/providers/StoreProvider';
+import { addCommentForPlatform } from '../services/addCommentForPlatform';
 import { fetchCommentsByPlatformId } from '../services/fetchCommentsByPlatformId';
 import { PlatformPageCommentsSchema } from '../types/index';
 
@@ -35,6 +36,22 @@ const PlatformPageCommentsSlice = createSlice({
                 commentsAdapter.setAll(state, action.payload);
             })
             .addCase(fetchCommentsByPlatformId.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+
+            .addCase(addCommentForPlatform.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(addCommentForPlatform.fulfilled, (
+                state,
+                action: PayloadAction<Comment[]>,
+            ) => {
+                state.isLoading = false;
+                commentsAdapter.setAll(state, action.payload);
+            })
+            .addCase(addCommentForPlatform.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "super-user-228-1337-the-best-frontender",
+      "_id": "super-user-228-1337-the-best-frontender",
       "firstname": "Родион",
       "lastname": "Корчак",
       "middlename": "Дмитриевич",
@@ -10,7 +10,7 @@
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
       "access_token": "lokaiw2m1um4aqa70b9pzo",
-      "refresh_token": "nhlt5evffec65lqs65ulf"
+      "refresh_token": "igz627tk33s2pv04uu5eos"
     },
     {
       "name": "Андрей",

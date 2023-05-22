@@ -3,6 +3,7 @@ import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
 import { getUserAuthData } from 'entities/User';
 import { getPlatformData } from 'entities/Platform';
+import { Comment } from 'entities/Comment';
 
 interface AddCommentForPlatformProps {
     body?: string;
@@ -12,18 +13,21 @@ interface AddCommentForPlatformProps {
 }
 
 export const addCommentForPlatform = createAsyncThunk<
-    string,
+    Comment[],
     AddCommentForPlatformProps,
     ThunkConfig<string>
 >(
-    'platformPage1/fetchCommentsByPlatformId',
+    'platformPage1/addCommentForPlatform',
     async (props, thunkAPI) => {
         const {
             extra, rejectWithValue,
         } = thunkAPI;
 
         try {
-            const response = await extra.api.post<string>('/comments', props);
+            const response = await extra.api.post<Comment[]>('/comments', props);
+
+            console.log(props);
+            debugger;
 
             if (!response.data) {
                 throw new Error();

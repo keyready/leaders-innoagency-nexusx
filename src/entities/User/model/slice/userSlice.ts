@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_ACCESSTOKEN_KEY, USER_REFRESHTOKEN_KEY } from 'shared/const';
 import Cookies from 'js-cookie';
-import { logout } from 'entities/User';
+import { logout } from '../service/logout';
 import { checkAuth } from '../service/checkAuth';
 import { UserSchema } from '../types/UserSchema';
 import { User } from '../types/User';

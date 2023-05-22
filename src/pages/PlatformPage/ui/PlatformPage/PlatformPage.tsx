@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { BookPlatformCard, bookPlatformReducer } from 'features/bookPlatform';
 import { YMaps } from 'widgets/YMaps';
 import { getMetroStationCoords, getMetroStationData, getMetroStationReducer } from 'features/getMetroStation';
+import { getUserAuthData, userReducer } from 'entities/User';
 import { CommentsBlock } from '../PlatformComments/CommentsBlock';
 import { platformPageReducers } from '../../model/slices/index';
 import { RestrictionsSection } from '../RestrictionsSection/ui/RestrictionsSection';
@@ -36,6 +37,7 @@ const PlatformPage = memo((props: PlatformPageProps) => {
     const { id } = useParams();
 
     const platform = useSelector(getPlatformData);
+    const userData = useSelector(getUserAuthData);
     const isPlatformLoading = useSelector(getPlatformIsLoading);
     // @ts-ignore
     const metroCoords: number[] = useSelector(getMetroStationCoords);
@@ -77,7 +79,7 @@ const PlatformPage = memo((props: PlatformPageProps) => {
                     </div>
                 )}
 
-                <CommentsBlock platform={platform} />
+                <CommentsBlock user={userData} platform={platform} />
             </Page>
         </DynamicModuleLoader>
     );

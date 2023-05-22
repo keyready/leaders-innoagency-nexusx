@@ -20,7 +20,17 @@ const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 // });
 
 server.post('/comments', (req, res) => {
-    res.status(200).json({ message: 'Успешно добавлено' });
+    const { userId, platformId } = req.body;
+
+    const { db } = router;
+    const comments = db
+        .get('comments')
+        .find({ platformId })
+        .value();
+
+    console.log(comments);
+
+    res.status(200).json(comments);
 });
 
 server.get('/error', (req, res) => {
