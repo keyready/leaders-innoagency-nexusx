@@ -19,6 +19,10 @@ const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 //     next();
 // });
 
+server.post('/comments', (req, res) => {
+    res.status(200).json({ message: 'Успешно добавлено' });
+});
+
 server.get('/error', (req, res) => {
     //
     res.status(401).json({ data: 'хых, ошибка' });

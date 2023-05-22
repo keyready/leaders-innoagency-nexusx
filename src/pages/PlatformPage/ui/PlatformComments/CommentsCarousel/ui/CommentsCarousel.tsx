@@ -6,12 +6,14 @@ import { useSelector } from 'react-redux';
 import { CommentCard } from 'entities/Comment';
 import { Carousel } from 'widgets/Carousel';
 import { HStack } from 'shared/UI/Stack';
-import { Loader } from 'shared/UI/Loader';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
-import { getPlatformComments } from '../../../model/slices/PlatformCommentsSlice';
-import { getCommentsError, getCommentsIsLoading } from '../../../model/selectors/getCommetsStatus';
-import { fetchCommentsByPlatformId } from '../../../model/services/fetchCommentsByPlatformId';
 import classes from './CommentsCarousel.module.scss';
+import { getPlatformComments } from '../../../../model/slices/PlatformCommentsSlice';
+import { fetchCommentsByPlatformId } from '../../../../model/services/fetchCommentsByPlatformId';
+import {
+    getCommentsError,
+    getCommentsIsLoading,
+} from '../../../../model/selectors/getCommetsStatus';
 
 interface CommentsCarouselProps {
     className?: string;

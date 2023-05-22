@@ -13,3 +13,10 @@
     width: 35px;
     height: 35px;
 }
+
+@media (width <= 1200px) {
+    .RestrictionsSection {
+        margin: 20px auto;
+    }
+
+}

@@ -6,7 +6,7 @@ export interface User {
     firstname: string;
     lastname: string;
     middlename: string;
-    avatar?: string;
+    avatar: string;
     booking?: UserBooking[];
     roles?: UserRoles[];
     access_token?: string;

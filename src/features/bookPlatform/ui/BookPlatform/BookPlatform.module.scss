@@ -5,6 +5,13 @@
     background: rgb(154 187 236 / 10%);
 }
 
+@media (width <= 1200px) {
+    .BookPlatform {
+        margin: 50px auto;
+    }
+
+}
+
 .header {
     font-size: 48px;
     font-weight: 700;

@@ -90,6 +90,9 @@ export const Input = memo((props: InputProps) => {
     }, []);
 
     const type = () => {
+        // if (inputType === 'search') {
+        //     return 'submit';
+        // }
         if (inputType === 'password' && isPasswordVisible) {
             return 'text';
         }

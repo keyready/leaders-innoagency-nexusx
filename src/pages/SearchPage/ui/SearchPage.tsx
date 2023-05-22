@@ -20,6 +20,10 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { AppLink } from 'shared/UI/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
+import { Input } from 'shared/UI/Input';
+import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import classes from './SearchPage.module.scss';
 
 interface SearchPageProps {
@@ -42,8 +46,15 @@ const SearchPage = memo((props: SearchPageProps) => {
     const [searchQuery, setSearchQuery] = useState<string>(searchQueryFromUrl || '');
 
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    const { t } = useTranslation();
     const platforms = useSelector(getPlatforms.selectAll);
     const isLoading = useSelector(getFetchPlatformsIsLoading);
+
+    const {
+        setValue, watch, register, formState: { errors },
+    } = useForm();
 
     useEffect(() => {
         document.title = 'ПРОЩЕ | Поиск';
@@ -51,6 +62,19 @@ const SearchPage = memo((props: SearchPageProps) => {
         if (platforms.length) return;
         dispatch(fetchPlatforms({ query: 'sdkjfgn' }));
     }, [dispatch, platforms.length]);
+
+    useEffect(() => {
+        const handleSearchEnter = (ev: KeyboardEvent) => {
+            if (ev.key === 'Enter' && watch(searchQuery)) {
+                navigate(`/search?q=${watch(searchQuery)}`);
+            }
+        };
+
+        document.addEventListener('keypress', handleSearchEnter);
+        return () => {
+            document.removeEventListener('keypress', handleSearchEnter);
+        };
+    }, []);
 
     const setSearchQueryHandler = useCallback((value: string) => {
         setSearchQuery(value);
@@ -61,6 +85,7 @@ const SearchPage = memo((props: SearchPageProps) => {
         // TODO запрос на поиск площадок
     }, [searchQuery]);
 
+    // TODO сделать поиск
     return (
         <DynamicModuleLoader removeAfterUnmount={false} reducers={reducers}>
             <Page className={classNames(classes.SearchPage, {}, [className])}>
@@ -72,6 +97,17 @@ const SearchPage = memo((props: SearchPageProps) => {
                     <p className={classes.subtitle}>
                         Найти через ПОИСК
                     </p>
+                    <Input
+                        className={classes.searchInput}
+                        placeholder={t('Поиск по платформам') as string}
+                        inputType="search"
+                        setValue={setValue}
+                        watch={watch}
+                        name="searchQuery"
+                        // @ts-ignore
+                        errors={errors}
+                        register={register}
+                    />
                 </VStack>
                 <div className={classes.searchResults}>
                     {platforms.length

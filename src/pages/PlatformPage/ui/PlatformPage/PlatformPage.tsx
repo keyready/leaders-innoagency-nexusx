@@ -1,6 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Page } from 'widgets/Page/Page';
 import { useParams } from 'react-router-dom';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
@@ -12,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { BookPlatformCard, bookPlatformReducer } from 'features/bookPlatform';
 import { YMaps } from 'widgets/YMaps';
 import { getMetroStationCoords, getMetroStationData, getMetroStationReducer } from 'features/getMetroStation';
-import { CommentsCarousel } from '../CommentsCarousel';
+import { CommentsBlock } from '../PlatformComments/CommentsBlock';
 import { platformPageReducers } from '../../model/slices/index';
 import { RestrictionsSection } from '../RestrictionsSection/ui/RestrictionsSection';
 import { PlatformBody } from '../PlatformBody/PlatformBody';
@@ -78,7 +77,7 @@ const PlatformPage = memo((props: PlatformPageProps) => {
                     </div>
                 )}
 
-                <CommentsCarousel platform={platform} />
+                <CommentsBlock platform={platform} />
             </Page>
         </DynamicModuleLoader>
     );

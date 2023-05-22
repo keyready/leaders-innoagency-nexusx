@@ -146,7 +146,7 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                             />
                             <h3 className={classes.orgName}>Котяткинс Котовичевичкин</h3>
                         </HStack>
-                        <VStack>
+                        <VStack justify="start" align="stretch">
                             <h2 className={classes.orgTel}>{platform?.tel}</h2>
                             <div
                                 onClick={copyOrgEmail}
