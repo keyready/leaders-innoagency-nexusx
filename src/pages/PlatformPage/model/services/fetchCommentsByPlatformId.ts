@@ -8,7 +8,7 @@ export const fetchCommentsByPlatformId = createAsyncThunk<
     string | undefined,
     ThunkConfig<string>
 >(
-    'platformPage1/fetchCommentsByPlatformId',
+    'Platform Page / fetchCommentsByPlatformId',
     async (id, thunkAPI) => {
         const { extra, rejectWithValue } = thunkAPI;
 

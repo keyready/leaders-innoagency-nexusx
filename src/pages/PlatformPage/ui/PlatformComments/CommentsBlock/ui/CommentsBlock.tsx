@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useState } from 'react';
-import { Platform } from 'entities/Platform';
+import { getPlatformData, Platform } from 'entities/Platform';
 import { TextArea } from 'shared/UI/TextArea/TextArea';
 import { Button } from 'shared/UI/Button';
 import { VStack } from 'shared/UI/Stack';
@@ -14,17 +14,17 @@ import classes from './CommentsBlock.module.scss';
 
 interface CommentsBlockProps {
     className?: string;
-    platform?: Platform;
 }
 
 export const CommentsBlock = memo((props: CommentsBlockProps) => {
     const {
         className,
-        platform,
     } = props;
 
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
+
+    const platform = useSelector(getPlatformData);
     const user = useSelector(getUserAuthData);
 
     const [newCommentText, setNewCommentText] = useState<string>('');

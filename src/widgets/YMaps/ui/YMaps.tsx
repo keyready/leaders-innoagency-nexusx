@@ -15,7 +15,6 @@ interface YMapsProps {
     place: string;
     metroName?: string;
     metroCoords?: number[];
-    setIsLoading?: (status: boolean) => void;
 }
 
 export const YMaps = memo((props: YMapsProps) => {

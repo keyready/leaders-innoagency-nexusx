@@ -2,24 +2,23 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo } from 'react';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
+import { useSelector } from 'react-redux';
+import { getPlatformData, getPlatformIsLoading } from 'entities/Platform';
 import classes from './PlatformHeader.module.scss';
 
 interface PlatformHeaderProps {
     className?: string;
-    image?: string;
-    name?: string;
-    isLoading?: boolean;
 }
 
 export const PlatformHeader = memo((props: PlatformHeaderProps) => {
     const {
         className,
-        image,
-        name,
-        isLoading,
     } = props;
 
     const { t } = useTranslation();
+    const isLoading = useSelector(getPlatformIsLoading);
+    const image = useSelector(getPlatformData)?.images[0];
+    const name = useSelector(getPlatformData)?.name;
 
     if (isLoading) {
         return (

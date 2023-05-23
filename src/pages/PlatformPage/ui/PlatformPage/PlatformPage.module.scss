@@ -4,26 +4,3 @@
 .header {
     margin-bottom: 60px;
 }
-
-@media (width > 1200px) {
-    .contactsWrapper {
-        margin-top: 50px;
-        margin-left: 250px;
-
-        h2 {
-            text-align: center;
-        }
-    }
-
-}
-
-@media (width <= 1200px) {
-    .contactsWrapper {
-        margin: 50px 20px;
-
-        h2 {
-            text-align: left;
-        }
-    }
-
-}

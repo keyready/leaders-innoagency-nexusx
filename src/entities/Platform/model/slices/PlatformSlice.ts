@@ -9,7 +9,7 @@ const initialState: PlatformSchema = {
 };
 
 export const PlatformSlice = createSlice({
-    name: 'Platform',
+    name: 'Platform Item',
     initialState,
     reducers: {
         template: (state, action: PayloadAction<string>) => {

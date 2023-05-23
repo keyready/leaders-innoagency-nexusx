@@ -1,8 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
-import { getUserAuthData } from 'entities/User';
-import { getPlatformData } from 'entities/Platform';
 import { Comment } from 'entities/Comment';
 
 interface AddCommentForPlatformProps {
@@ -17,7 +15,7 @@ export const addCommentForPlatform = createAsyncThunk<
     AddCommentForPlatformProps,
     ThunkConfig<string>
 >(
-    'platformPage1/addCommentForPlatform',
+    'Platform Page / addCommentForPlatform',
     async (props, thunkAPI) => {
         const {
             extra, rejectWithValue,

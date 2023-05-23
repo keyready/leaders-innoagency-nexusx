@@ -2,9 +2,7 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import { memo, useCallback, useEffect } from 'react';
 import { HStack, VStack } from 'shared/UI/Stack';
-import { Platform } from 'entities/Platform';
 import { Card } from 'shared/UI/Card/Card';
-import { CommentCard } from 'entities/Comment';
 import { Carousel } from 'widgets/Carousel';
 import WaIcon from 'shared/assets/socials/wa.svg';
 import TgIcon from 'shared/assets/socials/tg.svg';
@@ -13,39 +11,38 @@ import MetroIcon from 'shared/assets/icons/marker.svg';
 import ClockIcon from 'shared/assets/icons/clock.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
+import { useSelector } from 'react-redux';
+import { getPlatformById, getPlatformData, getPlatformIsLoading } from 'entities/Platform';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import classes from './PlatformBody.module.scss';
 
 interface PlatformBodyProps {
     className?: string;
-    platform?: Platform;
-    isLoading?: boolean;
+    id: string;
 }
 
 export const PlatformBody = memo((props: PlatformBodyProps) => {
     const {
         className,
-        platform,
-        isLoading,
+        id,
     } = props;
 
     const { t } = useTranslation('PlatformPage');
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getPlatformById(id));
+    }, [dispatch, id]);
+
+    const platform = useSelector(getPlatformData);
+    const platformIsLoading = useSelector(getPlatformIsLoading);
 
     const copyOrgEmail = useCallback(() => {
         navigator.clipboard.writeText(platform?.email || '')
             .then(() => alert('Почта скопирована!'));
     }, [platform?.email]);
 
-    const platformImages = () => platform?.images.map((image, index) => (
-        <img
-            key={index}
-            className={classes.platformPhoto}
-            src={image}
-            alt=""
-        />
-    ));
-    const carouselContent = platformImages();
-
-    if (isLoading) {
+    if (platformIsLoading) {
         return (
             <HStack max justify="between" align="start" gap="20">
                 <VStack
@@ -79,6 +76,23 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
             </HStack>
         );
     }
+
+    // TODO обработка несуществующей платформы
+    if (!platform) {
+        return (
+            <h2>платформа не найдена</h2>
+        );
+    }
+
+    const platformImages = () => platform?.images.map((image, index) => (
+        <img
+            key={index}
+            className={classes.platformPhoto}
+            src={image}
+            alt=""
+        />
+    ));
+    const carouselContent = platformImages();
 
     return (
         <HStack

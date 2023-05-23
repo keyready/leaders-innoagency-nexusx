@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Alert } from 'shared/UI/Alert';
 import { useSelector } from 'react-redux';
-import { getPlatformById, Platform } from 'entities/Platform';
+import { getPlatformById, getPlatformData, Platform } from 'entities/Platform';
 import {
     getBookPlatformError,
     getBookPlatformIsLoading,
@@ -26,15 +26,16 @@ import classes from './BookPlatform.module.scss';
 
 interface BookPlatformCardProps {
     className?: string;
-    platform?: Platform;
-    onSuccessBooking?: () => void;
+    id: string;
 }
 
 export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
-    const { className, platform, onSuccessBooking } = props;
+    const { className, id } = props;
 
     const { t } = useTranslation('PlatformPage');
     const dispatch = useAppDispatch();
+
+    const platform = useSelector(getPlatformData);
 
     const bookingSuccessMessage = useSelector(getBookPlatformSuccessMessage);
     const bookingError = useSelector(getBookPlatformError);
@@ -76,7 +77,7 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
         }));
 
         if (bookResult.meta.requestStatus === 'fulfilled') {
-            onSuccessBooking?.();
+            dispatch(getPlatformById(id));
         }
     });
 

@@ -17,13 +17,13 @@ import { PlatformPageSchema } from 'pages/PlatformPage';
 export interface StateSchema {
     user: UserSchema;
     ui: UISchema
+    platform: PlatformSchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
 
     // asynchronous reducers
     loginPage?: LoginPageSchema;
     platformPage?: PlatformPageSchema;
     registerPage?: RegisterPageSchema;
-    platform?: PlatformSchema;
     comment?: CommentSchema;
     getPlatforms?: GetPlatformsSchema;
     metroStation?: GetMetroStationSchema;
