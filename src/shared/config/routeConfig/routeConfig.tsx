@@ -10,6 +10,7 @@ import { LoginPage } from 'pages/LoginPage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { PlatformPage } from 'pages/PlatformPage';
 import { OwnerPanelPage } from 'pages/OwnerPanelPage';
+import { ProfilePage } from 'pages/ProfilePage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -60,7 +61,7 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.PROFILE]: {
         path: RoutePath.profile,
-        element: <AboutPage />,
+        element: <ProfilePage />,
         authOnly: true,
     },
     [AppRoutes.LOGIN]: {
