@@ -1,31 +1,33 @@
-import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import {
-    memo, useEffect, useRef, useState,
+    memo, RefCallback, useCallback, useMemo, useRef, useState,
 } from 'react';
 import {
-    FullscreenControl, Map, Placemark, RoutePanel, YMapsApi, YMaps as YandexMaps,
+    FullscreenControl, Map, Placemark, RoutePanel, YMaps as YandexMaps, YMapsApi,
 } from 'react-yandex-maps';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
+import { RoutePanelRefObject } from 'widgets/YMaps/types/YMaps.types';
 import { getPlaceCoordinates } from '../lib/getPlaceCoords';
-import classes from './YMaps.module.scss';
 
 interface YMapsProps {
     className?: string;
     place: string;
+    placeName?: string;
     metroName?: string;
     metroCoords?: number[];
+    showRoute?: boolean;
 }
 
 export const YMaps = memo((props: YMapsProps) => {
     const {
         className,
         place,
+        placeName,
         metroName,
+        showRoute,
     } = props;
     const { t } = useTranslation();
 
-    const mapRef = useRef<typeof Map | null>(null);
     const [coords, setCoords] = useState<number[]>([59.95, 30.28]);
     const [metroCoords, setMetroCoords] = useState<number[]>([59.00, 30.28]);
     const [isMapsLoading, setIsMapsLoading] = useState<boolean>(true);
@@ -34,21 +36,53 @@ export const YMaps = memo((props: YMapsProps) => {
         getPlaceCoordinates(ymaps, place)
             .then((coordinates) => {
                 if (coordinates) {
-                    console.log('place', coordinates);
                     setCoords(coordinates);
                 }
             });
         if (metroName) {
-            getPlaceCoordinates(ymaps, metroName)
+            getPlaceCoordinates(ymaps, `г. Санкт-Петербург, станция метро ${metroName}`)
                 .then((coordinates) => {
                     if (coordinates) {
-                        console.log('metro', coordinates);
                         setMetroCoords(coordinates);
                     }
                 });
         }
         setIsMapsLoading(false);
     };
+    const handleRoutePanelRef = useCallback<RefCallback<RoutePanelRefObject>>(
+        (ref) => {
+            if (!ref) {
+                return;
+            }
+
+            ref.routePanel.state.set({
+                type: 'masstransit',
+                to: place,
+                from: `Метро ${metroName}`,
+                toEnabled: false,
+            });
+
+            ref.routePanel.options.set({
+                types: {
+                    masstransit: true,
+                    pedestrian: true,
+                    auto: true,
+                    bicycle: false,
+                },
+            });
+        },
+        [metroName, place],
+    );
+    const routePanelDefaultOptions = useMemo(
+        () => ({
+            float: 'left',
+            maxWidth: 270,
+            showHeader: true,
+            reverseGeocoding: true,
+            title: `Workspace ${placeName}`,
+        }),
+        [placeName],
+    );
 
     return (
         <div className={className}>
@@ -66,13 +100,12 @@ export const YMaps = memo((props: YMapsProps) => {
                     options={{ minZoom: 10, maxZoom: 15 }}
                     state={{ center: coords, zoom: 15 }}
                 >
-                    {/* <RoutePanel */}
-                    {/*    options={{ */}
-                    {/*        float: 'left', */}
-                    {/*        maxWidth: 270, */}
-                    {/*        reverseGeocoding: true, */}
-                    {/*    }} */}
-                    {/* /> */}
+                    {showRoute && metroCoords && (
+                        <RoutePanel
+                            instanceRef={handleRoutePanelRef}
+                            options={routePanelDefaultOptions}
+                        />
+                    )}
                     <FullscreenControl />
                     <Placemark
                         // options={{

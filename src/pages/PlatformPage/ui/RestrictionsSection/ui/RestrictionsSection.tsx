@@ -7,6 +7,7 @@ import { Card } from 'shared/UI/Card/Card';
 import { Icon } from 'shared/UI/Icon/Icon';
 import CrossIcon from 'shared/assets/icons/danger-arrow.svg';
 import { useSelector } from 'react-redux';
+import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import classes from './RestrictionsSection.module.scss';
 
 interface RestrictionsSectionProps {
@@ -22,6 +23,16 @@ export const RestrictionsSection = memo((props: RestrictionsSectionProps) => {
     const platform = useSelector(getPlatformData);
     const platformIsLoading = useSelector(getPlatformIsLoading);
 
+    if (platformIsLoading) {
+        return (
+            <Skeleton width="100%" height="200px" />
+        );
+    }
+
+    if (!platform?.restrictions) {
+        return null;
+    }
+
     return (
         <VStack
             className={classes.RestrictionsSection}
@@ -30,7 +41,7 @@ export const RestrictionsSection = memo((props: RestrictionsSectionProps) => {
         >
             <h2 style={{ textAlign: 'center' }}>{t('Условия аренды')}</h2>
             <div className={classes.restrictions}>
-                {platform?.restrictions.map((restriction, index) => (
+                {platform.restrictions.map((restriction, index) => (
                     <Card key={index}>
                         <HStack max justify="start" align="center">
                             <Icon className={classes.icon} Svg={CrossIcon} />

@@ -30,6 +30,8 @@ export const PlatformMaps = memo((props: PlatformMapsProps) => {
         <div className={classes.contactsWrapper}>
             <h2>Где нас найти?</h2>
             <YMaps
+                showRoute
+                placeName={platform?.name}
                 className={classes.mapWrapper}
                 place={platform?.address || ''}
                 metroName={platform?.metro}

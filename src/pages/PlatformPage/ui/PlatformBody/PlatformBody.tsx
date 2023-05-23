@@ -9,6 +9,7 @@ import TgIcon from 'shared/assets/socials/tg.svg';
 import VkIcon from 'shared/assets/socials/vk.svg';
 import MetroIcon from 'shared/assets/icons/marker.svg';
 import ClockIcon from 'shared/assets/icons/clock.svg';
+import BrowserIcon from 'shared/assets/icons/browser.svg';
 import { Icon } from 'shared/UI/Icon/Icon';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import { useSelector } from 'react-redux';
@@ -130,74 +131,93 @@ export const PlatformBody = memo((props: PlatformBodyProps) => {
                                 {platform?.address}
                             </p>
                         </HStack>
-                        <HStack max gap="8">
-                            <Icon Svg={ClockIcon} className={classes.timeIcon} />
-                            <p
-                                className={classes.platformAddress}
-                            >
-                                {platform?.date.toLocaleString('ru-RU', {
-                                    weekday: 'long',
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                    hour: 'numeric',
-                                    minute: 'numeric',
-                                    second: 'numeric',
-                                    hour12: false,
-                                })}
-                            </p>
-                        </HStack>
+                        {platform.web && (
+                            <HStack max gap="8">
+                                <Icon Svg={BrowserIcon} className={classes.timeIcon} />
+                                <a
+                                    href={platform?.web}
+                                    target="_blank"
+                                    className={classes.platformAddress}
+                                    rel="noreferrer"
+                                >
+                                    {platform?.web.split('https://')[1]}
+                                </a>
+                            </HStack>
+                        )}
+                        {platform?.date && (
+                            <HStack max gap="8">
+                                <Icon Svg={ClockIcon} className={classes.timeIcon} />
+                                <p
+                                    className={classes.platformAddress}
+                                >
+                                    {platform?.date.toLocaleString('ru-RU', {
+                                        weekday: 'long',
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric',
+                                        hour: 'numeric',
+                                        minute: 'numeric',
+                                        second: 'numeric',
+                                        hour12: false,
+                                    })}
+                                </p>
+                            </HStack>
+                        )}
                     </VStack>
                 </Card>
-                <Card>
-                    <VStack align="center" gap="16">
-                        <h3 className={classes.orgTitle}>{t('Об организаторе')}</h3>
-                        <HStack max justify="center" align="center">
-                            <img
-                                src="/images/image1.png"
-                                alt="фото"
-                                className={classes.orgImage}
-                            />
-                            <h3 className={classes.orgName}>Котяткинс Котовичевичкин</h3>
-                        </HStack>
-                        <VStack justify="start" align="stretch">
-                            <h2 className={classes.orgTel}>{platform?.tel}</h2>
-                            <div
-                                onClick={copyOrgEmail}
-                                className={classes.orgMailWrapper}
+                {platform.owner && (
+                    <Card>
+                        <VStack align="center" gap="16">
+                            <h3 className={classes.orgTitle}>{t('Об организаторе')}</h3>
+                            <HStack max justify="center" align="center">
+                                <img
+                                    src={platform?.owner?.avatar}
+                                    alt="фото"
+                                    className={classes.orgImage}
+                                />
+                                <h3 className={classes.orgName}>
+                                    {`${platform.owner.lastname} ${platform.owner.firstname}`}
+                                </h3>
+                            </HStack>
+                            <VStack justify="start" align="stretch">
+                                <h2 className={classes.orgTel}>{platform?.owner.phoneNumber}</h2>
+                                <div
+                                    onClick={copyOrgEmail}
+                                    className={classes.orgMailWrapper}
+                                >
+                                    <h2 className={classes.orgEmail}>{platform?.owner.email}</h2>
+                                </div>
+                            </VStack>
+                            <HStack
+                                max
+                                justify="center"
+                                gap="8"
                             >
-                                <h2 className={classes.orgEmail}>{platform?.email}</h2>
-                            </div>
+                                <a
+                                    target="_blank"
+                                    href={`//${platform?.whatsapp}` || ''}
+                                    rel="noreferrer"
+                                >
+                                    <Icon Svg={WaIcon} className={classes.refIcon} />
+                                </a>
+                                <a
+                                    target="_blank"
+                                    href={`//${platform?.telegram}` || ''}
+                                    rel="noreferrer"
+                                >
+                                    <Icon Svg={TgIcon} className={classes.refIcon} />
+                                </a>
+                                <a
+                                    target="_blank"
+                                    href={`//${platform?.vkontakte}` || ''}
+                                    rel="noreferrer"
+                                >
+                                    <Icon Svg={VkIcon} className={classes.refIcon} />
+                                </a>
+                            </HStack>
                         </VStack>
-                        <HStack
-                            max
-                            justify="center"
-                            gap="8"
-                        >
-                            <a
-                                target="_blank"
-                                href={`//${platform?.whatsapp}` || ''}
-                                rel="noreferrer"
-                            >
-                                <Icon Svg={WaIcon} className={classes.refIcon} />
-                            </a>
-                            <a
-                                target="_blank"
-                                href={`//${platform?.telegram}` || ''}
-                                rel="noreferrer"
-                            >
-                                <Icon Svg={TgIcon} className={classes.refIcon} />
-                            </a>
-                            <a
-                                target="_blank"
-                                href={`//${platform?.vkontakte}` || ''}
-                                rel="noreferrer"
-                            >
-                                <Icon Svg={VkIcon} className={classes.refIcon} />
-                            </a>
-                        </HStack>
-                    </VStack>
-                </Card>
+                    </Card>
+                )}
                 <Card>
                     <VStack justify="start" align="center">
                         <h3>{t('Доступно мест')}</h3>

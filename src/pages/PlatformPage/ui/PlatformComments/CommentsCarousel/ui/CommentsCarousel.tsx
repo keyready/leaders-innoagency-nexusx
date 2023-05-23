@@ -36,35 +36,6 @@ export const CommentsCarousel = memo((props: CommentsCarouselProps) => {
         dispatch(fetchCommentsByPlatformId(platform?._id));
     }, [dispatch, platform?._id]);
 
-    const getCommentsCards = () => {
-        const cards = [];
-
-        for (let i = 0; i < comments.length; i += 2) {
-            const comment1 = comments[i];
-            const comment2 = comments[i + 1];
-
-            const card1 = comment1 && (
-                <CommentCard key={comment1._id} comment={comment1} />
-            );
-
-            const card2 = comment2 && (
-                <CommentCard key={comment2._id} comment={comment2} />
-            );
-
-            const card = (
-                <HStack gap="20" align="center" justify="center">
-                    {card1}
-                    {card2}
-                </HStack>
-            );
-
-            cards.push(card);
-        }
-
-        return cards;
-    };
-    const commentsCards = getCommentsCards();
-
     if (isCommentsLoading) {
         return (
             <div className={classes.CommentsCarouselWrapper}>
@@ -96,6 +67,34 @@ export const CommentsCarousel = memo((props: CommentsCarouselProps) => {
             </div>
         );
     }
+    const getCommentsCards = () => {
+        const cards = [];
+
+        for (let i = 0; i < comments.length; i += 2) {
+            const comment1 = comments[i];
+            const comment2 = comments[i + 1];
+
+            const card1 = comment1 && (
+                <CommentCard key={comment1._id} comment={comment1} />
+            );
+
+            const card2 = comment2 && (
+                <CommentCard key={comment2._id} comment={comment2} />
+            );
+
+            const card = (
+                <HStack gap="20" align="center" justify="center">
+                    {card1}
+                    {card2}
+                </HStack>
+            );
+
+            cards.push(card);
+        }
+
+        return cards;
+    };
+    const commentsCards = getCommentsCards();
 
     return (
         <div className={classes.CommentsCarouselWrapper}>

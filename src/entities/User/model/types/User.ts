@@ -8,6 +8,8 @@ export interface User {
     middlename: string;
     avatar: string;
     booking?: UserBooking[];
+    email?: string;
+    phoneNumber?: string;
     roles?: UserRoles[];
     access_token?: string;
     refresh_token?: string;
