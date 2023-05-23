@@ -9,8 +9,8 @@
       "phoneNumber": "89243093207",
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
-      "access_token": "r67kpj8qcpix5178v552",
-      "refresh_token": "vb3x90fcwkbottuc0fz82",
+      "access_token": "07sdwqqm2mrm91k5b0gbu7t",
+      "refresh_token": "8qvpqyq4ye9eowc86vlq2m",
       "roles": [
         "ADMIN",
         "USER",
@@ -36,7 +36,7 @@
   "platforms": [
     {
       "_id": "plt1",
-      "address": "г. Санкт-Петербург, ул. Нижняя Сыромятническая, д. 10",
+      "address": "г. Москва, ул. Нижняя Сыромятническая, д. 10",
       "bookings": [
         {
           "_id": "booking001",
@@ -69,7 +69,7 @@
         "Нельзя громко включать музыку",
         "Никаких животных на территории"
       ],
-      "metro": "Комендантский проспект",
+      "metro": "Курский вокзал",
       "name": "Artplay",
       "owner": {
         "id": "super-user-228-1337-the-best-frontender",
@@ -104,7 +104,7 @@
         "avatar": "/users/user1.jpg"
       },
       "_id": "plt2",
-      "address": "Санкт-Петербург, Исаакиевская площадь, 4",
+      "address": "г. Москва, Исаакиевская площадь, 4",
       "bookings": [],
       "cost": 110,
       "date": "",
@@ -114,7 +114,7 @@
         "/images/platform1_3.jpeg",
         "/images/platform1_3.jpeg"
       ],
-      "metro": "Адмиралтейская",
+      "metro": "Охотный ряд",
       "name": "Товарищество Рябовской мануфактуры",
       "subtitle": "",
       "type": "workspace",
@@ -132,7 +132,7 @@
     },
     {
       "_id": "plt3",
-      "address": "г. Санкт-Петербург, Комсомольский проспект, 28",
+      "address": "г. Москва, Комсомольский проспект, 28",
       "bookings": [
         {
           "_id": "booking001",
@@ -159,7 +159,7 @@
         "/images/platform1_3.jpeg",
         "/images/platform1_3.jpeg"
       ],
-      "metro": "Адмиралтейская",
+      "metro": "Фрунзенская",
       "name": "Московский дворец молодежи",
       "subtitle": "",
       "type": "workspace",
@@ -183,7 +183,7 @@
         "avatar": "/users/user1.jpg"
       },
       "_id": "plt4",
-      "address": "г. Санкт-Петербург, ул. Большая Новодмитровская, 36",
+      "address": "г. Москва, ул. Большая Новодмитровская, 36",
       "bookings": [
         {
           "_id": "booking001",
@@ -234,7 +234,7 @@
         "avatar": "/users/user1.jpg"
       },
       "_id": "plt5",
-      "address": "г. Санкт-Петербург, ул. Нижняя Сыромятническая, д. 10",
+      "address": "г. Москва, ул. Нижняя Сыромятническая, д. 10",
       "bookings": [
         {
           "_id": "booking001",
@@ -325,7 +325,7 @@
         "avatar": "/users/user1.jpg"
       },
       "_id": "plt7",
-      "address": "г. Санкт-Петербург, Комсомольский проспект, 28",
+      "address": "г. Москва, Комсомольский проспект, 28",
       "bookings": [
         {
           "_id": "booking001",
@@ -376,7 +376,7 @@
         "avatar": "/users/user1.jpg"
       },
       "_id": "plt8",
-      "address": "г. Санкт-Петербург, ул. Большая Новодмитровская, 36",
+      "address": "г. Москва, ул. Большая Новодмитровская, 36",
       "bookings": [
         {
           "_id": "booking001",
@@ -427,7 +427,7 @@
         "avatar": "/users/user1.jpg"
       },
       "_id": "plt9",
-      "address": "г. Санкт-Петербург, ул. Нижняя Сыромятническая, д. 10",
+      "address": "г. Москва, ул. Нижняя Сыромятническая, д. 10",
       "bookings": [
         {
           "_id": "booking001",

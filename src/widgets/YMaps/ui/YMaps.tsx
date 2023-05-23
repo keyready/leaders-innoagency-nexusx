@@ -28,8 +28,8 @@ export const YMaps = memo((props: YMapsProps) => {
     } = props;
     const { t } = useTranslation();
 
-    const [coords, setCoords] = useState<number[]>([59.95, 30.28]);
-    const [metroCoords, setMetroCoords] = useState<number[]>([59.00, 30.28]);
+    const [coords, setCoords] = useState<number[]>([]);
+    const [metroCoords, setMetroCoords] = useState<number[] | null>(null);
     const [isMapsLoading, setIsMapsLoading] = useState<boolean>(true);
 
     const handleLoadMap = (ymaps: YMapsApi) => {
@@ -40,7 +40,7 @@ export const YMaps = memo((props: YMapsProps) => {
                 }
             });
         if (metroName) {
-            getPlaceCoordinates(ymaps, `г. Санкт-Петербург, станция метро ${metroName}`)
+            getPlaceCoordinates(ymaps, `г. Москва, станция метро ${metroName}`)
                 .then((coordinates) => {
                     if (coordinates) {
                         setMetroCoords(coordinates);
@@ -79,7 +79,7 @@ export const YMaps = memo((props: YMapsProps) => {
             maxWidth: 270,
             showHeader: true,
             reverseGeocoding: true,
-            title: `Workspace ${placeName}`,
+            title: `${placeName}`,
         }),
         [placeName],
     );
@@ -97,7 +97,6 @@ export const YMaps = memo((props: YMapsProps) => {
                     onLoad={handleLoadMap}
                     modules={['geocode']}
                     style={{ width: '100%', height: 500 }}
-                    options={{ minZoom: 10, maxZoom: 15 }}
                     state={{ center: coords, zoom: 15 }}
                 >
                     {showRoute && metroCoords && (
@@ -107,7 +106,8 @@ export const YMaps = memo((props: YMapsProps) => {
                         />
                     )}
                     <FullscreenControl />
-                    <Placemark
+                    {coords && (
+                        <Placemark
                         // options={{
                         //     iconLayout: 'default#image',
                         //     iconImageHref: 'images/main-logo.svg',
@@ -115,11 +115,14 @@ export const YMaps = memo((props: YMapsProps) => {
                         //     iconImageOffset: [-26, -55],
                         //
                         // }}
-                        geometry={coords}
-                    />
-                    <Placemark
-                        geometry={metroCoords}
-                    />
+                            geometry={coords}
+                        />
+                    )}
+                    {metroCoords && (
+                        <Placemark
+                            geometry={metroCoords}
+                        />
+                    )}
                 </Map>
             </YandexMaps>
         </div>
