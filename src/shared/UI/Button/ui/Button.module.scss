@@ -64,3 +64,12 @@
         outline: none;
     }
 }
+
+.danger {
+    color: #ff9090;
+    background: rgb(255 144 144 / 10%);
+
+    &:hover {
+        background: #FF909040;
+    }
+}

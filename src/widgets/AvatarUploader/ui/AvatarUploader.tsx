@@ -17,6 +17,7 @@ interface AvatarUploaderProps {
     width?: number;
     height?: number;
     border?: number;
+    rotation?: number;
     color?: number[];
 }
 
@@ -28,6 +29,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
         height = 250,
         width = 250,
         border = 2,
+        rotation = 0,
     } = props;
 
     const { t } = useTranslation();
@@ -36,6 +38,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
 
     const [avatarZoom, setAvatarZoom] = useState<number>(1);
     const [avatarBorderRadius, setAvatarBorderRadius] = useState<number>(0);
+    const [avatarRotation, setAvatarRotation] = useState<number>(0);
 
     const editorRef = useRef<AvatarEditor>(null);
 
@@ -49,7 +52,11 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
         else if (radius > 100) setAvatarBorderRadius(100);
         else setAvatarBorderRadius(radius);
     }, []);
-
+    const avatarRotationHandler = useCallback((rotation: number) => {
+        if (rotation < -180) setAvatarRotation(-180);
+        else if (rotation > 180) setAvatarRotation(180);
+        else setAvatarRotation(rotation);
+    }, []);
     const handleSave = () => {
         if (editorRef.current) {
             const canvas = editorRef.current.getImage();
@@ -83,7 +90,13 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
     return (
         <Card className={classNames(classes.AvatarUploader, {}, [className])}>
             <VStack justify="between" align="center" className={classes.wrapperWrapper}>
-                <HStack justify="between" max className={classes.wrapper}>
+                <h2>{t('Ваш аватар')}</h2>
+                <HStack
+                    justify="center"
+                    gap="32"
+                    max
+                    className={classes.wrapper}
+                >
                     <VStack>
                         <AvatarEditor
                             image={previewUrl || image}
@@ -94,6 +107,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                             border={border}
                             borderRadius={avatarBorderRadius}
                             scale={avatarZoom}
+                            rotate={avatarRotation}
                         />
                         <div className={classes.file_input}>
                             <input
@@ -131,7 +145,24 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                             max={10}
                             onChange={(zoom) => avatarZoomHandler(zoom as number)}
                         />
-                        <h4 style={{ marginBottom: 20 }}>{t('Сглаживание углов')}</h4>
+                        <h4 style={{ marginTop: 20 }}>{t('Поворот')}</h4>
+                        <Slider
+                            defaultValue={avatarRotation}
+                            trackStyle={{ backgroundColor: '#9ABBEC', height: 10 }}
+                            handleStyle={{
+                                borderColor: '#9ABBEC',
+                                height: 20,
+                                width: 20,
+                                marginLeft: -7,
+                                backgroundColor: '#6196E4',
+                            }}
+                            railStyle={{ backgroundColor: '#B7B8B9', height: 10 }}
+                            min={-180}
+                            step={2}
+                            max={180}
+                            onChange={(zoom) => avatarRotationHandler(zoom as number)}
+                        />
+                        <h4 style={{ marginTop: 20 }}>{t('Сглаживание углов')}</h4>
                         <Slider
                             defaultValue={avatarBorderRadius}
                             trackStyle={{ backgroundColor: '#9ABBEC', height: 10 }}
@@ -150,7 +181,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                         />
                     </div>
                 </HStack>
-                <Button onClick={handleSave}>Отправить</Button>
+                <Button onClick={handleSave}>Сохранить</Button>
             </VStack>
         </Card>
     );

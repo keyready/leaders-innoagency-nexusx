@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import { Page } from 'widgets/Page/Page';
 import { AvatarUploader } from 'widgets/AvatarUploader';
+import { EditableProfileData } from 'pages/ProfilePage/ui/EditableProfileData';
+import { VStack } from 'shared/UI/Stack';
 import classes from './ProfilePage.module.scss';
 
 interface ProfilePageProps {
@@ -19,8 +21,11 @@ const ProfilePage = memo((props: ProfilePageProps) => {
 
     return (
         <Page className={classNames(classes.ProfilePage, {}, [className])}>
-            <h2>{`${t('Страница пользователя')} ${user?.firstname}`}</h2>
-            <AvatarUploader image={user?.avatar || ''} />
+            <VStack className={classes.ProfilePageWrapper} justify="start" align="center">
+                <h2>{`${t('Страница пользователя')} ${user?.firstname}`}</h2>
+                <AvatarUploader image={user?.avatar || ''} />
+                <EditableProfileData />
+            </VStack>
         </Page>
     );
 });

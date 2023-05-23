@@ -37,6 +37,18 @@ server.get('/error', (req, res) => {
     //
     res.status(401).json({ data: 'хых, ошибка' });
 });
+server.post('/check_old_password', (req, res) => {
+    //
+    res.status(202).json({ data: 'хых, ошибка' });
+});
+server.post('/change_password', (req, res) => {
+    //
+    res.status(202).json({ data: 'хых, ошибка' });
+});
+server.post('/change_profile', (req, res) => {
+    //
+    res.status(202).json({ data: 'хых, ошибка' });
+});
 server.post('/book_platform', (req, res) => {
     res.status(201).json({ message: 'Успешно забронировано' });
 });

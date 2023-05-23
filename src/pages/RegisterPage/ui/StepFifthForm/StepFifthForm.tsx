@@ -4,7 +4,7 @@ import React, { memo, useEffect } from 'react';
 import * as Yup from 'yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input } from 'shared/UI/Input';
+import { YupInput } from 'widgets/YupInput';
 import { Button } from 'shared/UI/Button';
 import classes from './StepFifthForm.module.scss';
 
@@ -69,7 +69,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
         <div className={classNames(classes.StepFifthForm, {}, [className])}>
             <p className={classes.text}>{t('Давайте заполним Ваш профиль!')}</p>
             <form onSubmit={onSubmit} className={classes.form}>
-                <Input
+                <YupInput
                     // @ts-ignore
                     errors={errors}
                     name="dateOfBirth"
@@ -79,7 +79,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
                     inputType="date"
                 />
 
-                <Input
+                <YupInput
                     // @ts-ignore
                     errors={errors}
                     placeholder={t('Номер телефона') as string}
@@ -91,7 +91,7 @@ export const StepFifthForm = memo((props: StepFifthFormProps) => {
                     disabled={isLoading}
                 />
 
-                <Input
+                <YupInput
                     defaultValue={email}
                     // @ts-ignore
                     errors={errors}

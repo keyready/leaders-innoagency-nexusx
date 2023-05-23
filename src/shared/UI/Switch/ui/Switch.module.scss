@@ -18,13 +18,13 @@
     transition: all 0.2s ease-in-out;
     pointer-events: none;
     transform: none;
-    background-color: var(--primary-bg-color);
+    background-color: var(--accent-color-main);
     box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
     outline: none;
 }
 
 .checkedButton {
-    background: var(--primary-bg-color);
+    background: var(--accent-color-sec);
 }
 
 .checked {

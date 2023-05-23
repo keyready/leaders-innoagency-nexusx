@@ -22,7 +22,7 @@ import { useSelector } from 'react-redux';
 import { Alert } from 'shared/UI/Alert';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { TabContent, Tabs } from 'shared/UI/Tabs';
-import { Input } from 'shared/UI/Input';
+import { YupInput } from 'widgets/YupInput';
 import { useTranslation } from 'react-i18next';
 import { getLoginDataError, getLoginDataIsLoading } from '../../model/selectors/getLoginData';
 import { login } from '../../model/services/Login';
@@ -102,7 +102,7 @@ const LoginPage = memo((props: LoginPageProps) => {
         {
             title: t('По почте'),
             content: (
-                <Input
+                <YupInput
                     // @ts-ignore
                     errors={errors}
                     register={register}
@@ -116,7 +116,7 @@ const LoginPage = memo((props: LoginPageProps) => {
         {
             title: t('По номеру телефона'),
             content: (
-                <Input
+                <YupInput
                     // @ts-ignore
                     errors={errors}
                     register={register}
