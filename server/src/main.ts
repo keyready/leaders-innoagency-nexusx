@@ -3,11 +3,14 @@ import { DocumentBuilder,SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 import * as cors from 'cors'
+import * as path from 'path'
+import * as express from 'express'
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   app.enableCors()
+  app.use(express.static(path.resolve('static/')))
 
   const ApiDocsConfig = new DocumentBuilder()
     .setTitle('Документация к единому сервису бронирования креативных площадок города Москвы.')

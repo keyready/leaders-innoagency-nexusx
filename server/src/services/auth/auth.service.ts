@@ -29,6 +29,7 @@ export class AuthService {
                 {phoneNumber:registerUserDto.phoneNumber}
             ]
         })
+        // user.avatar = 'client/images/img.png'
         user.firstname = registerUserDto.name
         user.lastname = registerUserDto.lastname
         user.password = bcrypt.hashSync(registerUserDto.password,5)

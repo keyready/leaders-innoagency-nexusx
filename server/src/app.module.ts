@@ -16,7 +16,8 @@ import { AdminModule } from './services/admin/admin.module';
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/leaders_innoagency'),
     ServeStaticModule.forRoot({
-      rootPath:join(__dirname,'..','..','client')
+      rootPath:join(__dirname,'..','..','client'),
+      // renderPath:join(__dirname,'..','static')
     }),
     ConfigModule.forRoot({
       isGlobal:true

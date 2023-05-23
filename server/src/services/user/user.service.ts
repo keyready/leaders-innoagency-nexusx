@@ -7,6 +7,8 @@ import { Platform } from 'src/schemas/platform.schema';
 import { User } from 'src/schemas/user.schema';
 import { Comment } from 'src/schemas/comment.schema';
 import { generateUniqueId } from 'src/utils/utils';
+import * as fs from 'fs'
+import * as path from 'path'
 
 @Injectable()
 export class UserService {
@@ -69,5 +71,11 @@ export class UserService {
         return await this.commentModel.find({platformId:platformId})
     }
 
+    async uploadAvatar(image,token){
+        const user = await this.userModel.findOne({refresh_token:token})
+        //TODO - дописать удаление старой фотки
+        user.avatar = `/img/users/${image.filename}`
+        return await user.save()
+    }
 
 }
