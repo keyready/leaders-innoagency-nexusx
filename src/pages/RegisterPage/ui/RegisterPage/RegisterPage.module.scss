@@ -1,0 +1,134 @@
+.RegisterPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.Form {
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mainHeader {
+    font-size: 72px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.smallMainHeader {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.formWrapper {
+    width: 550px;
+    align-items: stretch;
+}
+
+.orWrapper {
+    color: #b7b8b9;
+    font-size: 16px;
+    text-align: center;
+    line-height: 23px;
+}
+
+.sendWrapper {
+    color: #323232;
+    font-size: 16px;
+    text-align: center;
+    line-height: 23px;
+}
+
+.input {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--primary-color);
+    background: var(--inverted-bg-color);
+    font: var(--font-line-main-text);
+    transition: 200ms ease-in-out;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        cursor: auto;
+        color: rgb(183 184 185 / 10%);
+        background: rgb(183 184 185 / 10%);
+    }
+}
+
+.errorMessage {
+    color: red;
+    font-size: 16px;
+    font-style: italic;
+}
+
+.error {
+    background: rgb(255 0 0 / 20%);
+    outline: 2px solid crimson;
+}
+
+.link {
+    margin-top: 10px;
+    color: #b7b8b9;
+    font-size: 16px;
+    text-decoration-line: underline;
+}
+
+.signInHelpersWrapper {
+    margin-top: 45px;
+}
+
+.signInHelpers {
+    font-size: 16px;
+    margin-right: 30px;
+}
+
+.loginIcon {
+    width: 32px;
+    height: 32px;
+}
+
+.congratsHeader {
+    font-size: 32px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 120%;
+}
+
+.congratsText {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 120%;
+}
+
+.submitButton {
+    width: 100%;
+    margin-top: 40px;
+}
+
+.infoCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10000;
+}

@@ -1,0 +1,41 @@
+.SearchPage {
+
+}
+
+.mainHeader {
+    font-size: 120px;
+    font-weight: bold;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subheader {
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 32px;
+
+    &:nth-child(3) {
+        margin-top: 60px;
+    }
+}
+
+.searchInput {
+    width: 650px;
+    color: inherit;
+}
+
+.expandSearch {
+    width: 700px;
+}
+
+.searchResults {
+    display: grid;
+    gap: 20px;
+    margin-top: 70px;
+    justify-items: center;
+    grid-template-columns: 2fr 2fr;
+}

@@ -1,0 +1,22 @@
+.RestrictionsSection {
+    margin: 20px 0 50px 250px;
+}
+
+.restrictions {
+    display: grid;
+    gap: 25px;
+    margin-top: 20px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.icon {
+    width: 35px;
+    height: 35px;
+}
+
+@media (width <= 1200px) {
+    .RestrictionsSection {
+        margin: 20px 20px;
+    }
+
+}

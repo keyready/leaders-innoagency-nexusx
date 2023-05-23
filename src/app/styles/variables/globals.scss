@@ -1,0 +1,53 @@
+:root {
+    --font-family-heading: "Ubuntu", sans-serif;
+    --font-family-text: "Istok Web", sans-serif;
+
+    // large / h1
+    --font-size-heading-large: 64px;
+    --font-line-heading-large: 100%;
+    --font-heading-large: var(--font-size-heading-large) / var(--font-line-heading-large) var(--font-family-heading);
+
+    // medium / h2
+    --font-size-heading-medium: 52px;
+    --font-line-heading-medium: 100%;
+    --font-heading-medium: var(--font-size-heading-medium) / var(--font-line-heading-medium) var(--font-family-heading);
+
+    // small / h3
+    --font-size-heading-small: 36px;
+    --font-line-heading-small: 120%;
+    --font-heading-small: var(--font-size-heading-small) / var(--font-line-heading-small) var(--font-family-text);
+
+    // main text
+    --font-size-main-text: 24px;
+    --font-line-main-text: 120%;
+    --font-main-text: var(--font-size-main-text) / var(--font-line-main-text) var(--font-family-text);
+
+    // sub text
+    --font-size-sub-text: 16px;
+    --font-line-sub-text: 120%;
+    --font-main-sub-text: var(--font-size-sub-text) / var(--font-line-sub-text) var(--font-family-text);
+
+    //  Размеры
+    --navbar-heigth: 100px;
+    --footer-height: 500px;
+    --sidebar-width: 300px;
+    --sidebar-width-collapsed: 75px;
+
+    // z - index
+    --modal-z-index: 100;
+
+    // overlay color
+    --overlay-color: rgba(0 0 0 / 60%);
+
+    // границы
+    --border-radius: 35px;
+    --border-width: 2px;
+
+    // цвета для вариантов
+    --danger-color: crimson;
+    --danger-bg: #ff9090;
+    --warning-color: gold;
+    --warning-bg: #ffcc1640;
+    --success-color: #b6e492;
+    --success-bg: #b6e4924d;
+}

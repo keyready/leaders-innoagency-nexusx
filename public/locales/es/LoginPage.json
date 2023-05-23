@@ -1,0 +1,18 @@
+{
+  "invalid_email": "Correo electrónico introducido incorrectamente",
+  "required_field": "Campo obligatorio",
+  "invalid_number": "Número de Teléfono introducido incorrectamente",
+  "spec_symbols": "La contraseña debe contener caracteres especiales",
+  "too_long": "Demasiado largo",
+  "too_short": "Demasiado corto",
+  "вход": "acceso",
+  "По почте": "Por correo",
+  "По номеру телефона": "Por número de Teléfono",
+  "Номер телефона": "Número de Teléfono",
+  "Пароль": "Contraseña",
+  "Не регистрировались ранее?": "¿No te registraste antes?",
+  "Забыли пароль?": "Recuperar contraseña",
+  "ПРОЩЕ": "SIMPLEMENTE",
+  "войти через": "entrar a través de",
+  "или": "o"
+}

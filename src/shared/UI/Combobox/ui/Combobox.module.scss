@@ -1,0 +1,60 @@
+.Combobox {
+    color: black;
+    position: relative;
+}
+
+.Input {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--primary-color);
+    background: var(--inverted-bg-color);
+    font: var(--font-line-main-text);
+    transition: 200ms ease-in-out;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.options {
+    padding: 0;
+    border-radius: var(--border-radius);
+    background: var(--inverted-bg-color);
+    margin-top: 12px;
+    min-width: 100%;
+    position: absolute;
+    top: 100%;
+    z-index: 10000;
+}
+
+.item {
+    cursor: pointer;
+    padding: 40px 70px;
+}
+
+.active {
+    background: rgb(154 187 236 / 10%);
+
+    &:first-child {
+        border-top-right-radius: var(--border-radius);
+        border-top-left-radius: var(--border-radius);
+    }
+
+    &:last-child {
+        border-bottom-right-radius: var(--border-radius);
+        border-bottom-left-radius: var(--border-radius);
+    }
+}
+
+.divider {
+    width: 100%;
+    height: 4px;
+    background: var(--accent-color-sec);
+}
+
+.search {
+    &:hover {
+        text-decoration: underline;
+    }
+}

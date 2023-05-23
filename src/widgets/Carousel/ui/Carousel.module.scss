@@ -1,0 +1,22 @@
+.CarouselWrapper {
+    position: relative;
+}
+
+.arrowsWrapper {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:first-child {
+        left: 0;
+    }
+
+    &:last-child {
+        right: 0;
+    }
+}
+
+.arrows {
+    width: 60px;
+    height: 60px;
+}

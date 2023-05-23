@@ -1,0 +1,62 @@
+.Alert {
+    padding: 4px 30px 4px 4px;
+    border-radius: var(--border-radius);
+    text-align: center;
+
+    p {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+}
+
+.primary {
+    color: var(--accent-color-sec);
+    background: #9abbec40;
+    outline: var(--border-width) solid var(--accent-color-sec);
+}
+
+.success {
+    background: linear-gradient(93.03deg, rgb(108 224 134 / 20%) 0%, rgb(119 202 106 / 20%) 100%);
+
+    .message {
+        background: linear-gradient(93.03deg, rgb(36 193 184 / 50%) 0%, rgb(117 209 61 / 50%) 83.33%);
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "Istok Web", sans-serif;
+        font-style: normal;
+        line-height: 90%;
+        text-align: center;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
+
+.warning {
+    color: var(--warning-color);
+    background: var(--warning-bg);
+    outline: var(--border-width) solid var(--warning-color);
+
+    .message {
+
+    }
+}
+
+.danger {
+    background: rgb(255 144 144 / 10%);
+
+    .message {
+        color: #ff9090;
+        font-size: 16px;
+        font-weight: 700;
+        font-family: "Istok Web", sans-serif;
+        font-style: normal;
+        line-height: 90%;
+        text-align: center;
+    }
+}

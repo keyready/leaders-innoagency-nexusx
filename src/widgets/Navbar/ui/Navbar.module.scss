@@ -1,0 +1,30 @@
+.Navbar {
+    width: 100%;
+    padding: 20px 40px;
+    background: var(--bg-color);
+}
+
+.icon {
+    width: 37px;
+    height: 37px;
+    margin-right: 5px;
+}
+
+.navbarLinks {
+    font-size: 16px;
+    font-weight: 700;
+    background-color: var(--accent-color-sec);
+    background-image: var(--accent-grad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.mainIcon {
+    width: 120px;
+    height: 54px;
+}
+
+.navbar {
+    color: var(--accent-color-sec);
+    font: var(--font-main-sub-text);
+}
