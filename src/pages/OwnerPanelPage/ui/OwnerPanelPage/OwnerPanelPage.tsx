@@ -55,9 +55,8 @@ const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
         const formData = new FormData(event.currentTarget);
         if (!files) return;
 
-        for (let i = 0; i < files.length; i += 1) {
-            formData.append(`platformImage_${i}`, files[i]);
-        }
+        // @ts-ignore
+        formData.append('platformImages', files);
 
         for (let i = 0; i < files.length; i += 1) {
             formData.delete('images');

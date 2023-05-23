@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { BookPlatformCard, bookPlatformReducer } from 'features/bookPlatform';
 import { YMaps } from 'widgets/YMaps';
 import { getMetroStationCoords, getMetroStationData, getMetroStationReducer } from 'features/getMetroStation';
+import { HStack } from 'shared/UI/Stack';
 import { CommentsBlock } from '../PlatformComments/CommentsBlock';
 import { platformPageReducers } from '../../model/slices/index';
 import { RestrictionsSection } from '../RestrictionsSection/ui/RestrictionsSection';
@@ -45,11 +46,15 @@ const PlatformPage = memo((props: PlatformPageProps) => {
     }, [dispatch, id]);
 
     useEffect(() => {
-        dispatch(getMetroStationData(platform?.metro));
+        if (platform?.metro) {
+            dispatch(getMetroStationData(platform?.metro));
+        }
     }, [dispatch, platform?.metro]);
 
     const reloadPlatformData = useCallback(() => {
-        dispatch(getPlatformById(platform?._id));
+        if (platform?._id) {
+            dispatch(getPlatformById(platform?._id));
+        }
     }, [dispatch, platform?._id]);
 
     return (

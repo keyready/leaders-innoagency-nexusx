@@ -1,62 +1,76 @@
+import { Fragment, ReactNode } from 'react';
+import { Listbox as HSelect } from '@headlessui/react';
+import { ListBoxDirections } from 'shared/types/ui';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ChangeEvent, memo, useMemo } from 'react';
 import classes from './Select.module.scss';
 
-export interface SelectOptions {
+export interface SelectItem {
     value: string;
-    content: string;
+    content: ReactNode;
+    unavailable?: boolean;
 }
 
 interface SelectProps {
     className?: string;
-    label?: string;
-    readonly?: boolean;
-    option?: SelectOptions[];
-    value?: string;
-    onChange?: (value: string) => void;
+    items: SelectItem[];
+    selectedValue: SelectItem;
+    setSelectedValue: (newValue: SelectItem) => void;
+    direction?: ListBoxDirections;
 }
 
-export const Select = memo((props: SelectProps) => {
+const directionsMapper: Record<ListBoxDirections, string> = {
+    'bottom left': classes.directionBottomLeft,
+    'top left': classes.directionsTopLeft,
+    'bottom right': classes.directionBottomRight,
+    'top right': classes.directionsTopRight,
+};
+
+export const Select = (props: SelectProps) => {
     const {
         className,
-        option,
-        value,
-        label,
-        readonly,
-        onChange,
+        selectedValue,
+        setSelectedValue,
+        items,
+        direction = 'bottom left',
     } = props;
 
-    const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-        onChange?.(e.target.value);
-    };
-
-    const options = useMemo(() => option?.map((opt) => (
-        <option
-            className={classes.option}
-            value={opt.value}
-            key={opt.value}
-        >
-            {opt.content}
-        </option>
-    )), [option]);
+    const menuClasses = [directionsMapper[direction]];
 
     return (
-        <div className={classNames(classes.Select, {}, [className])}>
-            {label && (
-                <label
-                    className={classNames(classes.label, { [classes.readonly]: readonly }, [])}
-                >
-                    {`${label}>`}
-                </label>
-            )}
-            <select
-                disabled={readonly}
-                className={classes.select}
-                value={value}
-                onChange={onChangeHandler}
+        <HSelect
+            as="div"
+            className={classes.Select}
+            value={selectedValue}
+            onChange={setSelectedValue}
+        >
+            <HSelect.Button
+                className={classes.SelectButton}
             >
-                {options}
-            </select>
-        </div>
+                {selectedValue.content}
+            </HSelect.Button>
+            <HSelect.Options
+                className={classNames(classes.SelectOptions, {}, menuClasses)}
+            >
+                {items.map((item) => (
+                    <HSelect.Option
+                        as={Fragment}
+                        key={item.value}
+                        value={item}
+                        disabled={item.unavailable}
+                    >
+                        {({ active, selected }) => (
+                            <p
+                                className={classNames(classes.item, {
+                                    [classes.active]: active,
+                                    [classes.selected]: selected,
+                                })}
+                            >
+                                {item.content}
+                            </p>
+                        )}
+                    </HSelect.Option>
+                ))}
+            </HSelect.Options>
+        </HSelect>
     );
-});
+};

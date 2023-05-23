@@ -13,24 +13,24 @@ import LkIcon from 'shared/assets/icons/lk-icon.svg';
 import EyeIcon from 'shared/assets/icons/eye.svg';
 import { Button } from 'shared/UI/Button';
 import { useTranslation } from 'react-i18next';
-import { Select } from 'shared/UI/Select/Select';
+import { Select, SelectItem } from 'shared/UI/Select/Select';
 import { Avatar } from 'shared/UI/Avatar/Avatar';
 import { Dropdown } from 'shared/UI/Dropdown';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
-    className?: string
+    className?: string;
 }
 
 export const Navbar = memo(({ className }: NavbarProps) => {
-    const userData = useSelector(getUserAuthData);
-    const isAdmin = useSelector(isUserAdmin);
-    const isOwner = useSelector(isUserOwner);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { t, i18n } = useTranslation();
-    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const userData = useSelector(getUserAuthData);
+    const isAdmin = useSelector(isUserAdmin);
+    const isOwner = useSelector(isUserOwner);
 
     const onLogout = useCallback(() => {
         if (!userData?.refresh_token) {
@@ -39,9 +39,18 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         dispatch(logout(userData?.refresh_token));
     }, [dispatch, userData?.refresh_token]);
 
-    const handleChangeLanguage = useCallback((newLanguage: string) => {
-        i18n.changeLanguage(newLanguage);
-    }, [i18n]);
+    const [selectedLanguage, setSelectedLanguage] = useState<SelectItem>({
+        value: i18n.language,
+        content: t(i18n.language),
+    });
+    const handleChangeLanguage = useCallback(async (newLanguage: SelectItem) => {
+        console.log(newLanguage);
+        await i18n.changeLanguage(newLanguage.value);
+        setSelectedLanguage({
+            value: i18n.language,
+            content: t(i18n.language),
+        });
+    }, [i18n, t]);
 
     return (
         <HStack
@@ -54,22 +63,22 @@ export const Navbar = memo(({ className }: NavbarProps) => {
             </Button>
             <HStack gap="32">
                 <Select
-                    value={i18n.language}
-                    option={[
+                    items={[
                         {
                             value: 'ru',
-                            content: t('ru_RU'),
+                            content: t('ru'),
                         },
                         {
                             value: 'en',
-                            content: t('en_EN'),
+                            content: t('en'),
                         },
                         {
                             value: 'es',
-                            content: t('es_ES'),
+                            content: t('es'),
                         },
                     ]}
-                    onChange={handleChangeLanguage}
+                    selectedValue={selectedLanguage}
+                    setSelectedValue={handleChangeLanguage}
                 />
                 <AppLink to="#">
                     <HStack max gap="8" align="center">
