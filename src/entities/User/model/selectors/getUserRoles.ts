@@ -4,6 +4,8 @@ import { UserRoles } from '../consts/consts';
 
 export const getUserRoles = (state: StateSchema) => state.user.authData?.roles;
 
+export const isUserLoading = (state: StateSchema) => state.user.isLoading;
+
 export const isUserAdmin = createSelector(
     getUserRoles,
     (userRoles) => Boolean(userRoles?.includes(UserRoles.ADMIN)),

@@ -68,7 +68,6 @@ server.post('/refresh', (req, res) => {
 
     return res.status(200).json(user);
 });
-server.use(router);
 
 server.post('/logout', (req, res) => {
     const { refresh_token } = req.body;
@@ -183,6 +182,7 @@ server.post('/login', (req, res) => {
         return res.status(500).json({ message: e.message });
     }
 });
+server.use(router);
 
 // проверяем, авторизован ли пользователь
 // eslint-disable-next-line

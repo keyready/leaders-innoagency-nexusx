@@ -13,6 +13,7 @@ import classes from './YMaps.module.scss';
 interface YMapsProps {
     className?: string;
     place: string;
+    metroName?: string;
     metroCoords?: number[];
     setIsLoading?: (status: boolean) => void;
 }
@@ -21,22 +22,32 @@ export const YMaps = memo((props: YMapsProps) => {
     const {
         className,
         place,
-        metroCoords,
+        metroName,
     } = props;
     const { t } = useTranslation();
 
     const mapRef = useRef<typeof Map | null>(null);
     const [coords, setCoords] = useState<number[]>([59.95, 30.28]);
+    const [metroCoords, setMetroCoords] = useState<number[]>([59.00, 30.28]);
     const [isMapsLoading, setIsMapsLoading] = useState<boolean>(true);
 
     const handleLoadMap = (ymaps: YMapsApi) => {
         getPlaceCoordinates(ymaps, place)
             .then((coordinates) => {
                 if (coordinates) {
+                    console.log('place', coordinates);
                     setCoords(coordinates);
                 }
-            }),
-
+            });
+        if (metroName) {
+            getPlaceCoordinates(ymaps, metroName)
+                .then((coordinates) => {
+                    if (coordinates) {
+                        console.log('metro', coordinates);
+                        setMetroCoords(coordinates);
+                    }
+                });
+        }
         setIsMapsLoading(false);
     };
 

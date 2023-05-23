@@ -15,11 +15,11 @@ export const $api = axios.create({
 
 $api.interceptors.request.use((config) => {
     if (config.headers) {
-        const auth: any = config.headers.Authorization;
-        if (!auth) {
-            config.headers.Authorization = Cookies.get(USER_ACCESSTOKEN_KEY) || '';
-        }
-        config.headers.language = localStorage.getItem('i18nextLng') || '';
+        // const auth: any = config.headers.authorization;
+        // if (!auth) {
+        //     config.headers.authorization = Cookies.get(USER_ACCESSTOKEN_KEY) || '';
+        // }
+        // config.headers.language = localStorage.getItem('i18nextLng') || '';
     }
 
     return config;

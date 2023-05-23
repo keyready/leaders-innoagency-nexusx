@@ -93,12 +93,22 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                                 </HStack>
                             )}
                             items={[
+                                ...(isAdmin
+                                    ? [{
+                                        content: t('Админка сайта') as string,
+                                        href: RoutePath.admin_panel,
+                                    }] : []),
+                                ...(isOwner
+                                    ? [{
+                                        content: t('Админка арендодателя') as string,
+                                        href: RoutePath.owner_panel,
+                                    }] : []),
                                 {
-                                    content: 'Профиль',
+                                    content: t('Профиль') as string,
                                     href: RoutePath.profile,
                                 },
                                 {
-                                    content: 'Выйти',
+                                    content: t('Выйти') as string,
                                     onClick: onLogout,
                                 },
                             ]}

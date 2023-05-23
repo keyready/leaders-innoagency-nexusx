@@ -14,7 +14,7 @@ const AdminPanelPage = memo((props: AdminPanelPageProps) => {
 
     return (
         <Page className={classNames(classes.AdminPanelPage, {}, [className])}>
-            AdminPanelPage
+            <h1>Страница админа сайта</h1>
         </Page>
     );
 });

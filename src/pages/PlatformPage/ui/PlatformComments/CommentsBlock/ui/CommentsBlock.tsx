@@ -15,18 +15,17 @@ import classes from './CommentsBlock.module.scss';
 interface CommentsBlockProps {
     className?: string;
     platform?: Platform;
-    user?: User;
 }
 
 export const CommentsBlock = memo((props: CommentsBlockProps) => {
     const {
         className,
         platform,
-        user,
     } = props;
 
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
+    const user = useSelector(getUserAuthData);
 
     const [newCommentText, setNewCommentText] = useState<string>('');
 

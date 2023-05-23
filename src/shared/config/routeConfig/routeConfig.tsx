@@ -9,6 +9,7 @@ import { SearchPage } from 'pages/SearchPage';
 import { LoginPage } from 'pages/LoginPage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { PlatformPage } from 'pages/PlatformPage';
+import { OwnerPanelPage } from 'pages/OwnerPanelPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -23,6 +24,7 @@ export enum AppRoutes {
     REGISTER = 'register',
     PLATFORM_PAGE = 'platform_page',
     ADMIN_PANEL = 'admin_panel',
+    OWNER_PANEL = 'owner_panel',
     SEARCH_PAGE = 'search_page',
 
     // last
@@ -39,6 +41,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.REGISTER]: '/register',
     [AppRoutes.PLATFORM_PAGE]: '/platform/',
     [AppRoutes.ADMIN_PANEL]: '/admin',
+    [AppRoutes.OWNER_PANEL]: '/owner',
     [AppRoutes.SEARCH_PAGE]: '/search',
 
     // last
@@ -81,6 +84,12 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <AdminPanelPage />,
         authOnly: true,
         roles: [UserRoles.ADMIN],
+    },
+    [AppRoutes.OWNER_PANEL]: {
+        path: RoutePath.owner_panel,
+        element: <OwnerPanelPage />,
+        authOnly: true,
+        roles: [UserRoles.OWNER],
     },
 
     // last

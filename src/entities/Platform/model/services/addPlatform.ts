@@ -3,16 +3,16 @@ import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { AxiosError } from 'axios';
 import { Platform } from '../types/Platform';
 
-export const getPlatformById = createAsyncThunk<
+export const addPlatform = createAsyncThunk<
+    string,
     Platform,
-    string | undefined,
     ThunkConfig<string>>(
-        'platform/getPlatformById',
-        async (id, thunkAPI) => {
-            const { extra, dispatch, rejectWithValue } = thunkAPI;
+        'platform/addPlatform',
+        async (newPlatform, thunkAPI) => {
+            const { extra, rejectWithValue } = thunkAPI;
 
             try {
-                const response = await extra.api.get<Platform>(`/platforms?_id=${id}`);
+                const response = await extra.api.post<string>('/platforms', { newPlatform });
 
                 if (!response.data) {
                     throw new Error();

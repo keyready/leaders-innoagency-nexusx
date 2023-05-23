@@ -1,7 +1,9 @@
 export { userActions, userReducer } from './model/slice/userSlice';
 export { getUserAuthData } from './model/selectors/getUserAuthData/getUserAuthData';
 export { getUserInited } from './model/selectors/getUserInited/getUserInited';
-export { isUserAdmin, isUserOwner, getUserRoles } from './model/selectors/getUserRoles';
+export {
+    isUserAdmin, isUserOwner, getUserRoles, isUserLoading,
+} from './model/selectors/getUserRoles';
 
 export type {
     UserSchema,
