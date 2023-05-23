@@ -27,6 +27,7 @@ export const Card = memo((props: CardProps) => {
         return (
             <HStack
                 className={classNames(classes.normal, {}, [className])}
+                max
                 gap="32"
                 justify="center"
                 align="center"
