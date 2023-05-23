@@ -56,7 +56,7 @@ export const YMaps = memo((props: YMapsProps) => {
             }
 
             ref.routePanel.state.set({
-                type: 'masstransit',
+                type: 'pedestrian',
                 to: place,
                 from: `Метро ${metroName}`,
                 toEnabled: false,
