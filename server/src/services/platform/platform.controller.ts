@@ -7,10 +7,8 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { extname } from 'path';
 import { UseInterceptors } from '@nestjs/common';
 import { diskStorage } from 'multer';
-
-import { Request } from '@nestjs/common';
-import { CreateBookingDto } from 'src/dtos/create-booking.dto';
-import { ObjectId } from 'mongoose';
+import { UploadedFile } from '@nestjs/common';
+import { Request } from 'express';
 
 @ApiTags('Сервис управления платформами и площадками.')
 @Controller()
@@ -22,27 +20,23 @@ export class PlatformController {
 
     @Get('/platforms')
     @ApiOperation({summary:'Просмотр всех площадок'})
-    async getAllPlatforms(){
+    async getAllPlatforms(): Promise<any>{
         return await this.platformService.getAllPlatforms()
     }
     
-    @Get('/platform/:_id')
+    @Get('/platforms/:_id')
     @ApiOperation({summary:'Просмотр конкретной площадки'})
-    async getOnePlatform(@Param('_id') id:string){
+    async getOnePlatform(@Param('_id') id:string): Promise<any>{
+        console.log(id);
+        
         return await this.platformService.getOnePlatform(id)
     }
 
-    @Post('/createPlatform')
-    @ApiOperation({summary:'Создание платформы'})
-    @UseInterceptors(FileInterceptor('image',{
-        storage:diskStorage({
-            destination: './static/img/platforms',
-            filename: (req, file, cb) => {
-                const randomName = Array(15).fill(null).map(() => Math.round(Math.random() * 16).toString(16)).join('');
-                return cb(null, `${randomName}${extname(file.originalname)}`)}})
-    }))
-    async createPlatform(@Body() createPlatformDto:CreatePlatformDto,/*@UploadedFiles() files: */ @UploadedFiles() image): Promise<any>{
-        return this.platformService.createPlatform(createPlatformDto,image)
-    }
+    // @Post('/')
+    // @ApiOperation({summary:'Создание платформы'})
+    // @UseInterceptors(FileInterceptor('platformImage_5'))
+    // async createPlatform(@UploadedFile() img){
+        
+    // }
 
 }

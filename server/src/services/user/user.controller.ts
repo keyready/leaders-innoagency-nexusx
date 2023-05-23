@@ -1,4 +1,4 @@
-import { Body, Controller,Get, Param, Post, Req } from '@nestjs/common';
+import { Body, Controller,Get, Param, Post, Query, Req } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateBookingDto } from 'src/dtos/create-booking.dto';
 import { UserService } from './user.service';
@@ -28,7 +28,9 @@ export class UserController {
     @Post('/book_platform')
     @ApiOperation({summary:'Создание бронирования'})
     async createBooking(@Body() createBookingDto:CreateBookingDto,@Body('platformId') platformId:string,@Req() req:Request){
-        return await this.userService.createBooking(platformId,createBookingDto,req.headers.cookie['refresh_token'])
+        const token = req.headers.cookie.split('=')[1].split(';')[0]
+        
+        return await this.userService.createBooking(platformId,createBookingDto,token)
     }
 
     @Post('/delete_booking')
@@ -39,9 +41,8 @@ export class UserController {
 
     @Get('/comments')
     @ApiOperation({summary:'Получение всех отзывов для конкретной платформы'})
-    async allCommentForCurrentPlatform(@Param('platformId') platformId:string){
-        //TODO - массив объектов, где объект - инфо о каждом юзере оставившем коммент.
-        return this.userService.allCommentsForCurrentPlatform(platformId)
+    async allCommentForCurrentPlatform(@Query('platformId') platformId: string){
+        return this.userService.allCommentsForCurrentPlatform(platformId) 
     }
 
     @Post('/comments')

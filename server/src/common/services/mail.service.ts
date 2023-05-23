@@ -68,12 +68,12 @@ export class MailService{
             to:recipientEmail,
             subject:'Информация о бронировании',
             text:`Уважаемый/ая ${firstname} ${lastname}. Вы оформили бронирование ${platformName} на период с ${startTime} по ${endTime}`,
-            attachments: [
-                {
-                    filename: `${image}`, 
-                    path: path.resolve(`static/img/platforms/${image}`) 
-                }
-            ]
+            // attachments: [
+            //     {
+            //         filename: `${image}`, 
+            //         path: path.resolve(`static/img/platforms/${image}`) 
+            //     }
+            // ]
         })
     }
 

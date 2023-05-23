@@ -5,7 +5,7 @@ import { MailService } from 'src/common/services/mail.service';
 import { Booking } from 'src/schemas/booking.schema';
 import { Platform } from 'src/schemas/platform.schema';
 import { User } from 'src/schemas/user.schema';
-import { Comment } from 'src/schemas/comments.schema';
+import { Comment } from 'src/schemas/comment.schema';
 import { generateUniqueId } from 'src/utils/utils';
 
 @Injectable()
@@ -19,7 +19,7 @@ export class UserService {
         private readonly mailService:MailService  
     ){}
     
-    async createBooking(platformId,createBookingDto,refresh_token:string){
+    async createBooking(platformId,createBookingDto,refresh_token){
         const user = await this.userModel.findOne({refresh_token:refresh_token})
         const platform = await this.platformModel.findById(platformId)
 
@@ -60,17 +60,13 @@ export class UserService {
     async addCommentForCurrentPlatform(createCommentDto){
         const newComment = await new this.commentModel(createCommentDto)
         newComment._id = generateUniqueId()
-        await newComment.save()
-        return await this.commentModel.find({platformId:createCommentDto.platformId})
-        // return newComment
+        newComment.user = await this.userModel.findOne({_id:createCommentDto.userId})
+        await newComment.save()        
+        return await this.commentModel.find({platformId:createCommentDto.platformId}).exec()
     }
 
     async allCommentsForCurrentPlatform(platformId:string){
-        const comments = await this.commentModel.find({platformId:platformId}).exec()
-        for(const oneComment of comments){
-            oneComment.set = await this.userModel.findById(oneComment.userId)
-        }
-        return comments
+        return await this.commentModel.find({platformId:platformId})
     }
 
 
