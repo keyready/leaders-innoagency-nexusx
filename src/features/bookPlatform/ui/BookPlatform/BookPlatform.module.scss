@@ -1,13 +1,12 @@
 .BookPlatform {
-    margin-top: 20px;
-    margin-left: 250px;
     border-radius: var(--border-radius);
     background: rgb(154 187 236 / 10%);
+    margin-top: 20px;
 }
 
 @media (width <= 1200px) {
     .BookPlatform {
-        margin: 50px 20px;
+        margin: 50px 0;
     }
 
 }
@@ -36,7 +35,7 @@
 }
 
 .formWrapper {
-    width: 100%;
+    //width: 100%;
 }
 
 .input {
@@ -63,7 +62,7 @@
     }
 
     &:disabled {
-        opacity: 0.7;
         cursor: not-allowed;
+        opacity: 0.7;
     }
 }

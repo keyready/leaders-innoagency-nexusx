@@ -127,7 +127,7 @@ const LoginPage = memo((props: LoginPageProps) => {
                 />
             ),
         },
-    ], [errors, register, t]);
+    ], [errors, register, setValue, t, watch]);
 
     const clearInputsOnChangeTabs = useCallback(() => {
         setValue('password', '');

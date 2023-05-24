@@ -22,6 +22,7 @@ interface InputProps<T extends FieldValues = FieldValues, K extends Path<T> = Pa
     onChange?: (value: string) => void;
 
     inputType?: string;
+    customValue?: string;
     onSubmit?: () => void;
 
     name: K;
@@ -39,6 +40,7 @@ export const YupInput = memo((props: InputProps) => {
         inputType = 'text',
         onSubmit,
         defaultValue,
+        customValue,
         disabled,
 
         name,
@@ -46,6 +48,8 @@ export const YupInput = memo((props: InputProps) => {
         errors,
         watch,
         setValue,
+
+        ...otherProps
     } = props;
 
     useEffect(() => {
@@ -90,9 +94,6 @@ export const YupInput = memo((props: InputProps) => {
     }, []);
 
     const type = () => {
-        // if (inputType === 'search') {
-        //     return 'submit';
-        // }
         if (inputType === 'password' && isPasswordVisible) {
             return 'text';
         }
@@ -112,14 +113,15 @@ export const YupInput = memo((props: InputProps) => {
                 })}
                 {...register(name)}
                 disabled={!!defaultValue || disabled}
-                defaultValue={defaultValue}
+                defaultValue={customValue || defaultValue}
+                {...otherProps}
             />
             <HStack
                 className={classes.btnWrapper}
                 justify="end"
                 align="center"
             >
-                {inputType === 'password' && (
+                {inputType === 'password' && !disabled && (
                     <Button
                         tabIndex={-1}
                         variant="clear"
@@ -134,6 +136,7 @@ export const YupInput = memo((props: InputProps) => {
                     && isCrossVisible
                     && inputType !== 'date'
                     && !defaultValue
+                    && !disabled
                     && (
                         <Button
                             tabIndex={-1}

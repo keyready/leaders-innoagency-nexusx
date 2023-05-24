@@ -15,7 +15,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Alert } from 'shared/UI/Alert';
 import { useSelector } from 'react-redux';
-import { getPlatformById, getPlatformData, Platform } from 'entities/Platform';
+import { getPlatformById, getPlatformData } from 'entities/Platform';
 import {
     getBookPlatformError,
     getBookPlatformIsLoading,

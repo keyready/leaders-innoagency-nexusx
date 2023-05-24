@@ -16,6 +16,10 @@ import { HStack, VStack } from 'shared/UI/Stack';
 import { Button } from 'shared/UI/Button';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Alert } from 'shared/UI/Alert';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { YupInput } from 'widgets/YupInput';
+import { ProfileUpdateSchema } from '../types/ValidationSchema';
 import classes from './EditableProfileData.module.scss';
 
 interface EditableProfileDataProps {
@@ -45,42 +49,37 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
     const userIsLoading = useSelector(getUserIsLoading);
     const userError = useSelector(getUserError);
 
+    const {
+        register, watch, setValue, formState: { errors }, handleSubmit,
+    } = useForm({ resolver: yupResolver(ProfileUpdateSchema) });
+
     const [isEditable, setIsEditable] = useState<boolean>(false);
     const [isPasswordInFocus, setIsPasswordInFocus] = useState<boolean>(false);
     const [changeProfileResult, setChangeProfileResult] = useState<string>('');
     const [changePasswordResult, setChangePasswordResult] = useState<string>('');
-    const [editableForm, setEditableForm] = useState<EditableUser>({
-        firstname: user?.firstname,
-        lastname: user?.lastname,
-        email: user?.email,
-        phoneNumber: user?.phoneNumber,
-        oldPassword: '',
-        newPassword: '',
-        repeatedPassword: '',
-    });
 
     const handleChangesCancel = useCallback(() => {
         setIsPasswordInFocus(false);
         setIsEditable(false);
-        setEditableForm({
-            firstname: user?.firstname,
-            lastname: user?.lastname,
-            email: user?.email,
-            phoneNumber: user?.phoneNumber,
-            oldPassword: '',
-            newPassword: '',
-            repeatedPassword: '',
-        });
-    }, [user?.email, user?.firstname, user?.lastname, user?.phoneNumber]);
-    const handleSubmitChanges = useCallback(async () => {
-        if (editableForm.newPassword) {
-            if (editableForm.newPassword !== editableForm.repeatedPassword) {
+
+        setValue('firstname', user?.firstname);
+        setValue('lastname', user?.lastname);
+        setValue('oldPassword', 'пасхалка');
+        setValue('newPassword', '');
+        setValue('repeatedPassword', '');
+    }, [setValue, user?.firstname, user?.lastname]);
+
+    const onSubmit = handleSubmit(async (data) => {
+        setChangeProfileResult('');
+        setChangePasswordResult('');
+        if (watch('newPassword')) {
+            if (watch('newPassword') !== watch('repeatedPassword')) {
                 alert(t('Новые пароли не совпадают') as string);
             }
 
-            const result = await dispatch(checkPassword(editableForm.oldPassword || ''));
+            const result = await dispatch(checkPassword(watch('oldPassword') || ''));
             if (result.meta.requestStatus === 'fulfilled') {
-                const subResult = await dispatch(changeUserPassword(editableForm.newPassword || ''));
+                const subResult = await dispatch(changeUserPassword(watch('newPassword') || ''));
 
                 if (subResult.meta.requestStatus === 'fulfilled') {
                     setChangePasswordResult('Пароль успешно изменен');
@@ -88,11 +87,11 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
             }
         }
 
-        if (editableForm.firstname !== user?.firstname
-            || editableForm.lastname !== user?.lastname) {
+        if (watch('firstname') !== user?.firstname
+            || watch('lastname') !== user?.lastname) {
             const subResult = await dispatch(changeUserProfile({
-                firstname: editableForm.firstname || '',
-                lastname: editableForm.lastname || '',
+                firstname: watch('firstname') || '',
+                lastname: watch('lastname') || '',
             }));
 
             if (subResult.meta.requestStatus === 'fulfilled') {
@@ -101,155 +100,155 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
         }
 
         handleChangesCancel();
-    }, [dispatch,
-        editableForm.firstname,
-        editableForm.lastname,
-        editableForm.newPassword,
-        editableForm.oldPassword,
-        editableForm.repeatedPassword,
-        user?.firstname,
-        user?.lastname,
-        handleChangesCancel,
-        t]);
+    });
 
     return (
         <Card
             className={classNames(classes.EditableProfileData, {}, [className])}
         >
-            <VStack
-                className={classes.wrapper}
-                align="start"
-                justify="start"
-            >
-                <h2 className={classes.title}>{t('Личные данные')}</h2>
-                <Input
-                    placeholder={t('Имя') as string}
-                    plain={!isEditable}
-                    value={editableForm?.firstname}
-                    onChange={(value) => {
-                        setEditableForm({
-                            ...editableForm,
-                            firstname: value,
-                        });
-                    }}
-                />
-                <Input
-                    placeholder={t('Фамилия') as string}
-                    value={editableForm?.lastname}
-                    onChange={(value) => {
-                        setEditableForm({
-                            ...editableForm,
-                            lastname: value,
-                        });
-                    }}
-                    plain={!isEditable}
-                />
-                <Input
-                    placeholder={t('Почта') as string}
-                    value={editableForm?.email}
-                    plain
-                />
-                <Input
-                    placeholder={t('Номер телефона') as string}
-                    value={editableForm?.phoneNumber}
-                    plain
-                />
-                {isEditable && (
-                    <p className={classes.passwordSupport}>
-                        {t('Нажмите, чтобы сменить пароль')}
-                    </p>
-                )}
-                <Input
-                    placeholder={t('Введите старый пароль') as string}
-                    plain={!isEditable}
-                    onChange={(value) => {
-                        setEditableForm({
-                            ...editableForm,
-                            oldPassword: value,
-                        });
-                    }}
-                    type="password"
-                    value={!isPasswordInFocus ? 'это крутая пасхалка' : editableForm?.oldPassword}
-                    onFocus={() => setIsPasswordInFocus(true)}
-                />
-                {isPasswordInFocus && (
-                    <>
-                        <Input
-                            placeholder={t('Введите новый пароль') as string}
-                            value={editableForm.newPassword}
-                            onChange={(value) => {
-                                setEditableForm({
-                                    ...editableForm,
-                                    newPassword: value,
-                                });
-                            }}
-                            plain={!isEditable}
-                            type="password"
-                        />
-                        <Input
-                            placeholder={t('Повторите новый пароль') as string}
-                            value={editableForm.repeatedPassword}
-                            onChange={(value) => {
-                                setEditableForm({
-                                    ...editableForm,
-                                    repeatedPassword: value,
-                                });
-                            }}
-                            plain={!isEditable}
-                            type="password"
-                        />
-                    </>
-                )}
+            <form onSubmit={onSubmit}>
+                <VStack
+                    className={classes.wrapper}
+                    align="start"
+                    justify="start"
+                >
+                    <h2 className={classes.title}>{t('Личные данные')}</h2>
+                    <YupInput
+                        className={classes.yupInput}
+                        customValue={user?.firstname || ''}
+                        register={register}
+                        name="firstname"
+                        watch={watch}
+                        setValue={setValue}
+                        // @ts-ignore
+                        errors={errors}
+                        placeholder={t('Имя') as string}
+                        disabled={!isEditable}
+                    />
+                    <YupInput
+                        className={classes.yupInput}
+                        customValue={user?.lastname || ''}
+                        register={register}
+                        name="lastname"
+                        watch={watch}
+                        setValue={setValue}
+                        // @ts-ignore
+                        errors={errors}
+                        placeholder={t('Фамилия') as string}
+                        disabled={!isEditable}
+                    />
+                    <Input
+                        placeholder={t('Почта') as string}
+                        value={user?.email}
+                        plain
+                    />
+                    <Input
+                        placeholder={t('Номер телефона') as string}
+                        value={user?.phoneNumber}
+                        plain
+                    />
+                    {isEditable && (
+                        <p className={classes.passwordSupport}>
+                            {t('Нажмите, чтобы сменить пароль')}
+                        </p>
+                    )}
+                    <YupInput
+                        className={classes.yupInput}
+                        inputType="password"
+                        customValue={isEditable ? '5' : 'пасхалка'}
+                        register={register}
+                        name="oldPassword"
+                        watch={watch}
+                        setValue={setValue}
+                        // @ts-ignore
+                        errors={errors}
+                        placeholder={t('Введите старый пароль') as string}
+                        disabled={!isEditable}
+                        onFocus={() => {
+                            setValue('oldPassword', '');
+                            setIsPasswordInFocus(true);
+                        }}
+                    />
+                    {isPasswordInFocus && (
+                        <>
+                            <YupInput
+                                className={classes.yupInput}
+                                inputType="password"
+                                register={register}
+                                name="newPassword"
+                                watch={watch}
+                                setValue={setValue}
+                                // @ts-ignore
+                                errors={errors}
+                                placeholder={t('Введите новый пароль') as string}
+                                disabled={!isEditable}
+                            />
+                            <YupInput
+                                className={classes.yupInput}
+                                inputType="password"
+                                register={register}
+                                name="repeatedPassword"
+                                watch={watch}
+                                setValue={setValue}
+                                // @ts-ignore
+                                errors={errors}
+                                placeholder={t('Повторите новый пароль') as string}
+                                disabled={!isEditable}
+                            />
+                        </>
+                    )}
 
-                {checkPasswordError && (
-                    <Alert variant="danger">
-                        {checkPasswordError}
-                    </Alert>
-                )}
-                {userError && (
-                    <Alert variant="danger">
-                        {userError}
-                    </Alert>
-                )}
-                {changeProfileResult && (
-                    <Alert variant="success">
-                        {changeProfileResult}
-                    </Alert>
-                )}
-                {changePasswordResult && (
-                    <Alert variant="success">
-                        {changePasswordResult}
-                    </Alert>
-                )}
+                    {checkPasswordError && (
+                        <Alert variant="danger">
+                            {checkPasswordError}
+                        </Alert>
+                    )}
+                    {userError && (
+                        <Alert variant="danger">
+                            {userError}
+                        </Alert>
+                    )}
+                    {changeProfileResult && (
+                        <Alert variant="success">
+                            {changeProfileResult}
+                        </Alert>
+                    )}
+                    {changePasswordResult && (
+                        <Alert variant="success">
+                            {changePasswordResult}
+                        </Alert>
+                    )}
 
-                {!isEditable && (
-                    <Button
-                        className={classes.editButton}
-                        onClick={() => setIsEditable(true)}
-                        disabled={isEditable}
-                    >
-                        {t('Редактировать')}
-                    </Button>
-                )}
-                {isEditable && (
-                    <HStack max justify="center" align="center" gap="32">
+                    {!isEditable && (
                         <Button
-                            onClick={handleSubmitChanges}
-                            disabled={userIsLoading}
+                            className={classes.editButton}
+                            onClick={() => setIsEditable(true)}
+                            disabled={isEditable}
                         >
-                            {userIsLoading
-                                ? t('Подождите')
-                                : t('Сохранить')}
+                            {t('Редактировать')}
                         </Button>
-                        <Button
-                            variant="danger"
-                            onClick={handleChangesCancel}
-                        >
-                            {t('Отменить')}
-                        </Button>
-                    </HStack>
-                )}
-            </VStack>
+                    )}
+                    {isEditable && (
+                        <HStack max justify="center" align="center" gap="32">
+                            <Button
+                                // onClick={handleSubmitChanges}
+                                disabled={userIsLoading}
+                                type="submit"
+                            >
+                                {userIsLoading
+                                    ? t('Подождите')
+                                    : t('Сохранить')}
+                            </Button>
+                            <Button
+                                variant="danger"
+                                onClick={handleChangesCancel}
+                            >
+                                {t('Отменить')}
+                            </Button>
+                        </HStack>
+                    )}
+                </VStack>
+            </form>
         </Card>
     );
 });

@@ -47,7 +47,7 @@ server.post('/change_password', (req, res) => {
 });
 server.post('/change_profile', (req, res) => {
     //
-    res.status(202).json({ data: 'хых, ошибка' });
+    res.status(403).json({ message: 'хых, ошибка' });
 });
 server.post('/book_platform', (req, res) => {
     res.status(201).json({ message: 'Успешно забронировано' });

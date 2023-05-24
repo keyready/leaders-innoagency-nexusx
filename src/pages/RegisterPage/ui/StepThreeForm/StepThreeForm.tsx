@@ -26,7 +26,7 @@ export const StepThreeForm = memo((props: StepThreeFormProps) => {
             .required(t('required_field') as string)
             .min(6, t('too_short') as string)
             .max(20, t('too_long') as string)
-            .matches(/[!@#$%^&*(),.?:{}|<>]/, t('spec_symbols') as string),
+            .matches(/[!#$%&*]/, t('spec_symbols') as string),
 
         submitPassword: Yup.string()
             .oneOf([Yup.ref('password')], t('Пароли должны совпадать') as string)

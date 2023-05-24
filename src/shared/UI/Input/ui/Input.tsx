@@ -37,9 +37,7 @@ export const Input = memo((props: InputProps) => {
     return (
         <input
             {...otherProps}
-            className={classNames(classes.Input, {
-                [classes.plainText]: plain,
-            }, [className])}
+            className={classNames(classes.Input, {}, [className])}
             placeholder={placeholder}
             disabled={plain}
             value={value}
