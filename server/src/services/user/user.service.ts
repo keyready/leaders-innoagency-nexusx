@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { MailService } from 'src/common/services/mail.service';
@@ -39,7 +39,7 @@ export class UserService {
 
         //TODO - нужно делать проверку на бронь, кол-во свободных мест.
 
-        await this.mailService.sendMailInfoBooking(user.email,platform.name,user.firstname,user.lastname,platform.image,createBookingDto.startTime,createBookingDto.endTime)
+        await this.mailService.sendMailInfoBooking(user.email,platform.title,user.firstname,user.lastname,platform.image,createBookingDto.startTime,createBookingDto.endTime)
 
         return {
             message:'Бронь успешно завершена'
@@ -73,9 +73,11 @@ export class UserService {
 
     async uploadAvatar(image,token){
         const user = await this.userModel.findOne({refresh_token:token})
-        //TODO - дописать удаление старой фотки
+        // if(user.avatar){
+        //     fs.unlinkSync(path.resolve(`static${user.avatar}`))
+        // }
         user.avatar = `/img/users/${image.filename}`
         return await user.save()
     }
-
+    
 }

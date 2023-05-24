@@ -25,14 +25,14 @@ export class UserController {
     @Get('/myBooking')
     @ApiOperation({summary:'Просмотр брони пользователя'})
     async showMyBooking(@Req() req:Request){
-        return await this.userService.showMyBooking(req.headers.cookie['refresh_token'])
+        const token = req.headers.cookie.split('=')[1].split(';')[0]
+        return await this.userService.showMyBooking(token)
     }
 
     @Post('/book_platform')
     @ApiOperation({summary:'Создание бронирования'})
     async createBooking(@Body() createBookingDto:CreateBookingDto,@Body('platformId') platformId:string,@Req() req:Request){
         const token = req.headers.cookie.split('=')[1].split(';')[0]
-        
         return await this.userService.createBooking(platformId,createBookingDto,token)
     }
 

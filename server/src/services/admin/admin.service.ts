@@ -21,7 +21,7 @@ export class AdminService{
     async bannedUser(id:string){
         const user = await this.userModel.findById(id)
         user.isBanned = true
-        await this.mailService.sendMailBannedUser(user.email,'Причина.')
+        await this.mailService.sendMailBannedUser(user.email,'Пидорас')
         return await user.save()
     }
 
@@ -34,5 +34,6 @@ export class AdminService{
         const user = await this.userModel.findByIdAndUpdate(userId,{$pull:{roles:['OWNER']}},{new:true})
         return user;
     }
+
 
 }

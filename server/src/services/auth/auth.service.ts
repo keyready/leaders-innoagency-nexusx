@@ -1,4 +1,4 @@
-import { Injectable,BadRequestException,UnauthorizedException,InternalServerErrorException, HttpStatus,NotFoundException,HttpException, Redirect } from '@nestjs/common';
+import { Injectable,BadRequestException,UnauthorizedException,NotFoundException, HttpCode} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
@@ -19,7 +19,7 @@ export class AuthService {
         @InjectModel(User.name) private readonly userModel:Model<User>,
         private readonly mailService: MailService,
         private readonly jwtService:JwtService,
-        private readonly smsServise: SmscService,    
+        // private readonly smsServise: SmscService,    
         ){}
 
     async register(registerUserDto: RegisterUserDto){ 
@@ -29,7 +29,6 @@ export class AuthService {
                 {phoneNumber:registerUserDto.phoneNumber}
             ]
         })
-        // user.avatar = 'client/images/img.png'
         user.firstname = registerUserDto.name
         user.lastname = registerUserDto.lastname
         user.password = bcrypt.hashSync(registerUserDto.password,5)
@@ -111,8 +110,7 @@ export class AuthService {
         }
     }
     
-    async activateByConfirmCode(requestData){
-        const {code} = requestData
+    async activateByConfirmCode(code){
         const user = await this.userModel.findOne({confirmationCode:code})
         if(user != null){
             user.isActivated = true
@@ -126,7 +124,7 @@ export class AuthService {
 
     async changePassword(newPassword:string,refresh_token:string){
         const user = await this.userModel.findOne({refresh_token:refresh_token})
-        if (bcrypt.hashSync(newPassword,5) === user.password){
+        if (bcrypt.compareSync(newPassword,user.password)){
             throw new BadRequestException({message:'Пароли не должны совпадать'})
         }
         user.password = await bcrypt.hashSync(newPassword,5)
@@ -159,10 +157,7 @@ export class AuthService {
             //TODO - смс на телефон с кодом
         }
 
-        await user.save()
-
-        //TODO - вопрос с редиректом.
-        return Redirect('/changePassword')
+        return await user.save() 
     }   
 
     async logout(refresh_token){
@@ -186,6 +181,23 @@ export class AuthService {
             access_token,
             ResfreshToken
         }
+    }
+
+    async checkOldPassword(passwd,token){
+        const user = await this.userModel.findOne({refresh_token:token})
+        if (bcrypt.compareSync(passwd,user.password)){
+            return HttpCode(202)
+        }
+        else{
+            throw new UnauthorizedException({message:'Старый пароль неверен'})
+        }
+    }
+
+    async editProfile(newProfileData,token){
+        const user = await this.userModel.findOne({refresh_token:token})
+        user.firstname = newProfileData.firstname
+        user.lastname = newProfileData.lastname
+        return await user.save()
     }
 
 }

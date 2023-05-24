@@ -35,6 +35,7 @@
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
+    "http-status-code": "^2.1.0",
     "mongoose": "^7.1.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^3.3.1",

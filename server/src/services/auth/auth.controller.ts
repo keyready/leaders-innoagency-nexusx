@@ -9,6 +9,7 @@ import { Response } from '@nestjs/common';
 // import { extname } from 'path';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtGuard } from 'src/common/guards/jwt.auth.guard';
+import { Request } from 'express';
 
 @ApiTags('Сервис, отвечающий за регистрацию и авторизацию пользователей.')
 @Controller()
@@ -18,14 +19,7 @@ export class AuthController {
 
     @Post('/register')
     @ApiOperation({summary:'Регистрация пользователя'})
-    // @UseInterceptors(FileInterceptor('image',{
-    //     storage:diskStorage({
-    //         destination: './static/img/users',
-    //         filename: (req, file, cb) => {
-    //             const randomName = Array(15).fill(null).map(() => Math.round(Math.random() * 16).toString(16)).join('');
-    //             return cb(null, `${randomName}${extname(file.originalname)}`)}})
-    // }))
-    async register(@Body() registerUserDto:RegisterUserDto/*,@UploadedFile() image*/): Promise<any>{
+    async register(@Body() registerUserDto:RegisterUserDto): Promise<any>{
         return this.authService.register(registerUserDto)                   
     }
 
@@ -55,20 +49,35 @@ export class AuthController {
 
     @Post('/submit_code')
     @ApiOperation({summary:'Активация по коду.'})
-    async submitCode(@Body() requestData){
-        return this.authService.activateByConfirmCode(requestData)
+    async submitCode(@Body('code') code:string){
+        return this.authService.activateByConfirmCode(code)
     }
 
     @Post('/logout')
     @ApiOperation({summary:'Выход из системы'})
-    async logout(@Body('refresh_token') refresh_token:string){
-        return this.authService.logout(refresh_token)
+    async logout(@Req() req:Request){
+        const token = req.headers.cookie.split('=')[1].split(';')[0]
+        return this.authService.logout(token)
     }
 
-    @Post('/changePassword')
+    @Post('/change_password')
     @ApiOperation({summary:'Смена пароля пользователя'})
-    async changePassword(@Body('newPassword') newPassword: string,@Body('refresh_token') refresh_token:string): Promise<any>{
-        return this.authService.changePassword(newPassword,refresh_token)
+    async changePassword(@Body('newPassword') newPassword: string,@Req() req:Request): Promise<any>{
+        const token = req.headers.cookie.split('=')[1].split(';')[0]
+        return this.authService.changePassword(newPassword,token)
+    }
+
+    @Post('/change_profile')
+    @ApiOperation({summary:'Изменение профиля'})
+    async editProfile(@Body('newProfile') newProfileData,@Req() req:Request){
+        const token = req.headers.cookie.split('=')[1].split(';')[0]
+        return await this.authService.editProfile(newProfileData,token)        
+    }
+
+    @Post('/check_old_password')
+    async checkOldPassword(@Body('oldPassword') password,@Req() req:Request){
+        const token = req.headers.cookie.split('=')[1].split(';')[0]
+        return this.authService.checkOldPassword(password,token)
     }
 
     @Post('/refresh')

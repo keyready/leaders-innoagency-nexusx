@@ -18,10 +18,10 @@ export class Platform extends Document{
     address: string
 
     @Prop({type:String,unique:true})
-    name: string
+    title: string
 
-    @Prop({type:String,unique:true})
-    subtitle:string
+    // @Prop({type:String,unique:true})
+    // subtitle:string
 
     @Prop({type:Number})
     cost: number

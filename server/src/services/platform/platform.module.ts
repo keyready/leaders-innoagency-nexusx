@@ -9,10 +9,6 @@ import { PlatformService } from './platform.service';
 @Module({
     imports:[
         MongooseModule.forFeature([{name:Platform.name,schema:PlatformSchema},{name:User.name,schema:UserSchema}]),
-        
-        // MulterModule.register({
-        //     dest:'./static'
-        // })
     ],
     controllers:[PlatformController],
     providers:[PlatformService]

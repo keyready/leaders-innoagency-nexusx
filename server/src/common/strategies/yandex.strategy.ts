@@ -9,6 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 
 import { generateTemporarilyPassword } from 'src/utils/utils';
+import { MailService } from '../services/mail.service';
 
 @ApiTags('Стратегия авторизации через ЯндексID')
 @Injectable()
@@ -16,7 +17,8 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
     
     constructor(
         @InjectModel(User.name) private readonly userModel:Model<User>,
-        private readonly configService: ConfigService
+        private readonly configService: ConfigService,
+        private readonly mailService:MailService
         ){
             super({
                 clientID:'92ce2995432449a28a0d443b1382f8d3',//TODO <-.env
@@ -42,9 +44,10 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
                 isActivated:true,
                 password:generateTemporarilyPassword()
             })
+            await this.mailService.sendMailTemporarilyPassword(user.email,user.password)
+                
             return {
                 ...user.toJSON(),
-                //TODO - Вывести единоразовый пароль для входа в систему.
                 access_token,
                 refresh_token,
             }
