@@ -10,17 +10,24 @@ export class AdminController{
         private readonly adminService:AdminService
     ){}
 
-    @Get('/allUsers')
+    @Get('/users')
     @ApiOperation({summary:'Просмотр всех пользователей администратором'})
     async getAllUsers(){
         return await this.adminService.getAllUsers()
     }
 
-    @Post('/bannedUser')
+    @Post('/ban_user')
     @ApiOperation({summary:'Функция бана пользователя'})
-    async bannedUser(@Body('id') id: string){
-        return await this.adminService.bannedUser(id)
+    async bannedUser(@Body() reqData:any){
+        return await this.adminService.banUser(reqData)
     }
+
+    @Post('/unban_user')
+    @ApiOperation({summary:'Отмена бана для пользователя'})
+    async unbanUser(@Body('userId') userId: string){
+        return await this.adminService.unbanUser(userId)
+    }
+
 
     @Post('/updateRoleToOwner')
     @ApiOperation({summary:'Повышение роли до Owner'})

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/server/src/static/letters/confirmCode/style.css">
+    
+    <title>Ты пидор</title>
+</head>
+<body>
+
+
+    <img class="logo" src="/server/src/static/letters/confirmCode/logo.svg">
+    <h1>ПРОЩЕ</h1>
+    <h2>Здравствуйте, {{ firstname }}</h2>
+    <p>Подтвердите ваш email для начала работы</p>
+    <p>Код для подтверждения регистрации:</p>
+    <def class="qwerty">
+        <p class="asd">{{ code }}</p>
+        <p class="asd">0</p>
+        <p class="asd">0</p>   
+        <p class="asd">0</p>    
+    </def>
+
+    <div >
+        <h3 style="margin-bottom: 0px;">Ваши регистрационные данные:</h3>
+        <div class="qwerty">    
+            <p class="h31">E-mail:</p> 
+            <p class="h3">{{ email }}</p>            
+        </div>
+
+        <div class="qwerty">    
+            <p class="h31">Телефон:</p> 
+            <p class="h3">{{ phoneNumber }}</p>            
+        </div>
+    </div>
+    
+    <a href="вставте сюды"><button>
+        Перейти на площадку
+    </button></a>
+
+    <p class="skrito">Если вы считаете, что данное сообщение послано вам ошибочно, просто проигнорируйте его и все данные будут автоматически удалены.</p>
+</body>
+</html>

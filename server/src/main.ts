@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
   app.enableCors()
-  app.use(express.static(path.resolve('static/')))
+  app.use(express.static(path.resolve('src/static')))
 
   const ApiDocsConfig = new DocumentBuilder()
     .setTitle('Документация к единому сервису бронирования креативных площадок города Москвы.')

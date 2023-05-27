@@ -14,7 +14,7 @@ export class Booking extends Document{
     userId: string
 
     @Prop({type:String})
-    platformId:string
+    platformTitle:string
 
     @Prop({type:Date})
     date: Date

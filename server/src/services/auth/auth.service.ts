@@ -2,12 +2,12 @@ import { Injectable,BadRequestException,UnauthorizedException,NotFoundException,
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/schemas/user.schema';
 import { Model } from 'mongoose';
-import { RegisterUserDto } from 'src/dtos/register-user.dto';
+import { RegisterUserDto } from 'src/entities/register-user.dto';
 
 import * as bcrypt from 'bcrypt';
 
 import { generateConfirmationCode, generateUniqueId } from 'src/utils/utils';
-import { LoginUserDto } from 'src/dtos/login-user.dto';
+import { LoginUserDto } from 'src/entities/login-user.dto';
 
 import { MailService } from 'src/common/services/mail.service';
 import { JwtService } from '@nestjs/jwt';
@@ -54,7 +54,7 @@ export class AuthService {
                 user.phoneNumber = null
                 const code = generateConfirmationCode()
                 user.confirmationCode = code
-                await this.mailService.sendMailConfirmRegister(email,code)
+                await this.mailService.sendMailConfirmRegister(email,user)
                 return await user.save()
             }
             else if(phoneNumber != ''){

@@ -17,20 +17,23 @@ export class PlatformService {
         return await this.platformModel.find().exec()
     }
 
-    async getOnePlatform(id:string){
-        // const pl = await this.platformModel.findOne({_id:id})
-        // return pl                
+    async getOnePlatform(id){
+        const pl = await this.platformModel.findOne({_id:id})
+        return pl                
     }
 
     async createPlatform(createPlatformDto,image){
         const platform = await new this.platformModel()
+        
         platform._id = generateUniqueId()
         platform.title = createPlatformDto.title
         platform.address = createPlatformDto.address
         platform.maxGuests = createPlatformDto.maxGuests
+        platform.freeSpacee = createPlatformDto.maxGuests
         platform.description = createPlatformDto.description
         platform.restrictions.push(createPlatformDto.restriction_0)
-        platform.image = `/img/platforms/${image.filename}`
+        platform.images.push(`/img/platforms/${image.filename}`)
+        
         return await platform.save() 
     }
 

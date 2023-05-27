@@ -13,3 +13,10 @@ export function generateUniqueId(){
     const id = uniqueId()
     return id
 }
+
+export function SetMoscowTime(time){
+    const offset = 3 * 60;
+    time.setMinutes(time.getMinutes() + offset);
+    const dateMoscow = time.toISOString().replace('T', ' ').replace(/\.\d+Z$/, '');
+    return dateMoscow
+}

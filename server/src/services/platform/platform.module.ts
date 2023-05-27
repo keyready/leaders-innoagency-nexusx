@@ -8,7 +8,10 @@ import { PlatformService } from './platform.service';
 
 @Module({
     imports:[
-        MongooseModule.forFeature([{name:Platform.name,schema:PlatformSchema},{name:User.name,schema:UserSchema}]),
+        MongooseModule.forFeature([
+            {name:Platform.name,schema:PlatformSchema},
+            {name:User.name,schema:UserSchema}
+        ]),
     ],
     controllers:[PlatformController],
     providers:[PlatformService]

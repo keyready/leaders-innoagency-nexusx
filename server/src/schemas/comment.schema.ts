@@ -11,14 +11,11 @@ export class Comment extends Document{
     @Prop({type:String,required:true,unique:true})
     _id:string
 
-    // @Prop({type:String})
-    // userId: string
-    
     @Prop({type:Object})
     user: object
 
     @Prop({type:String})
-    platformId: string
+    platformTitle: string
 
     @Prop({type:String})
     body:string

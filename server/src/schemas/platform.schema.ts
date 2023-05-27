@@ -29,9 +29,9 @@ export class Platform extends Document{
     @Prop({type:String,unique:true})
     description: string
 
-    @Prop({type:String})
+    @Prop({type:[String]})
     //TODO - множество изображений
-    image: string
+    images: [string]
     
     @Prop({type:Date})
     date: Date

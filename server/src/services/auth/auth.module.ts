@@ -11,6 +11,7 @@ import { JwtModule } from '@nestjs/jwt';
 // import { JwtStrategy } from 'src/common/strategies/jwt.strategy';
 // import { JwtAuthService } from 'src/common/services/jwt.service';
 import { SmscService } from 'src/common/services/sms.service';
+import { TemplateService } from 'src/common/services/template.service';
 
 
 @Module({
@@ -23,6 +24,6 @@ import { SmscService } from 'src/common/services/sms.service';
         // })
     ],
     controllers:[AuthController],
-    providers:[YandexStrategy,AuthService,MailService,/*JwtStrategy,*/SmscService]
+    providers:[YandexStrategy,AuthService,MailService,/*JwtStrategy,*/SmscService,TemplateService]
 })
 export class AuthModule {}

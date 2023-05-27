@@ -1,8 +1,8 @@
 import { Controller,Post,Body,UploadedFile,UseInterceptors,Get,UseGuards,Param, Req, Res } from '@nestjs/common';
 import { ApiTags,ApiOperation } from '@nestjs/swagger/dist';
-import { RegisterUserDto } from 'src/dtos/register-user.dto';
+import { RegisterUserDto } from 'src/entities/register-user.dto';
 import { AuthService } from './auth.service';
-import { LoginUserDto } from 'src/dtos/login-user.dto';
+import { LoginUserDto } from 'src/entities/login-user.dto';
 // import { FileInterceptor } from '@nestjs/platform-express';
 // import { diskStorage } from 'multer';
 import { Response } from '@nestjs/common';
