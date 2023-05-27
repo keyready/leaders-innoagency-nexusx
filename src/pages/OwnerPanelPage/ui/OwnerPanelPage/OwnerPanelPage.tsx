@@ -63,7 +63,7 @@ const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
             formData.delete('images');
         }
 
-        fetch('/', {
+        fetch('/create_platform', {
             method: 'post',
             body: formData,
         })

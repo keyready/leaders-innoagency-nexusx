@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "super-user-228-1337-the-best-frontender",
+      "_id": "user1",
       "firstname": "Родион",
       "lastname": "Корчак",
       "middlename": "Дмитриевич",
@@ -9,8 +9,8 @@
       "phoneNumber": "89243093207",
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
-      "access_token": "q0agq0ylu1q0o19keclpbrs",
-      "refresh_token": "1yzox94rg7ka9mwxtkizpb",
+      "access_token": "b06h9dxqe1rakf11xn6sd5",
+      "refresh_token": "h9lhe3bg4d8avlrlr53dwj",
       "roles": [
         "ADMIN",
         "USER",
@@ -18,19 +18,20 @@
       ]
     },
     {
-      "name": "Андрей",
+      "_id": "the-best-frontenders-dad",
+      "firstname": "Дмитрий",
       "lastname": "Корчак",
-      "middlename": "Дмитриевич"
-    },
-    {
-      "name": "Анюта",
-      "lastname": "Корчак",
-      "middlename": "Дмитриевич"
-    },
-    {
-      "name": "Роман",
-      "lastname": "Корчак",
-      "middlename": "Дмитриевич"
+      "middlename": "Анатольевич",
+      "email": "dallss@mail.ru",
+      "phoneNumber": "89142194320",
+      "password": "!!!!!",
+      "avatar": "/users/user2.jpg",
+      "access_token": "39504oagrudhppx3nxy8yr",
+      "refresh_token": "vpj9dz6n9wt0zpqz0vlk",
+      "roles": [
+        "USER",
+        "OWNER"
+      ]
     }
   ],
   "platforms": [
@@ -72,7 +73,7 @@
       "metro": "Курский вокзал",
       "name": "Artplay",
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -95,7 +96,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -111,7 +112,7 @@
       "description": "Лофт-квартал Товарищество Рябовской Мануфактуры предлагает коммерческие помещения под различные бизнес направления. Выгодное расположение близко к станции метро в центре делового района.",
       "images": [
         "/images/platform1_1.png",
-        "/images/platform1_3.jpeg",
+        "/images/platform1_2.jpeg",
         "/images/platform1_3.jpeg"
       ],
       "metro": "Охотный ряд",
@@ -174,7 +175,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -225,7 +226,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -279,7 +280,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -316,7 +317,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -367,7 +368,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -418,7 +419,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -472,7 +473,7 @@
     },
     {
       "owner": {
-        "id": "super-user-228-1337-the-best-frontender",
+        "id": "user1",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",
@@ -508,67 +509,122 @@
       "maxGuests": 20
     }
   ],
+  "bookings": [
+    {
+      "_id": "booking1",
+      "userId": "user1",
+      "platformId": "pl1",
+      "platformTitle": "Artplay",
+      "places": "3",
+      "body": "Оставленный комментарий к бронированию площадки",
+      "date": "2023-05-24T00:00:00.000Z",
+      "startTime": "2023-05-25T10:00:00.000Z",
+      "endTime": "2023-05-25T15:00:00.000Z"
+    },
+    {
+      "_id": "booking2",
+      "userId": "user1",
+      "platformId": "plt6",
+      "platformTitle": "Товарищество Рябовской мануфактуры\n",
+      "places": "1",
+      "body": "Оставленный комментарий к бронированию площадки",
+      "date": "2023-06-02T00:00:00.000Z",
+      "startTime": "2023-05-25T15:00:00.000Z",
+      "endTime": "2023-05-25T19:00:00.000Z"
+    },
+    {
+      "_id": "booking3",
+      "userId": "user1",
+      "platformId": "plt1",
+      "platformTitle": "Artplay",
+      "places": "2",
+      "body": "Оставленный комментарий к бронированию площадки",
+      "date": "2023-05-30T00:00:00.000Z",
+      "startTime": "2023-05-25T15:00:00.000Z",
+      "endTime": "2023-05-25T19:00:00.000Z"
+    },
+    {
+      "_id": "booking4",
+      "userId": "user1",
+      "platformId": "pl3",
+      "platformTitle": "Московский дворец молодежи",
+      "places": "10",
+      "body": "Оставленный комментарий к бронированию площадки",
+      "date": "2023-05-30T00:00:00.000Z",
+      "startTime": "2023-05-25T15:00:00.000Z",
+      "endTime": "2023-05-25T19:00:00.000Z"
+    }
+  ],
   "comments": [
     {
       "_id": "cm1",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "4.4",
       "body": "Комментарий до 100 символовУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm8",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "3.8",
       "body": "Интересные задания и практические задачиУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm7",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "the-best-frontenders-dad",
       "rate": "3.2",
       "body": "Отличная поддержка пользователейУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm6",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "4.8",
       "body": "Удобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация"
     },
     {
       "_id": "cm5",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "5",
       "body": "Много полезных материалов для изученияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm4",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "4",
       "body": "Рекомендую эту платформу всемУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm412",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "4",
       "body": "Рекомендую эту платформу всемУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm4122",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "4",
       "body": "Рекомендую эту платформу всемУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     },
     {
       "_id": "cm41233",
       "platformId": "plt1",
-      "userId": "super-user-228-1337-the-best-frontender",
+      "platformTitle": "Artplay",
+      "userId": "user1",
       "rate": "4",
       "body": "Рекомендую эту платформу всемУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигацияУдобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация Удобный интерфейс и навигация"
     }

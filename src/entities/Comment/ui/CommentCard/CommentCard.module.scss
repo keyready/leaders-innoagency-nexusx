@@ -1,5 +1,6 @@
 .Comment {
-
+    width: 100%;
+    position: relative;
 }
 
 .skeletonVStack {
@@ -12,13 +13,17 @@
     border-radius: 50%;
 }
 
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
 .commentName {
     font-size: 24px;
     font-weight: 400;
 }
 
 .commentBody {
-    width: 300px;
     font-size: 16px;
     max-height: 130px;
     text-overflow: ellipsis;

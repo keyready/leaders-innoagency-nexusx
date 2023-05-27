@@ -9,11 +9,7 @@ const initialState: CommentSchema = {
 export const CommentSlice = createSlice({
     name: 'Comment',
     initialState,
-    reducers: {
-        template: (state, action: PayloadAction<string>) => {
-
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchCommentById.pending, (state) => {

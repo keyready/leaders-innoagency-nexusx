@@ -17,6 +17,7 @@ import { Select, SelectItem } from 'shared/UI/Select/Select';
 import { Avatar } from 'shared/UI/Avatar/Avatar';
 import { Dropdown } from 'shared/UI/Dropdown';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { LanguageSwitcher } from 'widgets/LanguageSwitcher';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -39,19 +40,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
         dispatch(logout(userData?.refresh_token));
     }, [dispatch, userData?.refresh_token]);
 
-    const [selectedLanguage, setSelectedLanguage] = useState<SelectItem>({
-        value: i18n.language,
-        content: t(i18n.language),
-    });
-    const handleChangeLanguage = useCallback(async (newLanguage: SelectItem) => {
-        console.log(newLanguage);
-        await i18n.changeLanguage(newLanguage.value);
-        setSelectedLanguage({
-            value: i18n.language,
-            content: t(i18n.language),
-        });
-    }, [i18n, t]);
-
     return (
         <HStack
             justify="between"
@@ -62,24 +50,6 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                 <Icon Svg={MainIcon} className={classes.mainIcon} />
             </Button>
             <HStack gap="32">
-                <Select
-                    items={[
-                        {
-                            value: 'ru',
-                            content: t('ru'),
-                        },
-                        {
-                            value: 'en',
-                            content: t('en'),
-                        },
-                        {
-                            value: 'es',
-                            content: t('es'),
-                        },
-                    ]}
-                    selectedValue={selectedLanguage}
-                    setSelectedValue={handleChangeLanguage}
-                />
                 <AppLink to="#">
                     <HStack max gap="8" align="center">
                         <Icon Svg={EyeIcon} className={classes.icon} />
@@ -119,6 +89,9 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                                 {
                                     content: t('Выйти') as string,
                                     onClick: onLogout,
+                                },
+                                {
+                                    content: (<LanguageSwitcher />),
                                 },
                             ]}
                         />

@@ -7,7 +7,7 @@ import { AppLink } from 'shared/UI/AppLink';
 import classes from './Dropdown.module.scss';
 
 export interface DropdownItems {
-    content?: string;
+    content?: ReactNode;
     href?: string;
     onClick?: () => void;
     disabled?: boolean;
@@ -45,7 +45,7 @@ export const Dropdown = (props: DropdownProps) => {
                 {trigger}
             </Menu.Button>
             <Menu.Items className={classNames(classes.items, {}, menuClasses)}>
-                {items.map((item) => {
+                {items.map((item, index) => {
                     const content = ({ active }: {active: boolean}) => (
                         <button
                             className={classNames(classes.item, { [classes.active]: active })}
@@ -61,7 +61,7 @@ export const Dropdown = (props: DropdownProps) => {
                         return (
                             <Menu.Item
                                 className={classes.link}
-                                key={item.content}
+                                key={index}
                                 as={AppLink}
                                 to={item.href}
                                 disabled={item.disabled}
@@ -73,7 +73,7 @@ export const Dropdown = (props: DropdownProps) => {
 
                     return (
                         <Menu.Item
-                            key={item.content}
+                            key={index}
                             as={Fragment}
                             disabled={item.disabled}
                         >

@@ -5,28 +5,58 @@ import { useSelector } from 'react-redux';
 import { getUserAuthData } from 'entities/User';
 import { Page } from 'widgets/Page/Page';
 import { AvatarUploader } from 'widgets/AvatarUploader';
-import { EditableProfileData } from 'pages/ProfilePage/ui/EditableProfileData';
-import { VStack } from 'shared/UI/Stack';
+import { HStack, VStack } from 'shared/UI/Stack';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
+import { BookingReducer } from 'entities/Booking';
+import { EditableProfileData } from '../EditableProfileData';
+import { BookingsBlock } from '../BookingsBlock';
 import classes from './ProfilePage.module.scss';
+import { CommentsBlock } from '../CommentsBlock';
 
 interface ProfilePageProps {
     className?: string;
 }
 
+const reducers: ReducersList = {
+    getBookings: BookingReducer,
+};
+
 const ProfilePage = memo((props: ProfilePageProps) => {
     const { className } = props;
+
     const { t } = useTranslation('ProfilePage');
 
     const user = useSelector(getUserAuthData);
 
+    if (!user) {
+        return (
+            <Page className={classNames(classes.ProfilePage, {}, [className])}>
+                <h3>Не удалось получить информацию о пользователе</h3>
+            </Page>
+        );
+    }
+
     return (
-        <Page className={classNames(classes.ProfilePage, {}, [className])}>
-            <VStack className={classes.ProfilePageWrapper} justify="start" align="center">
-                <h2>{`${t('Страница пользователя')} ${user?.firstname}`}</h2>
-                <AvatarUploader image={user?.avatar || ''} />
-                <EditableProfileData />
-            </VStack>
-        </Page>
+        <DynamicModuleLoader reducers={reducers}>
+            <Page className={classNames(classes.ProfilePage, {}, [className])}>
+                <VStack
+                    className={classes.ProfilePageWrapper}
+                    justify="start"
+                    align="center"
+                >
+                    <HStack
+                        max
+                        justify="between"
+                        align="stretch"
+                    >
+                        <AvatarUploader image={user?.avatar || ''} />
+                        <EditableProfileData />
+                    </HStack>
+                    <BookingsBlock />
+                    <CommentsBlock />
+                </VStack>
+            </Page>
+        </DynamicModuleLoader>
     );
 });
 

@@ -112,7 +112,7 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
                     align="start"
                     justify="start"
                 >
-                    <h2 className={classes.title}>{t('Личные данные')}</h2>
+                    <h3 className={classes.title}>{t('Личные данные')}</h3>
                     <YupInput
                         className={classes.yupInput}
                         customValue={user?.firstname || ''}

@@ -16,6 +16,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Alert } from 'shared/UI/Alert';
 import { useSelector } from 'react-redux';
 import { getPlatformById, getPlatformData } from 'entities/Platform';
+import { formatDate, formatTimeRange } from 'entities/Booking';
 import {
     getBookPlatformError,
     getBookPlatformIsLoading,
@@ -80,21 +81,6 @@ export const BookPlatformCard = memo((props: BookPlatformCardProps) => {
             dispatch(getPlatformById(id));
         }
     });
-
-    const formatDate = useCallback((date: Date): string => new Intl.DateTimeFormat('ru-RU', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-        // era: 'long',
-    }).format(date), []);
-    const formatTimeRange = useCallback(({ startTime, finishTime }: SelectedTime): string => {
-        const startHours = startTime?.getHours().toString().padStart(2, '0');
-        const startMinutes = startTime?.getMinutes().toString().padStart(2, '0');
-        const endHours = finishTime?.getHours().toString().padStart(2, '0');
-        const endMinutes = finishTime?.getMinutes().toString().padStart(2, '0');
-
-        return `с ${startHours}:${startMinutes} до ${endHours}:${endMinutes}`;
-    }, []);
 
     return (
         <Card className={classNames(classes.BookPlatform, {}, [className])}>

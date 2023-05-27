@@ -25,6 +25,10 @@ export const userSlice = createSlice({
         },
         initAuthData: (state) => {
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)
+            // const user = Cookies.get('user');
+            // if (user) {
+            //     state.authData = JSON.parse(user);
+            // }
             state._inited = true;
         },
     },

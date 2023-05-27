@@ -90,7 +90,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
     return (
         <Card className={classNames(classes.AvatarUploader, {}, [className])}>
             <VStack justify="between" align="center" className={classes.wrapperWrapper}>
-                <h2>{t('Ваш аватар')}</h2>
+                <h3>{t('Ваш аватар')}</h3>
                 <HStack
                     justify="center"
                     gap="32"
@@ -126,7 +126,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                         </div>
                     </VStack>
                     <div
-                        style={{ width: '500px' }}
+                        style={{ width: '200px' }}
                     >
                         <h4>{t('Увеличение')}</h4>
                         <Slider
@@ -162,7 +162,7 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                             max={180}
                             onChange={(zoom) => avatarRotationHandler(zoom as number)}
                         />
-                        <h4 style={{ marginTop: 20 }}>{t('Сглаживание углов')}</h4>
+                        <h4 style={{ marginTop: 20 }}>{t('Скругление углов')}</h4>
                         <Slider
                             defaultValue={avatarBorderRadius}
                             trackStyle={{ backgroundColor: '#9ABBEC', height: 10 }}
