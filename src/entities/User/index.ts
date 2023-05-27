@@ -20,3 +20,5 @@ export { logout } from './model/service/logout';
 export { checkPassword } from './model/service/checkPassword';
 export { changeUserPassword } from './model/service/changeUserPassword';
 export { changeUserProfile } from './model/service/changeUserProfile';
+export { unbanUser } from './model/service/unbanUser';
+export { banUser } from './model/service/banUser';

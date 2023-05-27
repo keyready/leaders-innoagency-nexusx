@@ -10,15 +10,6 @@
     outline: none;
 }
 
-.clear {
-    margin: 0;
-    padding: 0;
-    border: none;
-    color: inherit;
-    background: none;
-    outline: none;
-}
-
 .primary {
     background: var(--accent-color-sec);
 
@@ -70,6 +61,15 @@
     background: rgb(255 144 144 / 10%);
 
     &:hover {
-        background: #FF909040;
+        background: #ff909040;
     }
+}
+
+.clear {
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: inherit;
+    background: none;
+    outline: none;
 }

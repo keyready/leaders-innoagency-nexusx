@@ -10,12 +10,14 @@
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
       "access_token": "b06h9dxqe1rakf11xn6sd5",
-      "refresh_token": "h9lhe3bg4d8avlrlr53dwj",
+      "refresh_token": "7chwxcgc2ff2qlc5ph0vqh",
       "roles": [
         "ADMIN",
         "USER",
         "OWNER"
-      ]
+      ],
+      "lastVisit": "2023-06-15T12:00:00.000Z",
+      "isBanned": false
     },
     {
       "_id": "the-best-frontenders-dad",
@@ -29,9 +31,28 @@
       "access_token": "39504oagrudhppx3nxy8yr",
       "refresh_token": "vpj9dz6n9wt0zpqz0vlk",
       "roles": [
+        "USER"
+      ],
+      "lastVisit": "2023-06-15T12:00:00.000Z",
+      "isBanned": false
+    },
+    {
+      "_id": "user3",
+      "firstname": "Андрей",
+      "lastname": "Майоров",
+      "middlename": "Сергеевич",
+      "email": "dallss134@bk.ru",
+      "phoneNumber": "89243093206",
+      "password": "!!!!!",
+      "avatar": "/users/user2.jpg",
+      "access_token": "",
+      "refresh_token": "",
+      "roles": [
         "USER",
         "OWNER"
-      ]
+      ],
+      "lastVisit": "2023-06-15T12:00:00.000Z",
+      "isBanned": true
     }
   ],
   "platforms": [

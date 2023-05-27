@@ -1,0 +1,56 @@
+.DialogWrapper {
+    background: #00000060;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.DialogPanel {
+    padding: 30px;
+    border-radius: var(--border-radius);
+    background: var(--inverted-bg-color);
+}
+
+.DialogTitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.DialogDescription {
+    text-align: justify;
+    margin-bottom: 20px;
+}
+
+.enter {
+    transition: ease-in 100ms;
+}
+
+.enterForm {
+    transform: scale(0.95);
+    opacity: 0;
+}
+
+.enterTo {
+    transform: scale(1);
+    opacity: 100;
+}
+
+.leave {
+    transition: ease-in 75ms;
+}
+
+.leaveFrom {
+    transform: scale(1);
+    opacity: 100;
+}
+
+.leaveTo {
+    transform: scale(0.95);
+    opacity: 0;
+}

@@ -1,30 +1,69 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import { memo } from 'react';
+import {
+    Fragment, memo, ReactNode, useState,
+} from 'react';
 import { Tab } from '@headlessui/react';
+import { HStack, VStack } from 'shared/UI/Stack';
 import classes from './VerticalTabs.module.scss';
+
+export interface VerticalTabsItem {
+    content: ReactNode;
+    key: string;
+}
 
 interface VerticalTabsProps {
     className?: string;
+    items: VerticalTabsItem[];
+    selectedTab: number;
+    setSelectedTab: (tab: number) => void;
 }
 
 export const VerticalTabs = memo((props: VerticalTabsProps) => {
     const {
         className,
+        selectedTab,
+        setSelectedTab,
+        items,
     } = props;
 
     return (
-        <Tab.Group vertical>
-            <Tab.List>
-                <Tab>Tab 1</Tab>
-                <Tab>Tab 2</Tab>
-                <Tab>Tab 3</Tab>
-            </Tab.List>
-            <Tab.Panels>
-                <Tab.Panel>Content 1</Tab.Panel>
-                <Tab.Panel>Content 2</Tab.Panel>
-                <Tab.Panel>Content 3</Tab.Panel>
-            </Tab.Panels>
+        <Tab.Group
+            selectedIndex={selectedTab}
+            onChange={setSelectedTab}
+            vertical
+        >
+            <div className={classes.TabsWrapper}>
+                <Tab.List as={Fragment}>
+                    <VStack justify="start" align="center" className={classes.tabsNamesWrapper}>
+                        {items.map((item) => (
+                            <Tab
+                                as={Fragment}
+                                key={item.key}
+                            >
+                                {({ selected }) => (
+                                    <h3
+                                        className={classNames(classes.tabName, {
+                                            [classes.activeTabName]: selected,
+                                        })}
+                                    >
+                                        {item.key}
+                                    </h3>
+                                )}
+                            </Tab>
+                        ))}
+                    </VStack>
+                </Tab.List>
+                <Tab.Panels className={classes.panels}>
+                    {items.map((item) => (
+                        <Tab.Panel
+                            key={item.key}
+                        >
+                            {item.content}
+                        </Tab.Panel>
+                    ))}
+                </Tab.Panels>
+            </div>
         </Tab.Group>
     );
 });

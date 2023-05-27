@@ -8,6 +8,8 @@ import { UserSchema } from '../types/UserSchema';
 import { User } from '../types/User';
 import { changeUserPassword } from '../service/changeUserPassword';
 import { changeUserProfile } from '../service/changeUserProfile';
+import { banUser } from '../service/banUser';
+import { unbanUser } from '../service/unbanUser';
 
 const initialState: UserSchema = {
     _inited: false,
@@ -98,6 +100,31 @@ export const userSlice = createSlice({
                 state.authData = action.payload;
             })
             .addCase(changeUserProfile.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(banUser.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(banUser.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(banUser.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+            .addCase(unbanUser.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(unbanUser.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(unbanUser.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.message;
