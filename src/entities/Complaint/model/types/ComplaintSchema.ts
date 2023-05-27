@@ -1,4 +1,5 @@
 export interface Complaint {
+    _id: string;
     isBanned?: boolean;
     from?: string;
     target?: string;

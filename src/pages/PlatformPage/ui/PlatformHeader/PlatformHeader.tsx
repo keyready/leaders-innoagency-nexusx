@@ -10,7 +10,7 @@ import { TextArea } from 'shared/UI/TextArea/TextArea';
 import { HStack, VStack } from 'shared/UI/Stack';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getUserAuthData } from 'entities/User';
-import { getComplaintData, getComplaintIsLoading, submitComplaint } from 'entities/Complaint';
+import { getComplaintIsLoading, submitComplaint } from 'entities/Complaint';
 import { Alert } from 'shared/UI/Alert';
 import classes from './PlatformHeader.module.scss';
 

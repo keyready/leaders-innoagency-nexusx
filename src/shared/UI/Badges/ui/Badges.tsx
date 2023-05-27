@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo } from 'react';
+import { memo, ReactNode } from 'react';
 import classes from './Badges.module.scss';
 
 export type BadgesTypes =
@@ -21,7 +21,7 @@ const TypesClasses: Record<BadgesTypes, string> = {
 interface BadgesProps {
     className?: string;
     type?: BadgesTypes;
-    children?: string
+    children?: ReactNode
 }
 
 export const Badges = memo((props: BadgesProps) => {

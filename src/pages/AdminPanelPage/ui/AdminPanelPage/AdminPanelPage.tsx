@@ -4,6 +4,7 @@ import { memo, useState } from 'react';
 import { VerticalTabs, VerticalTabsItem } from 'shared/UI/VerticalTabs';
 import { UsersList } from '../UsersList';
 import classes from './AdminPanelPage.module.scss';
+import { ComplaintsList } from '../ComplaintsList';
 
 interface AdminPanelPageProps {
     className?: string;
@@ -16,7 +17,7 @@ const items: VerticalTabsItem[] = [
     },
     {
         key: 'Жалобы',
-        content: (<p>Контент вкладочки 2</p>),
+        content: (<ComplaintsList />),
     },
     {
         key: 'Вкладочка 3',

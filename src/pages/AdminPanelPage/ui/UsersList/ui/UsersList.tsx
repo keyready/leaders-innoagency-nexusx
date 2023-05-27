@@ -88,6 +88,7 @@ export const UsersList = memo((props: UsersListProps) => {
     return (
         <VStack className={classNames(classes.UsersList, {}, [className])}>
             <div className={classes.tableRow}>
+                <h3>{t('id')}</h3>
                 <h3>{t('Почта')}</h3>
                 <h3>{t('Последнее посещение')}</h3>
                 <h3>{t('Тип')}</h3>
@@ -96,6 +97,7 @@ export const UsersList = memo((props: UsersListProps) => {
             {users.length
                 ? users.map((user: User, index) => (
                     <div className={classes.tableRow} key={index}>
+                        <p>{user._id}</p>
                         <p>{user.email}</p>
                         <p>23.05.2023 г.</p>
                         <p>{user?.roles.includes(UserRoles.OWNER) ? 'Арендодатель' : 'Арендатор'}</p>

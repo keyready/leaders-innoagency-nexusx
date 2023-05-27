@@ -10,3 +10,5 @@ export {
     getComplaintIsLoading,
     getComplaintError,
 } from './model/selectors/getComplaintData';
+export { acceptComplaint } from './model/services/acceptComplaint';
+export { dismissComplaint } from './model/services/dismissComaplaint';
