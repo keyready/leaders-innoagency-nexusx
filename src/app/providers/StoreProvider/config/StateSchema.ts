@@ -16,6 +16,7 @@ import { PlatformPageSchema } from 'pages/PlatformPage';
 import { BookingSchema } from 'entities/Booking';
 import { GetBookingsSchema } from 'features/getBookings';
 import { GetCommentsSchema } from 'features/getComments';
+import { ComplaintSchema } from 'entities/Complaint';
 
 export interface StateSchema {
     user: UserSchema;
@@ -31,6 +32,7 @@ export interface StateSchema {
     registerPage?: RegisterPageSchema;
     comment?: CommentSchema;
     booking?: BookingSchema;
+    complaint?: ComplaintSchema;
     getPlatforms?: GetPlatformsSchema;
     metroStation?: GetMetroStationSchema;
     bookPlatform?: BookPlatformSchema;

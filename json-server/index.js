@@ -37,6 +37,10 @@ server.get('/error', (req, res) => {
     //
     res.status(401).json({ data: 'хых, ошибка' });
 });
+server.post('/submit_complaint', (req, res) => {
+    //
+    res.status(201).json('все нормы');
+});
 server.post('/check_old_password', (req, res) => {
     //
     res.status(202).json({ data: 'хых, ошибка' });

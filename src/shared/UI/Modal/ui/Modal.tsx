@@ -1,36 +1,58 @@
-import { ReactNode, useCallback } from 'react';
-import { classNames } from 'shared/lib/classNames/classNames';
+import {
+    Fragment, memo, ReactNode,
+} from 'react';
+import { Dialog, Transition } from '@headlessui/react';
 import classes from './Modal.module.scss';
 
 interface ModalProps {
     className?: string;
+    title?: string
     children?: ReactNode;
-    show?: boolean;
-    setShow?: (value: boolean) => void;
-    header?: string;
-    headerCloser?: boolean;
     footer?: ReactNode;
+    isOpen: boolean;
+    setIsOpen: (state: boolean) => void;
 }
 
-export const Modal = (props: ModalProps) => {
+export const Modal = memo((props: ModalProps) => {
     const {
-        children,
         className,
-        setShow,
-        show,
-        header,
-        headerCloser,
+        children,
         footer,
+        title,
+        isOpen,
+        setIsOpen,
     } = props;
 
-    const handleClose = useCallback(() => {
-        setShow?.(false);
-    }, [setShow]);
-
     return (
-        <Modal
-            className={classNames(classes.Modal, {}, [className])}
-            show={show}
-        />
+        <Transition
+            appear
+            show={isOpen}
+            as={Fragment}
+        >
+            <Dialog
+                as="div"
+                className={classes.DialogWrapper}
+                onClose={() => setIsOpen(false)}
+            >
+                <Transition.Child
+                    enter={classes.enter}
+                    enterFrom={classes.enterForm}
+                    enterTo={classes.enterTo}
+                    leave={classes.leave}
+                    leaveFrom={classes.leaveFrom}
+                    leaveTo={classes.leaveTo}
+                    as={Fragment}
+                >
+                    <Dialog.Panel className={classes.DialogPanel}>
+                        {title && (<Dialog.Title className={classes.DialogTitle}>{title}</Dialog.Title>)}
+                        <Dialog.Description className={classes.DialogDescription}>
+                            {children}
+                        </Dialog.Description>
+
+                        {footer}
+                    </Dialog.Panel>
+                </Transition.Child>
+            </Dialog>
+        </Transition>
     );
-};
+});

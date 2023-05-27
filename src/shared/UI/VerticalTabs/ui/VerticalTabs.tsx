@@ -1,10 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
-import {
-    Fragment, memo, ReactNode, useState,
-} from 'react';
+import { Fragment, memo, ReactNode } from 'react';
 import { Tab } from '@headlessui/react';
-import { HStack, VStack } from 'shared/UI/Stack';
+import { VStack } from '../../Stack';
 import classes from './VerticalTabs.module.scss';
 
 export interface VerticalTabsItem {
@@ -13,7 +10,6 @@ export interface VerticalTabsItem {
 }
 
 interface VerticalTabsProps {
-    className?: string;
     items: VerticalTabsItem[];
     selectedTab: number;
     setSelectedTab: (tab: number) => void;
@@ -21,7 +17,6 @@ interface VerticalTabsProps {
 
 export const VerticalTabs = memo((props: VerticalTabsProps) => {
     const {
-        className,
         selectedTab,
         setSelectedTab,
         items,

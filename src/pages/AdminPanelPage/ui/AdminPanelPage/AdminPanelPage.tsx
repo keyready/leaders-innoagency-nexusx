@@ -11,11 +11,11 @@ interface AdminPanelPageProps {
 
 const items: VerticalTabsItem[] = [
     {
-        key: 'Вкладочка 1',
+        key: 'Список пользователей',
         content: (<UsersList />),
     },
     {
-        key: 'Вкладочка 2',
+        key: 'Жалобы',
         content: (<p>Контент вкладочки 2</p>),
     },
     {
