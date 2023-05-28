@@ -81,6 +81,18 @@ ___
  - В браузере открыть `http://localhost:9999`
 
 ___
+## Сборка Frontend-части приложения
+ - `npm run start": "webpack serve --env port=1488`
+ - `npm run start:server": "nodemon ./json-server/index.js`
+ - `npm run start:dev": "concurrently \"npm start\" \"npm run start:server\"`
+ - `npm run build:dev": "webpack --env mode=development`
+ - `npm run build:prod": "webpack --env mode=production`
+ - `npm run lint:ts": "eslint \"**/*.{ts,tsx}\"`
+ - `npm run lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix`
+ - `npm run lint:scss": "npx stylelint \"**/*.scss\"`
+ - `npm run lint:scss:fix": "npx stylelint \"**/*.scss\" --fix`
+
+___
 ## Команда
  - [Грибанова Алина](https://t.me/toy_feels_vibe): UI/UX
  - [Корчак Родион](https://t.me/keyrea_dy): frontend-разработка
