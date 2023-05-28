@@ -69,8 +69,8 @@ export class UserService {
         newBooking.date = createBookingDto.date
         newBooking.startTime = createBookingDto.startTime
         newBooking.endTime = createBookingDto.endTime
-        newBooking.bookedPlaces = createBookingDto.bookedPlaces
-        newBooking.comment = createBookingDto.comment
+        newBooking.bookingPlaces = createBookingDto.bookedPlaces
+        newBooking.body = createBookingDto.comment
 
         await newBooking.save()
 
@@ -138,6 +138,11 @@ export class UserService {
         newComplaintPlatform.comment = createComplaintForPlatformDto.comment
         
         return await newComplaintPlatform.save()
+    }
+
+    async updateComment(updateCommentDto){
+        await this.bookingModel.findByIdAndUpdate(updateCommentDto.bookingId,{comment:updateCommentDto.comment},{new:true})
+        return await this.bookingModel.find().exec()
     }
 
 }

@@ -12,6 +12,7 @@ import { LoginUserDto } from 'src/entities/login-user.dto';
 import { MailService } from 'src/common/services/mail.service';
 import { JwtService } from '@nestjs/jwt';
 import { SmscService } from 'src/common/services/sms.service';
+import { AdminService } from '../admin/admin.service';
 @Injectable()
 export class AuthService {
 
@@ -19,6 +20,7 @@ export class AuthService {
         @InjectModel(User.name) private readonly userModel:Model<User>,
         private readonly mailService: MailService,
         private readonly jwtService:JwtService,
+        private readonly adminService:AdminService
         // private readonly smsServise: SmscService,    
         ){}
 
@@ -33,6 +35,9 @@ export class AuthService {
         user.lastname = registerUserDto.lastname
         user.password = bcrypt.hashSync(registerUserDto.password,5)
         user.dateOfBirth = registerUserDto.dateOfBirth
+
+        await this.adminService.createEvent(`Регистрация пользователя ${registerUserDto.email}`,null)
+
         return await user.save()
     }
     
@@ -54,8 +59,6 @@ export class AuthService {
                 user.phoneNumber = null
                 const code = generateConfirmationCode()
                 user.confirmationCode = code
-                console.log('код для почты',code);
-                
                 await this.mailService.sendMailConfirmRegister(email,code)
                 return await user.save()
             }
@@ -104,6 +107,8 @@ export class AuthService {
             user.refresh_token = refresh_token
             await user.save()
             
+            await this.adminService.createEvent(`Успешная авторизация на сайте ${user.email}`,user)
+
             return {
                 ...user.toJSON(),
                 access_token,
@@ -132,6 +137,7 @@ export class AuthService {
         }
         user.password = await bcrypt.hashSync(newPassword,5)
         await this.mailService.sendMailChangePassword(user.email)
+        await this.adminService.createEvent(`Смена пароля ${user.email}`,user)
         return await user.save()
     }
 
@@ -160,12 +166,15 @@ export class AuthService {
             //TODO - смс на телефон с кодом
         }
 
+        await this.adminService.createEvent(`Сброс пароля ${user.email}`,user)
+
         return await user.save() 
     }   
 
     async logout(refresh_token){
         const user = await this.userModel.findOne({refresh_token:refresh_token})
         user.refresh_token = null
+        await this.adminService.createEvent(`Выход с сайта ${user.email}`,user)
         return user.save()
     }
 
@@ -200,6 +209,7 @@ export class AuthService {
         const user = await this.userModel.findOne({refresh_token:token})
         user.firstname = newProfileData.firstname
         user.lastname = newProfileData.lastname
+        await this.adminService.createEvent(`Изменение профиля ${user.email}`,user)
         return await user.save()
     }
 

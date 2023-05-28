@@ -6,8 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService){}
 
   @Get()
-  getHello(@Response() res){
-    return this.appService.getIndex(res);
+  getMainPage(@Response() res){
+    return this.appService.getMainPage(res);
   }
 }
   

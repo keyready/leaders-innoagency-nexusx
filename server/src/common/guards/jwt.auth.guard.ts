@@ -10,7 +10,10 @@ import { Request } from 'express';
 
 @Injectable()
 export class JwtGuard implements CanActivate {
-    constructor(private jwtService: JwtService,private readonly configService: ConfigService) {}
+    constructor(
+        private jwtService: JwtService,
+        private readonly configService: ConfigService
+    ){}
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const request = context.switchToHttp().getRequest();        
@@ -24,18 +27,18 @@ export class JwtGuard implements CanActivate {
             const payload = await this.jwtService.verify(
             token,
             {
-                secret:'секрет'
+                secret:this.configService.get<string>('JWT_SECRET')
             }
             );
             request['user'] = payload;
         } catch(e) {
-            console.log(e.message);
             throw new UnauthorizedException({message:'невалидный токен'});
         }
         return true;
 }
-    // private extractTokenFromHeader(request: Request): string | undefined {
-    //     const [type, token] = request.headers.authorization?.split(' ') ?? [];
-    //     return type === 'Bearer' ? token : undefined;
-    // }
+
+    private extractTokenFromHeader(request: Request): string | undefined {
+        const [type, token] = request.headers.authorization?.split(' ') ?? [];
+        return type === 'Token' ? token : undefined;
+    }
 }

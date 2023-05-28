@@ -26,11 +26,16 @@ export class Booking extends Document{
     endTime: Date
 
     @Prop({type:Number})
-    bookedPlaces: number
+    bookingPlaces: number
 
     @Prop({type:String})
-    comment: string
+    body: string
 
+    @Prop({type:Boolean,default:false})
+    isFinshed: boolean
+
+    @Prop({type:String,default:null})
+    comment:string
 }
 
 export const BookingSchema = SchemaFactory.createForClass(Booking)

@@ -135,19 +135,17 @@ export class MailService{
     }
 
     async sendMailTemporarilyPassword(recipientEmail:string,password:string){
-        
-        // const cssContent = fs.readFileSync(path.resolve('src/static/emailTemplates/tmpPassword/style.css'))
-        // const htmlContent = await this.templateService.renderTemplateWithData(path.resolve('src/static/emailTemplates/tmpPassword/index.hbs'),{
-        //     css:cssContent,
-        //     tmpPassword:password
-        // })
+        const cssContent = fs.readFileSync(path.resolve('src/static/emailTemplates/tmpPassword/style.css'))
+        const htmlContent = await this.templateService.renderTemplateWithData(path.resolve('src/static/emailTemplates/tmpPassword/index.hbs'),{
+            css:cssContent,
+            tmpPassword:password
+        })
 
         await this.transporter.sendMail({
             from:this.configService.get<string>('MAIL_SERVICE'),
             to:recipientEmail,
             subject:'Временный пароль',
-            text:`Ваш временый пароль ${password}`,
-            // html:htmlContent
+            html:htmlContent
         })
     }
 

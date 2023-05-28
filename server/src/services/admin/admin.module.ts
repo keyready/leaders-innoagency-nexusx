@@ -7,13 +7,15 @@ import { Platform, PlatformSchema } from "src/schemas/platform.schema";
 import { User, UserSchema } from "src/schemas/user.schema";
 import { AdminController } from "./admin.controller";
 import { AdminService } from "./admin.service";
+import { Event,EventSchema } from "src/schemas/event.schema";
 
 @Module({
     imports:[
         MongooseModule.forFeature([
             {name:User.name,schema:UserSchema},
             {name:Platform.name,schema:PlatformSchema},
-            {name:Complaint.name,schema:ComplaintSchema}
+            {name:Complaint.name,schema:ComplaintSchema},
+            {name:Event.name,schema:EventSchema}
         ]),
     ],
     providers:[AdminService,MailService,TemplateService],

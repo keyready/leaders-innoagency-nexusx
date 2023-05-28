@@ -7,7 +7,7 @@ export function generateConfirmationCode() {
 }
 
 export function generateTemporarilyPassword(){
-    return cpyto.randomBytes(10).toString('hex')
+    return cpyto.randomBytes(5).toString('hex')
 }
 
 export function generateUniqueId(){

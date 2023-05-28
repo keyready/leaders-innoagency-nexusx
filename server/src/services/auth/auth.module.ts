@@ -12,18 +12,37 @@ import { JwtModule } from '@nestjs/jwt';
 // import { JwtAuthService } from 'src/common/services/jwt.service';
 import { SmscService } from 'src/common/services/sms.service';
 import { TemplateService } from 'src/common/services/template.service';
-
+import { AdminService } from '../admin/admin.service';
+import { EventSchema } from 'src/schemas/event.schema';
+import { Event } from 'src/schemas/event.schema';
 
 @Module({
     imports:[
-        MongooseModule.forFeature([{name:User.name,schema:UserSchema}]),
+        MongooseModule.forFeature(
+            [
+                {name:User.name,schema:UserSchema},
+                {name:Event.name,schema:EventSchema}
+            ]
+        ),
         // PassportModule.register({defaultStrategy:'JWT'}),
         // JwtModule.register({
         //     secret:'секрет',
         //     signOptions:{expiresIn:'1d'}
         // })
+        PassportModule.register({
+            defaultStrategy:'yandex'
+        })
     ],
     controllers:[AuthController],
-    providers:[YandexStrategy,AuthService,MailService,/*JwtStrategy,*/SmscService,TemplateService]
+    providers:[
+        YandexStrategy,
+        AuthService,
+        MailService,
+        /*JwtStrategy,*/
+        SmscService,
+        TemplateService,
+        AdminService
+    ]
+
 })
 export class AuthModule {}

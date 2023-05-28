@@ -1,5 +1,4 @@
 import { Prop, Schema,SchemaFactory } from "@nestjs/mongoose";
-
 import { Document } from "mongoose";
 
 @Schema({
@@ -18,8 +17,8 @@ export class Event extends Document{
     @Prop({type:String})
     name:string
 
-    @Prop({type:String})
-    date: string
+    @Prop({type:Date})
+    date: Date
 }
 
 export const EventSchema = SchemaFactory.createForClass(Event)

@@ -7,6 +7,7 @@ import { createCommentDto } from 'src/entities/create-comment.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateComplaintForPlatformDto } from 'src/entities/create-complaint-for-platform.dto';
 import { OptionsFileUpload } from 'src/config/config';
+import { UpdateBookingDto } from 'src/entities/update-booking.dto';
 @ApiTags('Сервис пользователя')
 @Controller()
 export class UserController {
@@ -38,8 +39,6 @@ export class UserController {
     @Post('/comments')
     @ApiOperation({summary:'Создания комментария для платформы'})
     async addCommentForCurrentPlatform(@Body() createCommentForPlatform:createCommentDto){
-        console.log(createCommentForPlatform);
-        
         return this.userService.addCommentForCurrentPlatform(createCommentForPlatform)   
     }
 
@@ -69,5 +68,10 @@ export class UserController {
         return await this.userService.createComplaintForPlatform(createComplaintForPlatform)
     }
 
-}
+    @Post('/make_booking_comment')
+    @ApiOperation({summary:'Отзыв о бронировании'})
+    async addCommentBookin(@Body() updateBookingDto:UpdateBookingDto){
+        return await this.userService.updateComment(updateBookingDto)
+    }
 
+}
