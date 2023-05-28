@@ -6,7 +6,7 @@ import { Booking } from 'src/schemas/booking.schema';
 import { Platform } from 'src/schemas/platform.schema';
 import { User } from 'src/schemas/user.schema';
 import { Comment } from 'src/schemas/comment.schema';
-import { generateUniqueId } from 'src/utils/utils';
+import { generateUniqueId, } from 'src/utils/utils';
 import * as fs from 'fs'
 import * as path from 'path'
 import { Complaint } from 'src/schemas/complaint.schema';
@@ -23,21 +23,6 @@ export class UserService {
         private readonly mailService:MailService  
     ){}
     
-    async createComplaint(createComplaintDto){
-        const complaint = await new this.complaintModel()
-
-        complaint._id = generateUniqueId()
-        complaint.target = createComplaintDto.complaint
-        complaint.from = createComplaintDto.from
-        complaint.comment = createComplaintDto.comment
-
-        await complaint.save()
-    
-        return {
-            message:`Жалоба на пользователя ${complaint.target} успешно отправлена`
-        }
-    }
-
     async updateComplaint(complaintId,updateComplaintDto){
         const complaint = await this.complaintModel.findById(complaintId)
         const user = await this.userModel.findById(complaint.target)
@@ -59,6 +44,7 @@ export class UserService {
     }
 
     async createBooking(platformId,createBookingDto,refresh_token){
+
         const user = await this.userModel.findOne({refresh_token:refresh_token})
         const platform = await this.platformModel.findById(platformId)
 
@@ -68,9 +54,9 @@ export class UserService {
             throw new BadRequestException({message:'Проверьте правильность введенных данных'})
         }
         
-        if(platform.maxGuests < createBookingDto.bookedPlaces || platform.freeSpacee < createBookingDto.bookedPlaces){
-            throw new BadRequestException({message:`Кол-во желаемых мест ${createBookingDto.bookedPlaces} превышает кол-во допустимых ${platform.freeSpacee}`})
-        }
+        // if(platform.maxGuests < createBookingDto.bookedPlaces || platform.freeSpacee < createBookingDto.bookedPlaces){
+        //     throw new BadRequestException({message:`Кол-во желаемых мест ${createBookingDto.bookedPlaces} превышает кол-во допустимых ${platform.freeSpacee}`})
+        // }
         
         else{
             platform.freeSpacee-=createBookingDto.bookedPlaces
@@ -88,16 +74,15 @@ export class UserService {
 
         await newBooking.save()
 
-        await this.mailService.sendMailInfoBooking(user.email,platform.title,user.firstname,user.lastname,platform.images[0],createBookingDto.startTime,createBookingDto.endTime)
+        await this.mailService.sendMailInfoBooking(user.email,platform.title,platform.images[0],createBookingDto.startTime,createBookingDto.endTime,createBookingDto.date)
 
         return {
             message:'Бронь успешно завершена'
         }
     }  
 
-    async showMyBooking(refresh_token:string){
-        const user = await this.userModel.findOne({refresh_token:refresh_token})
-        return await this.bookingModel.findOne({userId:user._id})
+    async showBookings(userId:string){
+        return await this.bookingModel.find({userId:userId}).exec()
     }
 
     async showMyProfile(refresh_token:string){        
@@ -129,11 +114,6 @@ export class UserService {
         return await user.save()
     }
     
-    async showBookingsForCurrentPlatform(plaformId){
-        const bookingsCurrentPlatform = await this.bookingModel.find({platformId:plaformId}).exec()
-        return bookingsCurrentPlatform
-    }
-
     async deleteHisCommentForCurrentPlatform(commentId){
         return await this.commentModel.findByIdAndDelete(commentId)
     }

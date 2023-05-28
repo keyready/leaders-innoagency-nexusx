@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Platform } from "src/schemas/platform.schema";
 import { Model } from "mongoose";
@@ -16,10 +16,52 @@ export class AdminService{
         private readonly mailService: MailService
     ){}
 
-    async getAllUsers(){
-        return await this.userModel.find().exec()
+    async getAllUsers(paginationUsersDto){
+        const {_page,_limit} = paginationUsersDto
+        const skip = (_page - 1) * _limit        
+        return await this.userModel.find().skip(skip).limit(_limit).exec()
     }
     
+    async banPlatform(complaintId){
+        const complaint = await this.complaintModel.findById(complaintId)
+        const platform = await this.platformModel.findOne({_id:complaint.target})
+
+        if(complaint.isBanned || platform.isBanned){
+            throw new BadRequestException({message:'Ошибка'})
+        }
+
+        complaint.isBanned = true
+        complaint.decision = 'Жалоба принята'
+        platform.isBanned = true
+
+        await complaint.save()
+        await platform.save()
+
+        return {
+            complaint,platform
+        }
+    }
+
+    async unbanPlatform(complaintId){
+        const complaint = await this.complaintModel.findById(complaintId)
+        const platform = await this.platformModel.findOne({_id:complaint.target})
+
+        if(!complaint.isBanned || !platform.isBanned){
+            throw new BadRequestException({message:'Ошибка'})
+        }
+
+        complaint.isBanned = false
+        complaint.decision = 'Отклонено'
+        platform.isBanned = false
+
+        await complaint.save()
+        await platform.save()
+
+        return {
+            complaint,platform
+        }
+    }
+
     async banUser(reqData){
         const {userId,banReason} = reqData
         const user = await this.userModel.findById(userId)
@@ -44,5 +86,10 @@ export class AdminService{
         return user;
     }
 
+    async showComplaints(paginationComplaintsDto){
+        const {_limit,_page} = paginationComplaintsDto
+        const skip = (_page - 1) * _limit
+        return await this.complaintModel.find().skip(skip).limit(_limit).exec()
+    }
 
 }

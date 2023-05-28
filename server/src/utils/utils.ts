@@ -1,6 +1,7 @@
 import * as cpyto from 'crypto';
 import { v4 as uniqueId } from 'uuid'
 
+
 export function generateConfirmationCode() {
     return String(Math.floor(1000 + Math.random() * 9000))
 }
@@ -14,9 +15,16 @@ export function generateUniqueId(){
     return id
 }
 
-export function SetMoscowTime(time){
-    const offset = 3 * 60;
-    time.setMinutes(time.getMinutes() + offset);
-    const dateMoscow = time.toISOString().replace('T', ' ').replace(/\.\d+Z$/, '');
-    return dateMoscow
+export const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU', {
+        day: 'numeric', month: 'long', year: 'numeric',
+    });
+}
+
+export const formatTime = (dateString: string) => {
+    const date = new Date(dateString);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 }

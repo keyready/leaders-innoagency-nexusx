@@ -4,12 +4,9 @@ import { CreateBookingDto } from 'src/entities/create-booking.dto';
 import { UserService } from './user.service';
 import { Request } from 'express';
 import { createCommentDto } from 'src/entities/create-comment.dto';
-import { extname } from 'path';
-import * as path from 'path'
-import { diskStorage } from 'multer'
 import { FileInterceptor } from '@nestjs/platform-express';
-import { CreateComplaintDto } from 'src/entities/create-complaint.dto';
 import { CreateComplaintForPlatformDto } from 'src/entities/create-complaint-for-platform.dto';
+import { OptionsFileUpload } from 'src/config/config';
 @ApiTags('Сервис пользователя')
 @Controller()
 export class UserController {
@@ -18,23 +15,11 @@ export class UserController {
         private readonly userService: UserService
     ){}
 
-    // @Get('/profile')
-    // @ApiOperation({summary:'Просмотр профиля пользователя.'})
-    // async showMyProfile(@Req() req:Request){
-    //     return await this.userService.showMyProfile(req.headers.cookie['refresh_token'])
-    // }
-
     @Get('/bookings')
-    @ApiOperation({summary:'Просмотр брони пользователя'})
-    async showMyBooking(@Req() req:Request){
+    @ApiOperation({summary:'Просмотр брони'})
+    async showMyBooking(@Query('userId') userId:string,@Req() req:Request){
         const token = req.headers.cookie.split('=')[1].split(';')[0]
-        return await this.userService.showMyBooking(token)
-    }
-
-    @Get('/bookings')
-    @ApiOperation({summary:'Показ всех бронирований для конкретной платформы'})
-    async showBookingsForCurrentPlatform(@Query('platformId') plaformId: string){
-        return await this.userService.showBookingsForCurrentPlatform(plaformId)
+        return await this.userService.showBookings(userId)
     }
 
     @Post('/book_platform')
@@ -49,12 +34,6 @@ export class UserController {
     async deleteBooking(@Body('bookingId') bookingId:string){
         return this.userService.deleteMyBooking(bookingId)        
     }
-
-    // @Get('/comments')
-    // @ApiOperation({summary:'Получение всех отзывов для конкретной платформы'})
-    // async allCommentForCurrentPlatform(@Query('platformId') platformId: string){
-    //     return this.userService.allCommentsForCurrentPlatform(platformId) 
-    // }
 
     @Post('/comments')
     @ApiOperation({summary:'Создания комментария для платформы'})
@@ -78,22 +57,10 @@ export class UserController {
 
     @Post('/uploadAvatar')
     @ApiOperation({summary:'Изменение аватарки профиля.'})
-    @UseInterceptors(FileInterceptor('avatar',{
-        storage:diskStorage({
-            destination: path.resolve('src/static/img/users'),//path.join(__dirname,'static','img','users'),
-            filename: (req, file, cb) => {
-                const randomName = Array(15).fill(null).map(() => Math.round(Math.random() * 16).toString(16)).join('');
-                return cb(null, `${randomName}${extname(file.originalname)}`)}})
-    }))
+    @UseInterceptors(FileInterceptor('avatar',OptionsFileUpload('users')))
     async uploadAvatar(@UploadedFile() image,@Req() req:Request){
         const token = req.headers.cookie.split('=')[1].split(';')[0]
         return this.userService.uploadAvatar(image,token)    
-    }
-
-    @Post('/complaints')
-    @ApiOperation({summary:'Создание жалобы на юзера'})
-    async createComplaint(@Body() createComplaintDto:CreateComplaintDto){
-        return this.userService.createComplaint(createComplaintDto)
     }
 
     @Post('/submit_complaint')
@@ -101,7 +68,6 @@ export class UserController {
     async createComplaintForPlatform(@Body() createComplaintForPlatform:CreateComplaintForPlatformDto){
         return await this.userService.createComplaintForPlatform(createComplaintForPlatform)
     }
-
 
 }
 

@@ -54,7 +54,9 @@ export class AuthService {
                 user.phoneNumber = null
                 const code = generateConfirmationCode()
                 user.confirmationCode = code
-                await this.mailService.sendMailConfirmRegister(email,user)
+                console.log('код для почты',code);
+                
+                await this.mailService.sendMailConfirmRegister(email,code)
                 return await user.save()
             }
             else if(phoneNumber != ''){
@@ -115,6 +117,7 @@ export class AuthService {
         if(user != null){
             user.isActivated = true
             user.confirmationCode = null
+            this.mailService.sendMailActivatedUser(user.email)
             return await user.save()
         }
         else{

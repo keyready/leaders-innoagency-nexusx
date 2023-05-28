@@ -8,8 +8,8 @@ import { extname } from 'path';
 import { UseInterceptors } from '@nestjs/common';
 import { diskStorage } from 'multer';
 import { UploadedFile } from '@nestjs/common';
-import { Request } from 'express';
 import * as path from 'path'
+import { OptionsFileUpload } from 'src/config/config';
 
 @ApiTags('Сервис управления платформами и площадками.')
 @Controller()
@@ -33,13 +33,7 @@ export class PlatformController {
 
     @Post('/create_platform')
     @ApiOperation({summary:'Создание платформы'})
-    @UseInterceptors(FileInterceptor('platformImage_0',{
-        storage:diskStorage({
-            destination: path.resolve('src/static/img/platforms'),//path.join(__dirname,'..','..','..','static','img','platforms'),
-            filename: (req, file, cb) => {
-                const randomName = Array(15).fill(null).map(() => Math.round(Math.random() * 16).toString(16)).join('');
-                return cb(null, `${randomName}${extname(file.originalname)}`)}})
-    }))
+    @UseInterceptors(FileInterceptor('platformImage_0',OptionsFileUpload('platforms')))
     async createPlatform(@UploadedFile() image,@Body() createPlatformDto:CreatePlatformDto){
         return await this.platformService.createPlatform(createPlatformDto,image)                
     }   

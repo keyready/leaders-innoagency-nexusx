@@ -36,12 +36,12 @@ export class AuthController {
     }
 
     //-----------------------Яндекс авторизация----------------------------
-    @Get('/yandex-login-link')
-    @ApiOperation({summary:'Авторизация пользователя при помощи ЯндексID'})
-    @UseGuards(AuthGuard('yandex'))
-    async yandexAuth(){
-        console.log('есть кто?');   
-    }
+    // @Get('/yandex_login')
+    // @ApiOperation({summary:'Авторизация пользователя при помощи ЯндексID'})
+    // @UseGuards(AuthGuard('yandex'))
+    // async yandexAuth(){
+
+    // }
 
     //TODO - callbackUrl после успешной авторизации. ( Вопрос пароля и токенов )
 

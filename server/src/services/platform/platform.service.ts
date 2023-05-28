@@ -14,12 +14,11 @@ export class PlatformService {
     ){}
 
     async getAllPlatforms(){
-        return await this.platformModel.find().exec()
+        return await this.platformModel.find({isBanned:false}).exec()
     }
 
     async getOnePlatform(id){
-        const pl = await this.platformModel.findOne({_id:id})
-        return pl                
+        return await this.platformModel.findOne({_id:id})
     }
 
     async createPlatform(createPlatformDto,image){
