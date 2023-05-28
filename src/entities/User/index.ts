@@ -22,3 +22,5 @@ export { changeUserPassword } from './model/service/changeUserPassword';
 export { changeUserProfile } from './model/service/changeUserProfile';
 export { unbanUser } from './model/service/unbanUser';
 export { banUser } from './model/service/banUser';
+export { upgradeUserRoles } from './model/service/upgradeUserRoles';
+export { downgradeUserRoles } from './model/service/downgradeUserRoles';

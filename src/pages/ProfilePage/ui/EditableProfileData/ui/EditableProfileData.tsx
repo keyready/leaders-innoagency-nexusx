@@ -45,7 +45,6 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
     const dispatch = useAppDispatch();
 
     const user = useSelector(getUserAuthData);
-    const checkPasswordError = useSelector(getUserCheckOldPasswordError);
     const userIsLoading = useSelector(getUserIsLoading);
     const userError = useSelector(getUserError);
 
@@ -54,12 +53,9 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
     } = useForm({ resolver: yupResolver(ProfileUpdateSchema) });
 
     const [isEditable, setIsEditable] = useState<boolean>(false);
-    const [isPasswordInFocus, setIsPasswordInFocus] = useState<boolean>(false);
     const [changeProfileResult, setChangeProfileResult] = useState<string>('');
-    const [changePasswordResult, setChangePasswordResult] = useState<string>('');
 
     const handleChangesCancel = useCallback(() => {
-        setIsPasswordInFocus(false);
         setIsEditable(false);
 
         setValue('firstname', user?.firstname);
@@ -71,21 +67,6 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
 
     const onSubmit = handleSubmit(async (data) => {
         setChangeProfileResult('');
-        setChangePasswordResult('');
-        if (watch('newPassword')) {
-            if (watch('newPassword') !== watch('repeatedPassword')) {
-                alert(t('Новые пароли не совпадают') as string);
-            }
-
-            const result = await dispatch(checkPassword(watch('oldPassword') || ''));
-            if (result.meta.requestStatus === 'fulfilled') {
-                const subResult = await dispatch(changeUserPassword(watch('newPassword') || ''));
-
-                if (subResult.meta.requestStatus === 'fulfilled') {
-                    setChangePasswordResult('Пароль успешно изменен');
-                }
-            }
-        }
 
         if (watch('firstname') !== user?.firstname
             || watch('lastname') !== user?.lastname) {
@@ -111,6 +92,7 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
                     className={classes.wrapper}
                     align="start"
                     justify="start"
+                    gap="32"
                 >
                     <h3 className={classes.title}>{t('Личные данные')}</h3>
                     <YupInput
@@ -147,62 +129,7 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
                         value={user?.phoneNumber}
                         plain
                     />
-                    {isEditable && (
-                        <p className={classes.passwordSupport}>
-                            {t('Нажмите, чтобы сменить пароль')}
-                        </p>
-                    )}
-                    <YupInput
-                        className={classes.yupInput}
-                        inputType="password"
-                        customValue={isEditable ? '5' : 'пасхалка'}
-                        register={register}
-                        name="oldPassword"
-                        watch={watch}
-                        setValue={setValue}
-                        // @ts-ignore
-                        errors={errors}
-                        placeholder={t('Введите старый пароль') as string}
-                        disabled={!isEditable}
-                        onFocus={() => {
-                            setValue('oldPassword', '');
-                            setIsPasswordInFocus(true);
-                        }}
-                    />
-                    {isPasswordInFocus && (
-                        <>
-                            <YupInput
-                                className={classes.yupInput}
-                                inputType="password"
-                                register={register}
-                                name="newPassword"
-                                watch={watch}
-                                setValue={setValue}
-                                // @ts-ignore
-                                errors={errors}
-                                placeholder={t('Введите новый пароль') as string}
-                                disabled={!isEditable}
-                            />
-                            <YupInput
-                                className={classes.yupInput}
-                                inputType="password"
-                                register={register}
-                                name="repeatedPassword"
-                                watch={watch}
-                                setValue={setValue}
-                                // @ts-ignore
-                                errors={errors}
-                                placeholder={t('Повторите новый пароль') as string}
-                                disabled={!isEditable}
-                            />
-                        </>
-                    )}
 
-                    {checkPasswordError && (
-                        <Alert variant="danger">
-                            {checkPasswordError}
-                        </Alert>
-                    )}
                     {userError && (
                         <Alert variant="danger">
                             {userError}
@@ -211,11 +138,6 @@ export const EditableProfileData = memo((props: EditableProfileDataProps) => {
                     {changeProfileResult && (
                         <Alert variant="success">
                             {changeProfileResult}
-                        </Alert>
-                    )}
-                    {changePasswordResult && (
-                        <Alert variant="success">
-                            {changePasswordResult}
                         </Alert>
                     )}
 

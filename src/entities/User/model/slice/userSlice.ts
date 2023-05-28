@@ -10,6 +10,8 @@ import { changeUserPassword } from '../service/changeUserPassword';
 import { changeUserProfile } from '../service/changeUserProfile';
 import { banUser } from '../service/banUser';
 import { unbanUser } from '../service/unbanUser';
+import { upgradeUserRoles } from '../service/upgradeUserRoles';
+import { downgradeUserRoles } from '../service/downgradeUserRoles';
 
 const initialState: UserSchema = {
     _inited: false,
@@ -125,6 +127,31 @@ export const userSlice = createSlice({
                 state.isLoading = false;
             })
             .addCase(unbanUser.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(upgradeUserRoles.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(upgradeUserRoles.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(upgradeUserRoles.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+            .addCase(downgradeUserRoles.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(downgradeUserRoles.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(downgradeUserRoles.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.message;

@@ -1,7 +1,8 @@
 import { ReactNode, useMemo, useState } from 'react';
+import Cookies from 'js-cookie';
 import { LOCAL_STORAGE_THEME, Theme, ThemeContext } from '../lib/ThemeContext';
 
-const defaultTheme = localStorage.getItem(LOCAL_STORAGE_THEME) as Theme || Theme.LIGHT;
+const defaultTheme = Cookies.get(LOCAL_STORAGE_THEME) as Theme || Theme.LIGHT;
 
 export interface ThemeProviderProps {
     children: ReactNode;

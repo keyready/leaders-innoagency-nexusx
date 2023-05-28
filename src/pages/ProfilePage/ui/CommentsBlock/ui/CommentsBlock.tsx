@@ -73,7 +73,6 @@ export const CommentsBlock = memo((props: CommentsBlockProps) => {
 
     return (
         <div className={classNames(classes.CommentsBlock, {}, [className])}>
-            <h3 style={{ textAlign: 'center' }}>{t('Мои комментарии')}</h3>
             {carouselContent.length && (
                 <Carousel content={carouselContent} />
             )}

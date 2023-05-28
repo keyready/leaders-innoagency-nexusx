@@ -15,3 +15,6 @@ export {
 export {
     fetchBookingsByUserId,
 } from './model/services/fetchBookingsByUserId';
+export {
+    makeBookingComment,
+} from './model/services/makeBookingComment';

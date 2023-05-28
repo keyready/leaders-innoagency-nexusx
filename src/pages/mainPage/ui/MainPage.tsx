@@ -42,7 +42,7 @@ const MainPage = () => {
 
     useEffect(() => {
         document.title = 'ПРОЩЕ | Агрегатор креативных площадок';
-        dispatch(fetchPlatforms());
+        dispatch(fetchPlatforms(''));
 
         const handleSearchEnter = (ev: KeyboardEvent) => {
             if (ev.key === 'Enter' && comboQuery) {
@@ -55,7 +55,7 @@ const MainPage = () => {
         return () => {
             document.removeEventListener('keypress', handleSearchEnter);
         };
-    }, [blurBackground, dispatch, navigate, selected.value]);
+    }, [blurBackground, comboQuery, dispatch, navigate, selected.value]);
 
     const platforms = useSelector(getPlatforms.selectAll);
     const error = useSelector(getFetchPlatformsError);

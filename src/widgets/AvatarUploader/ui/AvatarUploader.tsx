@@ -88,7 +88,6 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
     return (
         <Card className={classNames(classes.AvatarUploader, {}, [className])}>
             <VStack justify="between" align="center" className={classes.wrapperWrapper}>
-                <h3>{t('Ваш аватар')}</h3>
                 <HStack
                     justify="center"
                     gap="32"
@@ -117,16 +116,12 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                                 id="avatarUploader"
                             />
                             <label htmlFor="avatarUploader" className={classes.AvatarUploaderLabel}>
-                                <span className={classes.icon}>
-                                    {`+ ${t('Выберите новый аватар')}`}
-                                </span>
+                                {t('Изменить аватар')}
                             </label>
                         </div>
-                    </VStack>
-                    <div
-                        style={{ width: '200px' }}
-                    >
-                        <h4>{t('Увеличение')}</h4>
+                        <h4 style={{ marginTop: 30, textAlign: 'center', width: '100%' }}>
+                            {t('Увеличение')}
+                        </h4>
                         <Slider
                             defaultValue={avatarZoom}
                             trackStyle={{ backgroundColor: '#9ABBEC', height: 10 }}
@@ -143,43 +138,11 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
                             max={10}
                             onChange={(zoom) => avatarZoomHandler(zoom as number)}
                         />
-                        <h4 style={{ marginTop: 20 }}>{t('Поворот')}</h4>
-                        <Slider
-                            defaultValue={avatarRotation}
-                            trackStyle={{ backgroundColor: '#9ABBEC', height: 10 }}
-                            handleStyle={{
-                                borderColor: '#9ABBEC',
-                                height: 20,
-                                width: 20,
-                                marginLeft: -7,
-                                backgroundColor: '#6196E4',
-                            }}
-                            railStyle={{ backgroundColor: '#B7B8B9', height: 10 }}
-                            min={-180}
-                            step={2}
-                            max={180}
-                            onChange={(zoom) => avatarRotationHandler(zoom as number)}
-                        />
-                        <h4 style={{ marginTop: 20 }}>{t('Скругление углов')}</h4>
-                        <Slider
-                            defaultValue={avatarBorderRadius}
-                            trackStyle={{ backgroundColor: '#9ABBEC', height: 10 }}
-                            handleStyle={{
-                                borderColor: '#9ABBEC',
-                                height: 20,
-                                width: 20,
-                                marginLeft: -7,
-                                backgroundColor: '#6196E4',
-                            }}
-                            railStyle={{ backgroundColor: '#B7B8B9', height: 10 }}
-                            min={0}
-                            step={5}
-                            max={100}
-                            onChange={(zoom) => avatarBorderRadiusHandler(zoom as number)}
-                        />
-                    </div>
+                    </VStack>
                 </HStack>
-                <Button onClick={handleSave}>Сохранить</Button>
+                <Button style={{ marginTop: 30 }} onClick={handleSave}>
+                    {t('Сохранить')}
+                </Button>
             </VStack>
         </Card>
     );

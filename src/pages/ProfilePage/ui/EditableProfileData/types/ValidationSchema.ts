@@ -14,7 +14,9 @@ export const ProfileUpdateSchema = Yup.object({
             'Пожалуйста, используйте буквы русского алфавита',
         )
         .required('Обязательное поле'),
+}).required();
 
+export const PasswordUpdateSchema = Yup.object({
     oldPassword: Yup.string()
         .required('Обязательное поле'),
 

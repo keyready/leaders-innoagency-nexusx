@@ -9,8 +9,8 @@
       "phoneNumber": "89243093207",
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
-      "access_token": "kfc880maisfqylp1bsudf",
-      "refresh_token": "bjcjilbcbzd4sbslr06xx7",
+      "access_token": "8uell0ffkty4sgx52cyx",
+      "refresh_token": "9jzo24foibjzrnuptbol6",
       "roles": [
         "ADMIN",
         "USER",
@@ -53,6 +53,25 @@
       ],
       "lastVisit": "2023-06-15T12:00:00.000Z",
       "isBanned": true
+    },
+    {
+      "_id": "user3",
+      "firstname": "Андрей",
+      "lastname": "Майоров",
+      "middlename": "Иванович",
+      "email": "vip.korchak@list.ru",
+      "phoneNumber": "89959870113",
+      "password": "!!!!!",
+      "avatar": "/users/user3.png",
+      "access_token": "po44yjssehz9lo5c0d03",
+      "refresh_token": "sovlfk0ch7d0jhamodfw21l",
+      "roles": [
+        "ADMIN",
+        "USER",
+        "OWNER"
+      ],
+      "lastVisit": "2023-06-15T12:00:00.000Z",
+      "isBanned": false
     }
   ],
   "platforms": [
@@ -102,7 +121,7 @@
         "phoneNumber": "7 (924) 309 3207",
         "avatar": "/users/user1.jpg"
       },
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "whatsapp": "+7 (495) 620-08-83",
       "telegram": "//t.me/keyrea_dy",
@@ -138,7 +157,7 @@
       ],
       "metro": "Охотный ряд",
       "name": "Товарищество Рябовской мануфактуры",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 126-04-82",
       "email": "arenda@tovarishestvo.com",
@@ -183,7 +202,7 @@
       ],
       "metro": "Фрунзенская",
       "name": "Московский дворец молодежи",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (499) 248-57-81",
       "email": "infomaska@mdm-theatre.ru",
@@ -234,7 +253,7 @@
       ],
       "metro": "Адмиралтейская",
       "name": "Флакон",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 790-79-01",
       "email": "info@flacon.ru",
@@ -285,7 +304,7 @@
       ],
       "metro": "Комендантский проспект",
       "name": "Artplay",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 620-08-83",
       "email": "ic@artplay.ru",
@@ -322,7 +341,7 @@
       ],
       "metro": "Адмиралтейская",
       "name": "Товарищество Рябовской мануфактуры",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 126-04-82",
       "email": "arenda@tovarishestvo.com",
@@ -376,7 +395,7 @@
       ],
       "metro": "Адмиралтейская",
       "name": "Московский дворец молодежи",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (499) 248-57-81",
       "email": "infomaska@mdm-theatre.ru",
@@ -427,7 +446,7 @@
       ],
       "metro": "Адмиралтейская",
       "name": "Флакон",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 790-79-01",
       "email": "info@flacon.ru",
@@ -478,7 +497,7 @@
       ],
       "metro": "Комендантский проспект",
       "name": "Artplay",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 620-08-83",
       "email": "ic@artplay.ru",
@@ -515,7 +534,7 @@
       ],
       "metro": "Адмиралтейская",
       "name": "Товарищество Рябовской мануфактуры",
-      "subtitle": "",
+      "subtitle": "Краткое описание платформы, чтобы заинтересовать пользователя",
       "type": "workspace",
       "tel": "+7 (495) 126-04-82",
       "email": "arenda@tovarishestvo.com",
@@ -540,7 +559,8 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-05-24T00:00:00.000Z",
       "startTime": "2023-05-25T10:00:00.000Z",
-      "endTime": "2023-05-25T15:00:00.000Z"
+      "endTime": "2023-05-25T15:00:00.000Z",
+      "isFinished": false
     },
     {
       "_id": "booking2",
@@ -551,7 +571,8 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-06-02T00:00:00.000Z",
       "startTime": "2023-05-25T15:00:00.000Z",
-      "endTime": "2023-05-25T19:00:00.000Z"
+      "endTime": "2023-05-25T19:00:00.000Z",
+      "isFinished": false
     },
     {
       "_id": "booking3",
@@ -562,7 +583,8 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-05-30T00:00:00.000Z",
       "startTime": "2023-05-25T15:00:00.000Z",
-      "endTime": "2023-05-25T19:00:00.000Z"
+      "endTime": "2023-05-25T19:00:00.000Z",
+      "isFinished": true
     },
     {
       "_id": "booking4",
@@ -573,7 +595,9 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-05-30T00:00:00.000Z",
       "startTime": "2023-05-25T15:00:00.000Z",
-      "endTime": "2023-05-25T19:00:00.000Z"
+      "endTime": "2023-05-25T19:00:00.000Z",
+      "isFinished": true,
+      "comment": "Все понравилось, нооооооо"
     }
   ],
   "comments": [

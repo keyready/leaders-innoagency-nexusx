@@ -24,6 +24,8 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { TabContent, Tabs } from 'shared/UI/Tabs';
 import { YupInput } from 'widgets/YupInput';
 import { useTranslation } from 'react-i18next';
+import { useSearchParams } from 'react-router-dom';
+import { loginByYandexAuth } from 'pages/LoginPage';
 import { getLoginDataError, getLoginDataIsLoading } from '../../model/selectors/getLoginData';
 import { login } from '../../model/services/Login';
 import { LoginPageReducer } from '../../model/slices/LoginPageSlice';
@@ -43,6 +45,7 @@ const LoginPage = memo((props: LoginPageProps) => {
     const { t } = useTranslation('LoginPage');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [params] = useSearchParams();
 
     const loginError = useSelector(getLoginDataError);
     const loginIsLoading = useSelector(getLoginDataIsLoading);
@@ -84,6 +87,25 @@ const LoginPage = memo((props: LoginPageProps) => {
             navigate('/feed');
         }
     });
+
+    useEffect(() => {
+        const yandexLogin = async () => {
+            const code = Number(params.get('code'));
+            if (code) {
+                navigate('/login');
+                const result = await dispatch(loginByYandexAuth(code));
+
+                if (result.meta.requestStatus === 'fulfilled') {
+                    alert('успешный вход');
+                    navigate('/feed');
+                } else {
+                    alert('ошибка');
+                }
+            }
+        };
+
+        yandexLogin();
+    }, [params, navigate, dispatch]);
 
     useEffect(() => {
         document.title = 'ПРОЩЕ | Вход';
@@ -228,7 +250,9 @@ const LoginPage = memo((props: LoginPageProps) => {
                         <Button
                             style={{ marginRight: 30 }}
                             variant="clear"
-                            onClick={() => navigate('/yandex-login-link')}
+                            onClick={() => navigate(
+                                '//oauth.yandex.ru/authorize?response_type=code&client_id=c1688919452843349161a0207d2ac149',
+                            )}
                         >
                             <HStack
                                 max

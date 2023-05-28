@@ -6,3 +6,4 @@ export {
     getLoginDataIsLoading,
 } from './model/selectors/getLoginData';
 export { login } from './model/services/Login';
+export { loginByYandexAuth } from './model/services/loginByYandexAuth';

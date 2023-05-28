@@ -15,22 +15,25 @@
     cursor: pointer;
     padding: 10px;
     border-radius: 8px;
-    background: var(--card-bg);
+    background: var(--bg-color);
     display: flex;
     flex-direction: column;
     gap: 4px;
     z-index: 999900;
     position: absolute;
+    outline: var(--border-width) solid var(--accent-color-main);
 }
 
 .item {
     cursor: pointer;
     padding: 10px;
+    border: none;
     border-radius: 8px;
     color: var(--primary-color);
-    background: var(--card-bg);
+    background: var(--bg-color);
     transition: 200ms;
     min-width: 200px;
+    outline: none;
 }
 
 .link {
@@ -44,7 +47,7 @@
 
 .active {
     color: var(--inverted-primary-color);
-    background: var(--inverted-bg-color);
+    background: var(--accent-color-main);
 }
 
 .directionBottomLeft {
