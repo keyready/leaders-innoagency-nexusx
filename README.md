@@ -82,15 +82,13 @@ ___
 
 ___
 ## Сборка Frontend-части приложения
- - `npm run start`
- - `npm run start:server`
- - `npm run start:dev`
- - `npm run build:dev`
- - `npm run build:prod`
- - `npm run lint:ts`
- - `npm run lint:ts:fix`
- - `npm run lint:scss`
- - `npm run lint:scss:fix`
+ - `npm run start` - запустить приложение в дев-режиме
+ - `npm run start:server` - запустить моковый сервер
+ - `npm run start:dev` - запустить приложение вместе с моковым сервером
+ - `npm run build:dev` - собрать приложение в дев-режиме
+ - `npm run build:prod` - собрать приложение в прод-режиме
+ - `npm run lint:ts:fix` - запустить линтер на ts файлы
+ - `npm run lint:scss:fix` - запустить линтер на scss файлы
 
 ___
 ## Команда
