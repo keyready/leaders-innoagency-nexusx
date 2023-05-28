@@ -20,10 +20,10 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { AppLink } from 'shared/UI/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
-import { Input } from 'shared/UI/Input';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { YupInput } from 'widgets/YupInput';
 import classes from './SearchPage.module.scss';
 
 interface SearchPageProps {
@@ -97,7 +97,7 @@ const SearchPage = memo((props: SearchPageProps) => {
                     <p className={classes.subtitle}>
                         Найти через ПОИСК
                     </p>
-                    <Input
+                    <YupInput
                         className={classes.searchInput}
                         placeholder={t('Поиск по платформам') as string}
                         inputType="search"

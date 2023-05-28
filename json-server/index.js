@@ -12,12 +12,12 @@ server.use(jsonServer.bodyParser);
 const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 
 // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-// server.use(async (req, res, next) => {
-//     await new Promise((res) => {
-//         setTimeout(res, 2000);
-//     });
-//     next();
-// });
+server.use(async (req, res, next) => {
+    await new Promise((res) => {
+        setTimeout(res, 500);
+    });
+    next();
+});
 
 server.post('/comments', (req, res) => {
     const { userId, platformId } = req.body;
@@ -36,6 +36,22 @@ server.post('/comments', (req, res) => {
 server.get('/error', (req, res) => {
     //
     res.status(401).json({ data: 'хых, ошибка' });
+});
+server.post('/submit_complaint', (req, res) => {
+    //
+    res.status(201).json('все нормы');
+});
+server.post('/check_old_password', (req, res) => {
+    //
+    res.status(202).json({ data: 'хых, ошибка' });
+});
+server.post('/change_password', (req, res) => {
+    //
+    res.status(202).json({ data: 'хых, ошибка' });
+});
+server.post('/change_profile', (req, res) => {
+    //
+    res.status(403).json({ message: 'хых, ошибка' });
 });
 server.post('/book_platform', (req, res) => {
     res.status(201).json({ message: 'Успешно забронировано' });

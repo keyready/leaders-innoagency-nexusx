@@ -21,6 +21,8 @@ export const CodeInputs = memo((props: CodeInputsProps) => {
     } = props;
 
     const [code, setCode] = useState<string[]>(['', '', '', '']);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const inputRefs = [
         useRef<HTMLInputElement>(null),
         useRef<HTMLInputElement>(null),

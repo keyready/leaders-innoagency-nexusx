@@ -20,12 +20,10 @@ import {
 } from 'features/getPlatforms';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { useSelector } from 'react-redux';
-import { CostBadges } from 'shared/UI/CostBadges';
 import { PlatformCard } from 'entities/Platform';
 import { useTranslation } from 'react-i18next';
-import { getMetroStationData, getMetroStationReducer } from 'features/getMetroStation';
 import { AppLink } from 'shared/UI/AppLink';
-import { RoutePath, routerConfig } from 'shared/config/routeConfig/routeConfig';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import classes from './MainPage.module.scss';
 
 const reducers: ReducersList = {

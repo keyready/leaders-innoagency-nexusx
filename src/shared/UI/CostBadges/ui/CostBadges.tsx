@@ -22,7 +22,6 @@ interface CostBadgesProps {
 
 export const CostBadges = memo((props: CostBadgesProps) => {
     const {
-        className,
         type = 'free',
     } = props;
 

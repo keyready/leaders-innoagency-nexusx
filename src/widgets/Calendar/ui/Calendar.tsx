@@ -2,7 +2,6 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { Calendar as RCalendar } from 'react-calendar';
 import './calendar.scss';
-import classes from './Calendar.module.scss';
 
 interface CalendarProps {
     className?: string;

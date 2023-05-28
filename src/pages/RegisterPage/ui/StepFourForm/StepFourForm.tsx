@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { FieldValues, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Input } from 'shared/UI/Input';
+import { YupInput } from 'widgets/YupInput';
 import { Button } from 'shared/UI/Button';
 import classes from './StepFourForm.module.scss';
 
@@ -54,7 +54,7 @@ export const StepFourForm = memo((props: StepFourFormProps) => {
         <div className={classNames(classes.StepFourForm, {}, [className])}>
             <p className={classes.text}>{t('Давайте заполним Ваш профиль!')}</p>
             <form onSubmit={onSubmit} className={classes.form}>
-                <Input
+                <YupInput
                     placeholder={t('Имя') as string}
                     // @ts-ignore
                     errors={errors}
@@ -64,7 +64,7 @@ export const StepFourForm = memo((props: StepFourFormProps) => {
                     setValue={setValue}
                 />
 
-                <Input
+                <YupInput
                     placeholder={t('Фамилия') as string}
                     // @ts-ignore
                     errors={errors}

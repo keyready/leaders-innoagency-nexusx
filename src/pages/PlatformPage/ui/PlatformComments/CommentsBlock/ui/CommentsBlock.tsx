@@ -9,6 +9,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { addCommentForPlatform } from 'pages/PlatformPage';
 import { useSelector } from 'react-redux';
 import { getUserAuthData, User } from 'entities/User';
+import { Page } from 'widgets/Page/Page';
 import { CommentsCarousel } from '../../CommentsCarousel';
 import classes from './CommentsBlock.module.scss';
 
@@ -37,6 +38,12 @@ export const CommentsBlock = memo((props: CommentsBlockProps) => {
             platformId: platform?._id,
         }));
     }, [dispatch, newCommentText, platform?._id, user]);
+
+    if (!platform) {
+        return (
+            <h2>{t('Не удалось подгрузить комментарии')}</h2>
+        );
+    }
 
     return (
         <div className={classNames(classes.CommentsBlock, {}, [className])}>

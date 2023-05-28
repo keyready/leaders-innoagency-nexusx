@@ -1,5 +1,5 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Fragment, memo, useState } from 'react';
+import { Fragment, memo } from 'react';
 import { Switch as HSwitch } from '@headlessui/react';
 import classes from './Switch.module.scss';
 
@@ -11,7 +11,6 @@ interface SwitchProps {
 
 export const Switch = memo((props: SwitchProps) => {
     const {
-        className,
         enabled,
         setEnabled,
     } = props;

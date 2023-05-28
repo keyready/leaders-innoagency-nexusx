@@ -20,11 +20,7 @@ export const getPlatformsSlice = createSlice({
         ids: [],
         entities: {},
     }),
-    reducers: {
-        template: (state, action: PayloadAction<string>) => {
-
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchPlatforms.pending, (state) => {

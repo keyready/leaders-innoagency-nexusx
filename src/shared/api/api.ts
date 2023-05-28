@@ -5,8 +5,6 @@
  */
 
 import axios from 'axios';
-import { USER_ACCESSTOKEN_KEY } from 'shared/const';
-import Cookies from 'js-cookie';
 
 export const $api = axios.create({
     baseURL: __API__,

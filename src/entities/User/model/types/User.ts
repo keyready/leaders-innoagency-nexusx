@@ -7,10 +7,12 @@ export interface User {
     lastname: string;
     middlename: string;
     avatar: string;
-    booking?: UserBooking[];
-    email?: string;
-    phoneNumber?: string;
-    roles?: UserRoles[];
+    booking: UserBooking[];
+    email: string;
+    phoneNumber: string;
+    roles: UserRoles[];
+    lastVisit: Date;
+    isBanned: boolean;
     access_token?: string;
     refresh_token?: string;
 }

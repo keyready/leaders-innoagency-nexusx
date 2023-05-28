@@ -39,7 +39,7 @@ export const Select = (props: SelectProps) => {
     return (
         <HSelect
             as="div"
-            className={classes.Select}
+            className={classNames(classes.Select, {}, [className])}
             value={selectedValue}
             onChange={setSelectedValue}
         >

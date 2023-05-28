@@ -8,10 +8,7 @@ import { Alert } from 'shared/UI/Alert';
 import { Loader } from 'shared/UI/Loader';
 import { HStack } from 'shared/UI/Stack';
 import { submitCode } from '../../model/services/SubmitCode';
-import {
-    getRegisterCodeError,
-    getRegisterIsCodeCorrect,
-} from '../../model/selectors/getRegisterData';
+import { getRegisterCodeError } from '../../model/selectors/getRegisterData';
 import classes from './StepTwoForm.module.scss';
 
 interface StepTwoFormProps {

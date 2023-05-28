@@ -3,7 +3,7 @@ import {
     Fragment, memo, ReactNode, useCallback, useState,
 } from 'react';
 import { Tab } from '@headlessui/react';
-import { HStack } from 'shared/UI/Stack';
+import { HStack } from '../../Stack';
 import classes from './Tabs.module.scss';
 
 export interface TabContent {

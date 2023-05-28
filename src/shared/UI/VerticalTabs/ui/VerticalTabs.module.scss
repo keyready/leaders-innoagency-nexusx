@@ -1,0 +1,39 @@
+.VerticalTabs {
+
+}
+
+.TabsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+}
+
+.tabsNamesWrapper {
+    position: sticky;
+}
+
+.panels {
+    padding: 30px;
+    border-radius: var(--border-radius);
+    background: var(--inverted-bg-color);
+}
+
+.tabName {
+    cursor: pointer;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    transition: 200ms;
+    text-align: center;
+
+    &:focus {
+        border: none;
+        outline: none;
+    }
+}
+
+.activeTabName {
+    width: 100%;
+    color: var(--accent-color-sec);
+    background: linear-gradient(89.78deg, rgb(154 187 236 / 20%) 48.13%, rgb(154 187 236 / 0%) 99.81%);
+    text-align: center;
+}

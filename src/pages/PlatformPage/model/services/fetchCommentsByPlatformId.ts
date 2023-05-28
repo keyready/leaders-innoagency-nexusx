@@ -13,8 +13,9 @@ export const fetchCommentsByPlatformId = createAsyncThunk<
         const { extra, rejectWithValue } = thunkAPI;
 
         try {
-            const response = await extra.api.get<Comment[]>(`/comments?platformId=${id}`, {
+            const response = await extra.api.get<Comment[]>('/comments', {
                 params: {
+                    platformId: id,
                     _expand: 'user',
                 },
             });

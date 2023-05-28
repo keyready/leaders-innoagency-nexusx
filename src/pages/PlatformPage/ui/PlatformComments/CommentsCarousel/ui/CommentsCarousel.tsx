@@ -83,7 +83,7 @@ export const CommentsCarousel = memo((props: CommentsCarouselProps) => {
             );
 
             const card = (
-                <HStack gap="20" align="center" justify="center">
+                <HStack gap="20" align="stretch" justify="center">
                     {card1}
                     {card2}
                 </HStack>

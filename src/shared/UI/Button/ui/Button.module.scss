@@ -10,15 +10,6 @@
     outline: none;
 }
 
-.clear {
-    margin: 0;
-    padding: 0;
-    border: none;
-    color: inherit;
-    background: none;
-    outline: none;
-}
-
 .primary {
     background: var(--accent-color-sec);
 
@@ -63,4 +54,22 @@
         background: #323232;
         outline: none;
     }
+}
+
+.danger {
+    color: #ff9090;
+    background: rgb(255 144 144 / 10%);
+
+    &:hover {
+        background: #ff909040;
+    }
+}
+
+.clear {
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: inherit;
+    background: none;
+    outline: none;
 }

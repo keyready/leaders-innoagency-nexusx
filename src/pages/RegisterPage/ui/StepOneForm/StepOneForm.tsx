@@ -4,20 +4,18 @@ import { VStack } from 'shared/UI/Stack';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, useForm } from 'react-hook-form';
-import { Input } from 'shared/UI/Input';
+import { YupInput } from 'widgets/YupInput';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'shared/UI/Button';
 import classes from './StepOneForm.module.scss';
 
 interface StepOneFormProps {
-    className?: string;
     onSubmitStep: (data: FieldValues) => void;
     isLoading?: boolean;
 }
 
 export const StepOneForm = memo((props: StepOneFormProps) => {
     const {
-        className,
         onSubmitStep,
         isLoading,
     } = props;
@@ -70,7 +68,7 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
                 onSubmit={onSubmit}
                 className={classes.Form}
             >
-                <Input
+                <YupInput
                     placeholder={t('Email') as string}
                     className={classNames(classes.input, {
                         [classes.error]: !!errors.phoneNumber,
@@ -86,7 +84,7 @@ export const StepOneForm = memo((props: StepOneFormProps) => {
 
                 <p className={classes.orWrapper}>{t('или')}</p>
 
-                <Input
+                <YupInput
                     placeholder={t('Номер телефона') as string}
                     className={classNames(classes.input, {
                         [classes.error]: !!errors.phoneNumber,

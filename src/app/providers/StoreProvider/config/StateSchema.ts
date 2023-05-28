@@ -13,11 +13,17 @@ import { CommentSchema } from 'entities/Comment';
 import { GetMetroStationSchema } from 'features/getMetroStation';
 import { BookPlatformSchema } from 'features/bookPlatform';
 import { PlatformPageSchema } from 'pages/PlatformPage';
+import { BookingSchema } from 'entities/Booking';
+import { GetBookingsSchema } from 'features/getBookings';
+import { GetCommentsSchema } from 'features/getComments';
+import { ComplaintSchema } from 'entities/Complaint';
 
 export interface StateSchema {
     user: UserSchema;
     ui: UISchema
     platform: PlatformSchema;
+    getBookings: GetBookingsSchema;
+    getComments: GetCommentsSchema;
     [rtkApi.reducerPath]: ReturnType<typeof rtkApi.reducer>
 
     // asynchronous reducers
@@ -25,6 +31,8 @@ export interface StateSchema {
     platformPage?: PlatformPageSchema;
     registerPage?: RegisterPageSchema;
     comment?: CommentSchema;
+    booking?: BookingSchema;
+    complaint?: ComplaintSchema;
     getPlatforms?: GetPlatformsSchema;
     metroStation?: GetMetroStationSchema;
     bookPlatform?: BookPlatformSchema;

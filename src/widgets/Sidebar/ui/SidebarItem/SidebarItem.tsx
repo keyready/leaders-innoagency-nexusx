@@ -1,5 +1,4 @@
 import { AppLink } from 'shared/UI/AppLink/ui/AppLink';
-import { useLocation } from 'react-router-dom';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
@@ -13,7 +12,6 @@ interface SidebarItemProps {
 }
 
 export const SidebarItem = memo(({ item, collapsed }: SidebarItemProps) => {
-    const location = useLocation();
     const isAuth = useSelector(getUserAuthData);
 
     if (item.authOnly && !isAuth) {

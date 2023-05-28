@@ -1,5 +1,5 @@
-import { Booking } from 'features/bookPlatform';
 import { User } from 'entities/User';
+import { Booking } from 'entities/Booking';
 
 export interface Platform {
     _id: string;

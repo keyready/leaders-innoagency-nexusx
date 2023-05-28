@@ -8,11 +8,11 @@
     transform: translateY(-50%);
 
     &:first-child {
-        left: 0;
+        left: -40px;
     }
 
     &:last-child {
-        right: 0;
+        right: -40px;
     }
 }
 

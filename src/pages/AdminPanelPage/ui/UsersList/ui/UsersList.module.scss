@@ -1,0 +1,42 @@
+.UsersList {
+    width: 100%;
+}
+
+.tableRow {
+    width: 100%;
+    border-radius: 15px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2fr 2fr 1fr 3fr;
+    grid-gap: 20px;
+    text-align: center;
+
+    &:first-child {
+        margin-bottom: 20px;
+
+        * {
+            font-weight: 700;
+        }
+    }
+
+    &:nth-child(2n) {
+        background: var(--accent-color-main);
+
+        &:hover {
+            background: var(--accent-color-sec);
+        }
+    }
+
+    * {
+        font-size: 16px;
+    }
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
+.mainWrapper {
+    min-height: 500px;
+}

@@ -2,7 +2,7 @@ import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 import classes from './Button.module.scss';
 
-type ButtonVariant = 'primary' | 'primary-outline' | 'clear'
+type ButtonVariant = 'primary' | 'primary-outline' | 'clear' | 'danger'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
@@ -34,6 +34,7 @@ export const Button = (props: ButtonProps) => {
         primary: classes.primary,
         'primary-outline': classes['primary-outline'],
         clear: classes.clear,
+        danger: classes.danger,
     };
 
     const classesMapper = [

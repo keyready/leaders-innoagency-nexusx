@@ -4,6 +4,8 @@ import { $api } from 'shared/api/api';
 import { UIReducer } from 'features/UI';
 import { rtkApi } from 'shared/api/rtkApi';
 import { PlatformReducer } from 'entities/Platform';
+import { getBookingsReducer } from 'features/getBookings';
+import { getCommentsReducer } from 'features/getComments';
 import { createReducerManager } from './reducerManager';
 import { StateSchema } from './StateSchema';
 
@@ -16,6 +18,8 @@ export function CreateReduxStore(
         user: userReducer,
         ui: UIReducer,
         platform: PlatformReducer,
+        getBookings: getBookingsReducer,
+        getComments: getCommentsReducer,
         [rtkApi.reducerPath]: rtkApi.reducer,
     };
 

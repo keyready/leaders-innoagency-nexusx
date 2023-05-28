@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { Page } from 'widgets/Page/Page';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
 import { TextArea } from 'shared/UI/TextArea/TextArea';
-import { Input } from 'shared/UI/Input';
+import { YupInput } from 'widgets/YupInput';
 import { useForm } from 'react-hook-form';
 import classes from './OwnerPanelPage.module.scss';
 
@@ -63,7 +63,7 @@ const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
             formData.delete('images');
         }
 
-        fetch('/', {
+        fetch('/create_platform', {
             method: 'post',
             body: formData,
         })
@@ -80,7 +80,7 @@ const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
                     onSubmit={createPlatform}
                     style={{ display: 'flex', flexDirection: 'column', gap: 50 }}
                 >
-                    <Input
+                    <YupInput
                         setValue={setValue}
                         watch={watch}
                         // @ts-ignore
@@ -90,7 +90,7 @@ const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
                         type="text"
                         placeholder="Введите название"
                     />
-                    <Input
+                    <YupInput
                         setValue={setValue}
                         watch={watch}
                         // @ts-ignore
@@ -100,7 +100,7 @@ const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
                         type="text"
                         placeholder="Введите адрес"
                     />
-                    <Input
+                    <YupInput
                         setValue={setValue}
                         watch={watch}
                         // @ts-ignore

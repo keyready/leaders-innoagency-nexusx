@@ -1,0 +1,10 @@
+.ProfilePageWrapper {
+    gap: 20px;
+}
+
+@media (width <= 1200px) {
+    .ProfilePageWrapper {
+        margin: 0 auto;
+    }
+
+}

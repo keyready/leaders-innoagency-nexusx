@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { USER_ACCESSTOKEN_KEY, USER_REFRESHTOKEN_KEY } from 'shared/const';
 import Cookies from 'js-cookie';
+import { checkPassword } from '../service/checkPassword';
 import { logout } from '../service/logout';
 import { checkAuth } from '../service/checkAuth';
 import { UserSchema } from '../types/UserSchema';
 import { User } from '../types/User';
+import { changeUserPassword } from '../service/changeUserPassword';
+import { changeUserProfile } from '../service/changeUserProfile';
+import { banUser } from '../service/banUser';
+import { unbanUser } from '../service/unbanUser';
 
 const initialState: UserSchema = {
     _inited: false,
@@ -22,6 +27,10 @@ export const userSlice = createSlice({
         },
         initAuthData: (state) => {
             // проверить, авторизован ли пользователь (после закрытия и открытия приложения)
+            // const user = Cookies.get('user');
+            // if (user) {
+            //     state.authData = JSON.parse(user);
+            // }
             state._inited = true;
         },
     },
@@ -51,6 +60,71 @@ export const userSlice = createSlice({
                 Cookies.remove(USER_REFRESHTOKEN_KEY);
             })
             .addCase(logout.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(checkPassword.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(checkPassword.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(checkPassword.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.checkOldPasswordError = action.payload.message;
+            })
+
+            .addCase(changeUserPassword.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(changeUserPassword.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(changeUserPassword.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(changeUserProfile.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(changeUserProfile.fulfilled, (state, action: PayloadAction<User>) => {
+                state.isLoading = false;
+                state.authData = action.payload;
+            })
+            .addCase(changeUserProfile.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(banUser.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(banUser.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(banUser.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+            .addCase(unbanUser.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(unbanUser.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(unbanUser.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.message;
