@@ -227,7 +227,7 @@ const LoginPage = memo((props: LoginPageProps) => {
                     <HStack max justify="center">
                         <AppLink
                             className={classes.link}
-                            to="/reset"
+                            to={RoutePath.reset_password}
                         >
                             {t('Забыли пароль?')}
                         </AppLink>

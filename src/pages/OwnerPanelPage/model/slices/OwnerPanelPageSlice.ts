@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { createPlatform } from '../services/createPlatform';
 import { OwnerPanelPageSchema } from '../types/OwnerPanelPageSchema';
 
 const initialState: OwnerPanelPageSchema = {
@@ -8,26 +9,22 @@ const initialState: OwnerPanelPageSchema = {
 export const OwnerPanelPageSlice = createSlice({
     name: 'OwnerPanelPage',
     initialState,
-    reducers: {
-        template: (state, action: PayloadAction<string>) => {
-
-        },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(createPlatform.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(createPlatform.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(createPlatform.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            });
     },
-    // extraReducers: (builder) => {
-    //     builder
-    //         .addCase(.pending, (state) => {
-    //             state.error = undefined;
-    //             state.isLoading = true;
-    //         })
-    //         .addCase(.fulfilled, (state) => {
-    //             state.isLoading = false;
-    //         })
-    //         .addCase(.rejected, (state, action) => {
-    //             state.isLoading = false;
-    //             // @ts-ignore
-    //             state.error = action.payload.message;
-    //         });
-    // },
 });
 
 export const { actions: OwnerPanelPageActions } = OwnerPanelPageSlice;

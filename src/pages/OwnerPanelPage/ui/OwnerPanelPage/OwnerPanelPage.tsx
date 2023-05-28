@@ -1,15 +1,17 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
-    ChangeEvent,
-    FormEvent, memo, useCallback, useState,
+    memo, useCallback, useMemo, useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Page } from 'widgets/Page/Page';
 import { DynamicModuleLoader, ReducersList } from 'shared/lib/DynamicModuleLoader/DynamicModuleLoader';
-import { TextArea } from 'shared/UI/TextArea/TextArea';
-import { YupInput } from 'widgets/YupInput';
-import { useForm } from 'react-hook-form';
+import { VerticalTabs, VerticalTabsItem } from 'shared/UI/VerticalTabs';
+import Cookies from 'js-cookie';
 import classes from './OwnerPanelPage.module.scss';
+import { CreatePlatform } from '../CreatePlatform';
+import { CheckBookings } from '../CheckBookings';
+
+const rootTab: number = Number(Cookies.get('owner-page-tab')) || 0;
 
 interface OwnerPanelPageProps {
     className?: string;
@@ -22,126 +24,34 @@ const reducers: ReducersList = {
 const OwnerPanelPage = memo((props: OwnerPanelPageProps) => {
     const { className } = props;
 
-    const { t } = useTranslation();
-    const {
-        setValue, watch, formState: { errors }, register,
-    } = useForm();
+    const { t } = useTranslation('OwnerPage');
 
-    const [inputs, setInputs] = useState<string[]>(['']);
-    const [files, setFiles] = useState<FileList | null>(null);
+    const [selectedTab, setSelectedTab] = useState<number>(rootTab);
 
-    const handleFileInputChanges = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        const { files } = event.target;
-        setFiles(files);
+    const setSelectedTabHandler = useCallback((tab: number) => {
+        Cookies.set('owner-page-tab', String(tab));
+        setSelectedTab(tab);
     }, []);
 
-    const handleInputChange = (index: number, value: string) => {
-        const updatedInputs = [...inputs];
-        updatedInputs[index] = value;
-        setInputs(updatedInputs);
-
-        if (index === inputs.length - 1 && value !== '') {
-            // Добавляем новый инпут, если текущий последний и не пустой
-            setInputs([...updatedInputs, '']);
-        }
-    };
-    const handleInputDelete = (index: number) => {
-        const filteredInputs = inputs.filter((_, i) => i !== index);
-        setInputs(filteredInputs);
-    };
-
-    const createPlatform = useCallback((event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        if (!files) return;
-
-        for (let i = 0; i < files.length; i += 1) {
-            formData.append(`platformImage_${i}`, files[i]);
-        }
-
-        for (let i = 0; i < files.length; i += 1) {
-            formData.delete('images');
-        }
-
-        fetch('/create_platform', {
-            method: 'post',
-            body: formData,
-        })
-            .then((res) => res.json())
-            .then((res) => console.log(res));
-    }, [files]);
+    const ownersTabs: VerticalTabsItem[] = useMemo(() => [
+        {
+            key: t('Создание платформы') as string,
+            content: (<CreatePlatform />),
+        },
+        {
+            key: t('Просмотр бронирований') as string,
+            content: (<CheckBookings />),
+        },
+    ], [t]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>
             <Page className={classNames(classes.OwnerPanelPage, {}, [className])}>
-                <h2>Страница арендодателя</h2>
-                <form
-                    encType="multipart/form-data"
-                    onSubmit={createPlatform}
-                    style={{ display: 'flex', flexDirection: 'column', gap: 50 }}
-                >
-                    <YupInput
-                        setValue={setValue}
-                        watch={watch}
-                        // @ts-ignore
-                        errors={errors}
-                        register={register}
-                        name="title"
-                        type="text"
-                        placeholder="Введите название"
-                    />
-                    <YupInput
-                        setValue={setValue}
-                        watch={watch}
-                        // @ts-ignore
-                        errors={errors}
-                        register={register}
-                        name="address"
-                        type="text"
-                        placeholder="Введите адрес"
-                    />
-                    <YupInput
-                        setValue={setValue}
-                        watch={watch}
-                        // @ts-ignore
-                        errors={errors}
-                        register={register}
-                        name="maxGuests"
-                        type="text"
-                        placeholder="Введите количество мест"
-                    />
-                    <TextArea
-                        name="description"
-                        placeholder="Введите описание"
-                    />
-                    <input
-                        onChange={handleFileInputChanges}
-                        name="images"
-                        type="file"
-                        multiple
-                    />
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gridGap: 10 }}>
-                        {inputs.map((inputValue, index) => (
-                            <div>
-                                <input
-                                    name={`restriction_${index}`}
-                                    placeholder="Введите ограничение"
-                                    key={index}
-                                    value={inputValue}
-                                    onChange={(e) => handleInputChange(index, e.target.value)}
-                                />
-                                <button
-                                    type="button"
-                                    onClick={() => handleInputDelete(index)}
-                                >
-                                    Удалить
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-
-                    <button>Создать</button>
-                </form>
+                <VerticalTabs
+                    items={ownersTabs}
+                    selectedTab={selectedTab}
+                    setSelectedTab={setSelectedTabHandler}
+                />
             </Page>
         </DynamicModuleLoader>
     );

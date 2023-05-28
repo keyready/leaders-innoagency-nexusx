@@ -18,6 +18,8 @@ export default (env: BuildEnv) => {
             src: path.resolve(__dirname, 'src'),
             localesFrom: path.resolve(__dirname, 'public/locales'),
             localesTo: path.resolve(__dirname, `${buildPath}/locales`),
+            docsFrom: path.resolve(__dirname, 'public/docs'),
+            docsTo: path.resolve(__dirname, `${buildPath}/docs`),
         },
         isDev,
         port,

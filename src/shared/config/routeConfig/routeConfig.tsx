@@ -12,6 +12,7 @@ import { RegisterPage } from 'pages/RegisterPage';
 import { PlatformPage } from 'pages/PlatformPage';
 import { OwnerPanelPage } from 'pages/OwnerPanelPage';
 import { ProfilePage } from 'pages/ProfilePage';
+import { ResetPage } from 'pages/ResetPage';
 
 export type AppRoutesProps = RouteProps & {
     authOnly?: boolean;
@@ -24,6 +25,7 @@ export enum AppRoutes {
     PROFILE = 'profile',
     LOGIN = 'login',
     REGISTER = 'register',
+    RESET_PASSWORD = 'reset_password',
     PLATFORM_PAGE = 'platform_page',
     ADMIN_PANEL = 'admin_panel',
     OWNER_PANEL = 'owner_panel',
@@ -42,6 +44,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.PROFILE]: '/feed',
     [AppRoutes.LOGIN]: '/login',
     [AppRoutes.REGISTER]: '/register',
+    [AppRoutes.RESET_PASSWORD]: '/reset',
     [AppRoutes.PLATFORM_PAGE]: '/platform/',
     [AppRoutes.ADMIN_PANEL]: '/admin',
     [AppRoutes.OWNER_PANEL]: '/owner',
@@ -74,6 +77,10 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.REGISTER]: {
         path: RoutePath.register,
         element: <RegisterPage />,
+    },
+    [AppRoutes.RESET_PASSWORD]: {
+        path: RoutePath.reset_password,
+        element: <ResetPage />,
     },
     [AppRoutes.PLATFORM_PAGE]: {
         path: `${RoutePath.platform_page}:id`,

@@ -17,10 +17,13 @@ interface BookingCardProps {
     className?: string;
     booking: Booking;
     check?: boolean;
+    isOwnerLooking?: boolean
 }
 
 export const BookingCard = memo((props: BookingCardProps) => {
-    const { className, booking, check = false } = props;
+    const {
+        className, booking, check = false, isOwnerLooking = false,
+    } = props;
 
     const { t } = useTranslation('Booking');
     const dispatch = useAppDispatch();
@@ -94,7 +97,7 @@ export const BookingCard = memo((props: BookingCardProps) => {
                     </HStack>
                 )}
 
-                {booking.comment && (
+                {!isOwnerLooking && booking.comment && (
                     <HStack gap="8" max justify="start" align="start">
                         <b>{`${t('Отзыв')}:`}</b>
                         <TextArea
@@ -104,7 +107,7 @@ export const BookingCard = memo((props: BookingCardProps) => {
                     </HStack>
                 )}
 
-                {booking.isFinished && !booking.comment && (
+                {!isOwnerLooking && booking.isFinished && !booking.comment && (
                     <VStack gap="8" max justify="start" align="start">
                         <TextArea
                             value={bookingComment}
@@ -121,7 +124,7 @@ export const BookingCard = memo((props: BookingCardProps) => {
                     </VStack>
                 )}
 
-                {!booking.isFinished && (
+                {!isOwnerLooking && !booking.isFinished && (
                     <HStack
                         max
                         justify="end"

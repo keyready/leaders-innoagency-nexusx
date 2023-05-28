@@ -155,7 +155,7 @@ export const UsersList = memo((props: UsersListProps) => {
                                 >
                                     <Icon Svg={BanIcon} className={classes.icon} />
                                 </Button>
-                                {user.roles.includes(UserRoles.ADMIN)
+                                {user.roles.includes(UserRoles.OWNER)
                                     ? (
                                         <Button
                                             onClick={() => handleDowngradeUserRoles(user._id)}

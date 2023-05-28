@@ -17,6 +17,7 @@ import { BookingSchema } from 'entities/Booking';
 import { GetBookingsSchema } from 'features/getBookings';
 import { GetCommentsSchema } from 'features/getComments';
 import { ComplaintSchema } from 'entities/Complaint';
+import { ResetPageSchema } from 'pages/ResetPage';
 
 export interface StateSchema {
     user: UserSchema;
@@ -30,6 +31,7 @@ export interface StateSchema {
     loginPage?: LoginPageSchema;
     platformPage?: PlatformPageSchema;
     registerPage?: RegisterPageSchema;
+    resetPasswordPage?: ResetPageSchema;
     comment?: CommentSchema;
     booking?: BookingSchema;
     complaint?: ComplaintSchema;
