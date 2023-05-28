@@ -1,4 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { acceptComplaint } from '../services/acceptComplaint';
+import { dismissComplaint } from '../services/dismissComaplaint';
 import { submitComplaint } from '../services/submitComplaint';
 import { ComplaintSchema } from '../types/ComplaintSchema';
 
@@ -20,6 +22,32 @@ export const ComplaintSlice = createSlice({
                 state.isLoading = false;
             })
             .addCase(submitComplaint.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(acceptComplaint.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(acceptComplaint.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(acceptComplaint.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(dismissComplaint.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(dismissComplaint.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(dismissComplaint.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.message;

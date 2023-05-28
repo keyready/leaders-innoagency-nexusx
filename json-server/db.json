@@ -10,7 +10,7 @@
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
       "access_token": "kfc880maisfqylp1bsudf",
-      "refresh_token": "crds0a6yemnyi138nuaic",
+      "refresh_token": "nlg6cdxgvjl1d90hjo805t",
       "roles": [
         "ADMIN",
         "USER",
@@ -677,6 +677,62 @@
     },
     {
       "_id": "cp4",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp5",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp6",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp7",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp8",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp10",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp11",
+      "isBanned": false,
+      "from": "user3",
+      "target": "plt1",
+      "decision": "Отклонено",
+      "comment": "Просто заебало оно меня уже, надо удалять, большая конкуренция"
+    },
+    {
+      "_id": "cp12",
       "isBanned": false,
       "from": "user3",
       "target": "plt1",

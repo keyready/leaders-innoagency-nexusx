@@ -10,7 +10,7 @@ import classes from './Paginator.module.scss';
 interface PaginatorProps {
     className?: string;
     currentPage: number;
-    setCurrentPage?: (value: number) => void;
+    setCurrentPage: (value: number) => void;
     maxPages?: number;
 }
 
