@@ -6,6 +6,7 @@ import { UserRoles } from 'entities/User';
 import { AdminPanelPage } from 'pages/AdminPanelPage';
 import { ForbiddenPage } from 'pages/ForbiddenPage';
 import { SearchPage } from 'pages/SearchPage';
+import { MapPage } from 'pages/MapPage';
 import { LoginPage } from 'pages/LoginPage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { PlatformPage } from 'pages/PlatformPage';
@@ -27,6 +28,7 @@ export enum AppRoutes {
     ADMIN_PANEL = 'admin_panel',
     OWNER_PANEL = 'owner_panel',
     SEARCH_PAGE = 'search_page',
+    MAP_PAGE = 'map_page',
 
     // last
     FORBIDDEN = 'forbidden',
@@ -44,6 +46,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.ADMIN_PANEL]: '/admin',
     [AppRoutes.OWNER_PANEL]: '/owner',
     [AppRoutes.SEARCH_PAGE]: '/search',
+    [AppRoutes.MAP_PAGE]: '/map',
 
     // last
     [AppRoutes.FORBIDDEN]: '/forbidden',
@@ -74,11 +77,18 @@ export const routerConfig: Record<AppRoutes, AppRoutesProps> = {
     },
     [AppRoutes.PLATFORM_PAGE]: {
         path: `${RoutePath.platform_page}:id`,
+        authOnly: true,
         element: <PlatformPage />,
     },
     [AppRoutes.SEARCH_PAGE]: {
         path: RoutePath.search_page,
+        authOnly: true,
         element: <SearchPage />,
+    },
+    [AppRoutes.MAP_PAGE]: {
+        path: RoutePath.map_page,
+        authOnly: true,
+        element: <MapPage />,
     },
     [AppRoutes.ADMIN_PANEL]: {
         path: RoutePath.admin_panel,

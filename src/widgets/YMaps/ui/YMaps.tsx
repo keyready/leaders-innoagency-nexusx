@@ -10,7 +10,8 @@ import { getPlaceCoordinates } from '../lib/getPlaceCoords';
 
 interface YMapsProps {
     className?: string;
-    place: string;
+    place?: string;
+    markers?: string[];
     placeName?: string;
     metroName?: string;
     metroCoords?: number[];
@@ -24,19 +25,23 @@ export const YMaps = memo((props: YMapsProps) => {
         placeName,
         metroName,
         showRoute,
+        markers,
     } = props;
 
     const [coords, setCoords] = useState<number[]>([]);
     const [metroCoords, setMetroCoords] = useState<number[] | null>(null);
     const [isMapsLoading, setIsMapsLoading] = useState<boolean>(true);
+    const [mapPoints, setMapPoints] = useState<number[][]>([]);
 
     const handleLoadMap = (ymaps: YMapsApi) => {
-        getPlaceCoordinates(ymaps, place)
-            .then((coordinates) => {
-                if (coordinates) {
-                    setCoords(coordinates);
-                }
-            });
+        if (place) {
+            getPlaceCoordinates(ymaps, place)
+                .then((coordinates) => {
+                    if (coordinates) {
+                        setCoords(coordinates);
+                    }
+                });
+        }
         if (metroName) {
             getPlaceCoordinates(ymaps, `г. Москва, станция метро ${metroName}`)
                 .then((coordinates) => {
@@ -45,6 +50,25 @@ export const YMaps = memo((props: YMapsProps) => {
                     }
                 });
         }
+        if (markers) {
+            const promises = markers.map((marker) => getPlaceCoordinates(ymaps, `г. Москва, ${marker}`));
+
+            Promise.all(promises)
+                .then((coordinatesArray) => {
+                    const newPlace: number[][] = [...mapPoints];
+
+                    coordinatesArray.forEach((coordinates) => {
+                        if (coordinates) {
+                            newPlace.push(coordinates);
+                        }
+                    });
+
+                    setMapPoints(newPlace);
+                });
+
+            setCoords(mapPoints[0]);
+        }
+
         setIsMapsLoading(false);
     };
     const handleRoutePanelRef = useCallback<RefCallback<RoutePanelRefObject>>(
@@ -84,7 +108,7 @@ export const YMaps = memo((props: YMapsProps) => {
 
     return (
         <div className={className}>
-            {isMapsLoading && (<Skeleton width="100%" height="400px" border="15px" />)}
+            {isMapsLoading && (<Skeleton width="100%" height="600px" border="15px" />)}
             <YandexMaps
                 query={{
                     lang: 'ru_RU',
@@ -94,8 +118,11 @@ export const YMaps = memo((props: YMapsProps) => {
                 <Map
                     onLoad={handleLoadMap}
                     modules={['geocode']}
-                    style={{ width: '100%', height: 500 }}
-                    state={{ center: coords, zoom: 15 }}
+                    style={{ width: '100%', height: markers?.length ? 600 : 500 }}
+                    state={{
+                        center: coords || metroCoords || mapPoints[0],
+                        zoom: markers?.length ? 8 : 15,
+                    }}
                 >
                     {showRoute && metroCoords && (
                         <RoutePanel
@@ -106,13 +133,12 @@ export const YMaps = memo((props: YMapsProps) => {
                     <FullscreenControl />
                     {coords && (
                         <Placemark
-                        // options={{
-                        //     iconLayout: 'default#image',
-                        //     iconImageHref: 'images/main-logo.svg',
-                        //     iconImageSize: [52, 70],
-                        //     iconImageOffset: [-26, -55],
-                        //
-                        // }}
+                            options={{
+                                iconLayout: 'default#image',
+                                iconImageHref: 'images/marker.svg',
+                                iconImageSize: [52, 70],
+                                iconImageOffset: [-26, -55],
+                            }}
                             geometry={coords}
                         />
                     )}
@@ -121,6 +147,20 @@ export const YMaps = memo((props: YMapsProps) => {
                             geometry={metroCoords}
                         />
                     )}
+                    {mapPoints.length
+                        ? mapPoints.map((point, index) => (
+                            <Placemark
+                                options={{
+                                    iconLayout: 'default#image',
+                                    iconImageHref: 'images/marker.svg',
+                                    iconImageSize: [52, 70],
+                                    iconImageOffset: [-26, -55],
+                                }}
+                                key={index}
+                                geometry={point}
+                            />
+                        ))
+                        : ''}
                 </Map>
             </YandexMaps>
         </div>

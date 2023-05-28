@@ -1,17 +1,17 @@
 import { rtkApi } from 'shared/api/rtkApi';
-import { Complaint } from 'entities/Complaint';
 import { Platform } from 'entities/Platform';
 
 interface searchPlatformsProps {
     page?: number;
     q?: string;
+    limit?: number;
 }
 
 const searchPlatformsList = rtkApi.injectEndpoints({
     endpoints: (build) => ({
-        getSearchPlatforms: build.query<Platform[], searchPlatformsProps>({
-            query: ({ page, q }: searchPlatformsProps) => ({
-                url: `/platforms?_page=${page}&_limit=20&q=${q}`,
+        getSearchPlatforms: build.query<Platform[], searchPlatformsProps | string>({
+            query: ({ page = 1, q = '', limit = 200 }: searchPlatformsProps) => ({
+                url: `/platforms?_page=${page}&_limit=${limit}&q=${q}`,
             }),
         }),
     }),
