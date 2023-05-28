@@ -82,15 +82,15 @@ ___
 
 ___
 ## Сборка Frontend-части приложения
- - `npm run start": "webpack serve --env port=1488`
- - `npm run start:server": "nodemon ./json-server/index.js`
- - `npm run start:dev": "concurrently \"npm start\" \"npm run start:server\"`
- - `npm run build:dev": "webpack --env mode=development`
- - `npm run build:prod": "webpack --env mode=production`
- - `npm run lint:ts": "eslint \"**/*.{ts,tsx}\"`
- - `npm run lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix`
- - `npm run lint:scss": "npx stylelint \"**/*.scss\"`
- - `npm run lint:scss:fix": "npx stylelint \"**/*.scss\" --fix`
+ - `npm run start`
+ - `npm run start:server`
+ - `npm run start:dev`
+ - `npm run build:dev`
+ - `npm run build:prod`
+ - `npm run lint:ts`
+ - `npm run lint:ts:fix`
+ - `npm run lint:scss`
+ - `npm run lint:scss:fix`
 
 ___
 ## Команда
