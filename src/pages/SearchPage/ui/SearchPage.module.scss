@@ -39,3 +39,15 @@
     justify-items: center;
     grid-template-columns: 2fr 2fr;
 }
+
+@media (width <= 1200px) {
+    .searchResults {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+.paginator {
+    margin-top: 30px;
+}

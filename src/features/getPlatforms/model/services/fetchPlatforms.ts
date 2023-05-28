@@ -3,21 +3,17 @@ import { ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema';
 import { Platform } from 'entities/Platform';
 import { AxiosError } from 'axios';
 
-interface searchProps {
-    query?: string
-}
-
 export const fetchPlatforms = createAsyncThunk<
     Platform[],
-    searchProps | void,
+    string,
     ThunkConfig<string>
 >(
     'fetchPlatforms/fetchPlatforms',
-    async (props, thunkAPI) => {
+    async (query, thunkAPI) => {
         const { extra, rejectWithValue, dispatch } = thunkAPI;
 
         try {
-            const response = await extra.api.get<Platform[]>('/platforms');
+            const response = await extra.api.get<Platform[]>(`/platforms?q=${query}`);
 
             if (!response.data) {
                 throw new Error();
