@@ -5,9 +5,9 @@ export interface Booking {
     platformTitle?: string;
     places: number;
     body: string;
-    date?: Date;
-    startTime: Date;
-    endTime: Date;
+    date: string;
+    startTime: string;
+    endTime: string;
 }
 
 export interface BookingSchema {

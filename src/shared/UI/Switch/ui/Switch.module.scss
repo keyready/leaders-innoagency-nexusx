@@ -8,6 +8,7 @@
     transition: all 200ms ease-in-out;
     position: relative;
     flex-shrink: 0;
+    background: var(--inverted-bg-color);
 }
 
 .check {

@@ -33,6 +33,19 @@ export const BookingCard = memo((props: BookingCardProps) => {
         dispatch(deleteBooking(booking._id));
     }, [booking._id, dispatch, t]);
 
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU', {
+            day: 'numeric', month: 'long', year: 'numeric',
+        });
+    };
+    const formatTime = (dateString: string) => {
+        const date = new Date(dateString);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    };
+
     return (
         <Card className={classNames(classes.BookingCard, {}, [className])}>
             <VStack
@@ -49,19 +62,13 @@ export const BookingCard = memo((props: BookingCardProps) => {
                 {booking?.date && (
                     <HStack max>
                         <b>{`${t('Дата')}:`}</b>
-                        {/* <p>{`${formatDate(booking?.date)}`}</p> */}
-                        {/* <p>{`${booking?.date}`}</p> */}
+                        <p>{`${formatDate(booking.date)}`}</p>
                     </HStack>
                 )}
                 <HStack max>
                     <b>{`${t('Время')}:`}</b>
                     <p>
-                        {/* {`${formatTimeRange({ */}
-                        {/*    startTime: booking.startTime, */}
-                        {/*    finishTime: booking.endTime, */}
-                        {/* })}`} */}
-                        {/* <p>{booking?.startTime.toDateString()}</p> */}
-                        {/* <p>{booking?.endTime.toDateString()}</p> */}
+                        {`${formatTime(booking?.startTime)} - ${formatTime(booking?.endTime)}`}
                     </p>
                 </HStack>
                 {booking.places && (

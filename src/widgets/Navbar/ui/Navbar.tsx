@@ -17,6 +17,7 @@ import { Avatar } from 'shared/UI/Avatar/Avatar';
 import { Dropdown } from 'shared/UI/Dropdown';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { LanguageSwitcher } from 'widgets/LanguageSwitcher';
+import { ThemeSwitcher } from 'widgets/ThemeSwitcher';
 import classes from './Navbar.module.scss';
 
 export interface NavbarProps {
@@ -91,6 +92,11 @@ export const Navbar = memo(({ className }: NavbarProps) => {
                                 },
                                 {
                                     content: (<LanguageSwitcher />),
+                                },
+                                {
+                                    content: (
+                                        <ThemeSwitcher />
+                                    ),
                                 },
                             ]}
                         />

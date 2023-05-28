@@ -12,12 +12,12 @@ server.use(jsonServer.bodyParser);
 const router = jsonServer.router(path.resolve(__dirname, 'db.json'));
 
 // Нужно для небольшой задержки, чтобы запрос проходил не мгновенно, имитация реального апи
-server.use(async (req, res, next) => {
-    await new Promise((res) => {
-        setTimeout(res, 500);
-    });
-    next();
-});
+// server.use(async (req, res, next) => {
+//     await new Promise((res) => {
+//         setTimeout(res, 500);
+//     });
+//     next();
+// });
 
 server.post('/comments', (req, res) => {
     const { userId, platformId } = req.body;

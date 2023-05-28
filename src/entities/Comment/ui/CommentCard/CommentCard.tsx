@@ -11,6 +11,7 @@ import { Icon } from 'shared/UI/Icon/Icon';
 import { useTranslation } from 'react-i18next';
 import { deleteComment } from 'features/getComments';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { fetchBookingsByUserId } from 'features/getBookings';
 import { Comment } from '../../model/types/CommentSchema';
 import classes from './CommentCard.module.scss';
 
@@ -73,14 +74,26 @@ export const CommentCard = memo((props: CommentCardProps) => {
             <VStack justify="stretch" gap="20">
                 <h3>{`Платформа ${comment?.platformTitle}`}</h3>
                 <HStack max align="center" justify="center" gap="32">
-                    <img
-                        className={classes.avatar}
-                        src={comment?.user ? comment?.user.avatar : ''}
-                        alt={comment?.user ? comment?.user.firstname : ''}
-                    />
-                    <VStack justify="center" align="start">
-                        <p className={classes.commentName}>{comment?.user ? comment?.user.lastname : ''}</p>
-                        <p className={classes.commentName}>{comment?.user ? comment?.user.firstname : ''}</p>
+                    {comment?.user
+                        ? (
+                            <img
+                                className={classes.avatar}
+                                src={comment?.user ? comment?.user.avatar : ''}
+                                alt={comment?.user ? comment?.user.firstname : ''}
+                            />
+                        )
+                        : (
+                            <div className={classes.photoPlaceholder}>
+                                <p>{t('КК')}</p>
+                            </div>
+                        )}
+                    <VStack justify="center" align="center">
+                        <p className={classes.commentName}>
+                            {comment?.user ? comment?.user.lastname : 'Котиков'}
+                        </p>
+                        <p className={classes.commentName}>
+                            {comment?.user ? comment?.user.firstname : 'Кот'}
+                        </p>
                     </VStack>
                 </HStack>
                 <p className={classes.commentBody}>{comment?.body}</p>

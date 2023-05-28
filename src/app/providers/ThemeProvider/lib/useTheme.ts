@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import Cookies from 'js-cookie';
 import { LOCAL_STORAGE_THEME, Theme, ThemeContext } from './ThemeContext';
 
 export interface UseThemeResult {
@@ -22,7 +23,7 @@ export function useTheme(): UseThemeResult {
             newTheme = Theme.LIGHT;
         }
         setTheme?.(newTheme);
-        localStorage.setItem(LOCAL_STORAGE_THEME, newTheme);
+        Cookies.set(LOCAL_STORAGE_THEME, newTheme);
     };
 
     return {
