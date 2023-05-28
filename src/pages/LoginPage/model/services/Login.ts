@@ -22,7 +22,7 @@ export const login = createAsyncThunk<
 
                 Cookies.set(USER_REFRESHTOKEN_KEY, response.data.refresh_token || '');
                 Cookies.set(USER_ACCESSTOKEN_KEY, response.data.access_token || '');
-                Cookies.set('user', JSON.stringify(response.data) || '');
+                // Cookies.set('user', JSON.stringify(response.data) || '');
                 dispatch(userActions.setAuthData(response.data));
 
                 return response.data;

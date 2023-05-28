@@ -53,7 +53,7 @@ export const UsersList = memo((props: UsersListProps) => {
         } else {
             alert(t('Произошла ошибка, попробуйте еще раз') as string);
         }
-    }, [dispatch, t]);
+    }, [dispatch, refetch, t]);
     const handleDowngradeUserRoles = useCallback(async (userId: string) => {
         const result = await dispatch(downgradeUserRoles(userId));
 
