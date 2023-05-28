@@ -9,8 +9,8 @@
       "phoneNumber": "89243093207",
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
-      "access_token": "8uell0ffkty4sgx52cyx",
-      "refresh_token": "y6od6e38coe7fyieko7pl",
+      "access_token": "d6ljhcwny2d155ygavbh6o",
+      "refresh_token": "bbsomfhm2xisvkk2mhd6pe",
       "roles": [
         "ADMIN",
         "USER",
@@ -136,7 +136,7 @@
     },
     {
       "owner": {
-        "id": "user1",
+        "id": "user3",
         "firstname": "Родион",
         "lastname": "Корчак",
         "middlename": "Дмитриевич",

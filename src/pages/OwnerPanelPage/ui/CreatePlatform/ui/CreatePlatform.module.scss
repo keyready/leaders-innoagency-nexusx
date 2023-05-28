@@ -1,0 +1,28 @@
+.file_input {
+    width: 100%;
+    position: relative;
+}
+
+.input {
+    display: none;
+    opacity: 0;
+}
+
+.AvatarUploaderLabel {
+    cursor: pointer;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: var(--inverted-bg-color);
+    background: var(--accent-color-sec);
+    display: inline-block;
+    font-size: 16px;
+    transition: 200ms background-color;
+    text-align: center;
+    vertical-align: center;
+    line-height: 100%;
+
+    &:hover {
+        background: var(--accent-color-main);
+    }
+}
