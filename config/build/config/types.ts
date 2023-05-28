@@ -6,6 +6,8 @@ export interface buildPaths {
     src: string;
     localesFrom: string;
     localesTo: string;
+    docsFrom: string;
+    docsTo: string;
 }
 
 export interface BuildOptions {
