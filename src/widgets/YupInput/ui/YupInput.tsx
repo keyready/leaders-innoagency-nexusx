@@ -1,8 +1,7 @@
 /* eslint-disable fsd-path-checker-keyready/path-checker-fsd */
 import { classNames } from 'shared/lib/classNames/classNames';
 import React, {
-    ChangeEvent, InputHTMLAttributes, memo,
-    MouseEvent, ReactNode, useCallback, useEffect, useState,
+    InputHTMLAttributes, memo, MouseEvent, useCallback, useEffect, useState,
 } from 'react';
 import CrossIcon from 'shared/assets/icons/input-cross.svg';
 import SearchIcon from 'shared/assets/icons/search.svg';
@@ -70,10 +69,6 @@ export const YupInput = memo((props: InputProps) => {
         }
         setIsCrossVisible(false);
     }, [name, watch]);
-
-    const onChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-        onChange?.(e.target.value);
-    }, [onChange]);
 
     const onClearButtonClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

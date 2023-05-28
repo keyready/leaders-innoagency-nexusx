@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/providers/StoreProvider';
 import { AxiosError } from 'axios';
-import { User } from 'entities/User';
+import { User } from '../types/User';
 
 interface NewProfile {
     firstname: string;
@@ -14,7 +14,7 @@ export const changeUserProfile = createAsyncThunk<
 >(
     'user/changeUserProfile',
     async (newProfile, thunkApi) => {
-        const { extra, rejectWithValue, dispatch } = thunkApi;
+        const { extra, rejectWithValue } = thunkApi;
 
         try {
             const response = await extra.api.post<User>(

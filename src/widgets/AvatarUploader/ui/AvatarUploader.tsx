@@ -1,7 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
 import {
-    ChangeEvent, memo, useCallback, useEffect, useRef, useState,
+    ChangeEvent, memo, useCallback, useRef, useState,
 } from 'react';
 import AvatarEditor from 'react-avatar-editor';
 import Slider from 'rc-slider';
@@ -17,7 +17,6 @@ interface AvatarUploaderProps {
     width?: number;
     height?: number;
     border?: number;
-    rotation?: number;
     color?: number[];
 }
 
@@ -29,7 +28,6 @@ export const AvatarUploader = memo((props: AvatarUploaderProps) => {
         height = 250,
         width = 250,
         border = 2,
-        rotation = 0,
     } = props;
 
     const { t } = useTranslation();

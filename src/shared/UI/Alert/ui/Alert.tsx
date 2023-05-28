@@ -2,8 +2,8 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, ReactNode } from 'react';
 import DangerArrow from 'shared/assets/icons/danger-arrow.svg';
 import SuccessArrow from 'shared/assets/icons/success-arrow.svg';
-import { Icon } from 'shared/UI/Icon/Icon';
-import { HStack } from 'shared/UI/Stack';
+import { Icon } from '../../Icon/Icon';
+import { HStack } from '../../Stack';
 import classes from './Alert.module.scss';
 
 type AlertType = 'primary' | 'success' | 'danger' | 'warning'

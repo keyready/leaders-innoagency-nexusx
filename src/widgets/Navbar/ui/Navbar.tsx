@@ -1,8 +1,8 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-    getUserAuthData, isUserAdmin, isUserOwner, logout, userActions,
+    getUserAuthData, isUserAdmin, isUserOwner, logout,
 } from 'entities/User';
 import { useNavigate } from 'react-router';
 import { HStack } from 'shared/UI/Stack';
@@ -13,7 +13,6 @@ import LkIcon from 'shared/assets/icons/lk-icon.svg';
 import EyeIcon from 'shared/assets/icons/eye.svg';
 import { Button } from 'shared/UI/Button';
 import { useTranslation } from 'react-i18next';
-import { Select, SelectItem } from 'shared/UI/Select/Select';
 import { Avatar } from 'shared/UI/Avatar/Avatar';
 import { Dropdown } from 'shared/UI/Dropdown';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
@@ -27,7 +26,7 @@ export interface NavbarProps {
 export const Navbar = memo(({ className }: NavbarProps) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     const userData = useSelector(getUserAuthData);
     const isAdmin = useSelector(isUserAdmin);

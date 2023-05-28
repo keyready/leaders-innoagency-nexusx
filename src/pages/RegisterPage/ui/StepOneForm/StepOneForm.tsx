@@ -10,14 +10,12 @@ import { Button } from 'shared/UI/Button';
 import classes from './StepOneForm.module.scss';
 
 interface StepOneFormProps {
-    className?: string;
     onSubmitStep: (data: FieldValues) => void;
     isLoading?: boolean;
 }
 
 export const StepOneForm = memo((props: StepOneFormProps) => {
     const {
-        className,
         onSubmitStep,
         isLoading,
     } = props;

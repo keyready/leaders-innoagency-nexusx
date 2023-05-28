@@ -2,6 +2,7 @@ import {
     Fragment, memo, ReactNode,
 } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import { classNames } from 'shared/lib/classNames/classNames';
 import classes from './Modal.module.scss';
 
 interface ModalProps {
@@ -31,7 +32,7 @@ export const Modal = memo((props: ModalProps) => {
         >
             <Dialog
                 as="div"
-                className={classes.DialogWrapper}
+                className={classNames(classes.DialogWrapper, {}, [className])}
                 onClose={() => setIsOpen(false)}
             >
                 <Transition.Child

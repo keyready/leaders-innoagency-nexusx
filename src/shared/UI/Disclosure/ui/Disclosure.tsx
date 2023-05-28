@@ -27,7 +27,6 @@ interface DisclosureProps {
 export const Disclosure = memo((props: DisclosureProps) => {
     const {
         className,
-        isGrid,
         items,
     } = props;
 
@@ -38,7 +37,7 @@ export const Disclosure = memo((props: DisclosureProps) => {
                     <HDisclosure
                         key={item.title}
                         as="div"
-                        className={classes.Disclosure}
+                        className={classNames(classes.Disclosure, {}, [className])}
                     >
                         {({ open }) => (
                             <>

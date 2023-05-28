@@ -8,7 +8,7 @@ export const checkEmail = createAsyncThunk<
     ThunkConfig<string>>(
         'registerPage/checkEmail',
         async (registerData, thunkAPI) => {
-            const { extra, dispatch, rejectWithValue } = thunkAPI;
+            const { extra, rejectWithValue } = thunkAPI;
 
             try {
                 const response = await extra.api.post<string>('/checkEmail', registerData);

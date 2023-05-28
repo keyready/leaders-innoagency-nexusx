@@ -9,7 +9,7 @@ export const unbanUser = createAsyncThunk<
 >(
     'user/unbanUser',
     async (userId, thunkApi) => {
-        const { extra, rejectWithValue, dispatch } = thunkApi;
+        const { extra, rejectWithValue } = thunkApi;
 
         try {
             const response = await extra.api.post<string>(

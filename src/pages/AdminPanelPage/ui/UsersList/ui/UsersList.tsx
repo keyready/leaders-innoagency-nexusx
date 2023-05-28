@@ -1,8 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import {
-    memo, ReactNode, useCallback, useState,
-} from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import { HStack, VStack } from 'shared/UI/Stack';
 import {
@@ -36,7 +34,9 @@ export const UsersList = memo((props: UsersListProps) => {
     const { t } = useTranslation('AdminPanelPage');
     const dispatch = useAppDispatch();
 
-    const { data: users, isLoading, error } = useUsersListQuery(page);
+    const {
+        data: users, isLoading, isFetching, error,
+    } = useUsersListQuery(page);
 
     const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
     const [banReason, setBanReason] = useState<string>('');
@@ -70,32 +70,38 @@ export const UsersList = memo((props: UsersListProps) => {
         }
     }, [banReason, dispatch, selectedUserId, t]);
 
-    let content: ReactNode;
-
-    if (isLoading) {
-        content = (
-            <VStack gap="16">
+    if (isLoading || isFetching) {
+        return (
+            <VStack gap="16" className={classes.mainWrapper}>
                 {new Array(10)
                     .fill(0)
                     .map((_, index) => (
-                        <Skeleton key={index} width="100%" height={30} border="15px" />
+                        <Skeleton key={index} width="100%" height={34} border="15px" />
                     ))}
             </VStack>
         );
-    } else if (!users?.length) {
-        content = (
-            <Alert variant="warning">
-                {t('Странно, но пользователей нет')}
-            </Alert>
+    }
+    if (!users?.length) {
+        return (
+            <VStack justify="between" align="center" className={classes.mainWrapper}>
+                <Alert variant="warning">
+                    {t('Странно, но пользователей нет')}
+                </Alert>
+                <Paginator currentPage={page} setCurrentPage={setPage} />
+            </VStack>
         );
-    } else if (error) {
-        content = (
+    }
+
+    if (error) {
+        return (
             <Alert variant="danger">
                 {t('Произошла ошибка во время подгрузки пользователей')}
             </Alert>
         );
-    } else {
-        content = (
+    }
+
+    return (
+        <VStack justify="between" align="center" className={classes.mainWrapper}>
             <VStack className={classNames(classes.UsersList, {}, [className])}>
                 <div className={classes.tableRow}>
                     <h3>{t('id')}</h3>
@@ -162,12 +168,6 @@ export const UsersList = memo((props: UsersListProps) => {
                     </VStack>
                 </Modal>
             </VStack>
-        );
-    }
-
-    return (
-        <VStack justify="between" align="center" className={classes.mainWrapper}>
-            {content}
             <Paginator currentPage={page} setCurrentPage={setPage} />
         </VStack>
     );

@@ -1,9 +1,7 @@
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import {
     ChangeEvent, InputHTMLAttributes, memo, useCallback,
 } from 'react';
-import { bool } from 'yup';
 import classes from './Input.module.scss';
 
 type InputOriginProps = Omit<
@@ -27,8 +25,6 @@ export const Input = memo((props: InputProps) => {
         plain,
         ...otherProps
     } = props;
-
-    const { t } = useTranslation();
 
     const ChangeHandler = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         onChange?.(event.target.value);

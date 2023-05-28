@@ -8,7 +8,7 @@ export const submitCode = createAsyncThunk<
     ThunkConfig<string>>(
         'registerPage/submitCode',
         async (code, thunkAPI) => {
-            const { extra, dispatch, rejectWithValue } = thunkAPI;
+            const { extra, rejectWithValue } = thunkAPI;
 
             try {
                 const response = await extra.api.post<string>('/submit_code', { code });

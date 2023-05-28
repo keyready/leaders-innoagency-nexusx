@@ -1,12 +1,11 @@
-import { useTranslation } from 'react-i18next';
 import {
-    memo, RefCallback, useCallback, useMemo, useRef, useState,
+    memo, RefCallback, useCallback, useMemo, useState,
 } from 'react';
 import {
     FullscreenControl, Map, Placemark, RoutePanel, YMaps as YandexMaps, YMapsApi,
 } from 'react-yandex-maps';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
-import { RoutePanelRefObject } from 'widgets/YMaps/types/YMaps.types';
+import { RoutePanelRefObject } from '../types/YMaps.types';
 import { getPlaceCoordinates } from '../lib/getPlaceCoords';
 
 interface YMapsProps {
@@ -26,7 +25,6 @@ export const YMaps = memo((props: YMapsProps) => {
         metroName,
         showRoute,
     } = props;
-    const { t } = useTranslation();
 
     const [coords, setCoords] = useState<number[]>([]);
     const [metroCoords, setMetroCoords] = useState<number[] | null>(null);

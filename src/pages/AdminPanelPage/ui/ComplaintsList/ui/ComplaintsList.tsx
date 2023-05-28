@@ -1,8 +1,6 @@
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useTranslation } from 'react-i18next';
-import {
-    memo, useCallback, useMemo, useState,
-} from 'react';
+import { memo, useCallback } from 'react';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import { HStack, VStack } from 'shared/UI/Stack';
 import { Alert } from 'shared/UI/Alert';
@@ -20,7 +18,7 @@ import classes from './ComplaintsList.module.scss';
 
 interface ComplaintsListProps {
     className?: string;
-    page: number
+    page: number;
     setPage: (page: number) => void;
 }
 
@@ -34,7 +32,9 @@ export const ComplaintsList = memo((props: ComplaintsListProps) => {
     const { t } = useTranslation('AdminPanelPage');
     const dispatch = useAppDispatch();
 
-    const { data: complaints, error, isLoading } = useComplaintsListQuery(page);
+    const {
+        data: complaints, error, isLoading, isFetching,
+    } = useComplaintsListQuery(page);
     const isOneComplaintLoading = useSelector(getComplaintIsLoading);
 
     const acceptComplaintHandler = useCallback(async (complaintId: string) => {
@@ -54,35 +54,54 @@ export const ComplaintsList = memo((props: ComplaintsListProps) => {
         }
     }, [dispatch, t]);
 
-    let content;
-    if (isLoading || isOneComplaintLoading) {
-        content = (
-            <VStack gap="16">
-                {new Array(6)
-                    .fill(0)
-                    .map((_, index) => (
-                        <Skeleton key={index} width="100%" height={50} border="15px" />
-                    ))}
-            </VStack>
-        );
-    } else if (error) {
-        content = (
+    if (error) {
+        return (
             <HStack max>
                 <Alert variant="danger">
                     {t('Произошла ошибка во время загрузки жалоб')}
                 </Alert>
             </HStack>
         );
-    } else if (!complaints?.length) {
-        content = (
-            <HStack max>
+    }
+
+    if (isLoading || isFetching || isOneComplaintLoading) {
+        return (
+            <VStack gap="16" className={classes.mainWrapper}>
+                {new Array(10)
+                    .fill(0)
+                    .map((_, index) => (
+                        <Skeleton key={index} width="100%" height={34} border="15px" />
+                    ))}
+            </VStack>
+        );
+    }
+
+    if (!complaints?.length) {
+        return (
+            <VStack
+                className={classes.mainWrapper}
+                max
+                justify="between"
+                align="center"
+            >
                 <Alert variant="success">
                     {t('Отличные новости, жалоб нет!')}
                 </Alert>
-            </HStack>
+                <Paginator
+                    currentPage={page}
+                    setCurrentPage={setPage}
+                />
+            </VStack>
         );
-    } else {
-        content = (
+    }
+
+    return (
+        <VStack
+            gap="20"
+            align="center"
+            justify="between"
+            className={classes.mainWrapper}
+        >
             <div className={classNames(classes.ComplaintsList, {}, [className])}>
                 <div className={classes.firstRow}>
                     <b>{t('От кого')}</b>
@@ -142,17 +161,6 @@ export const ComplaintsList = memo((props: ComplaintsListProps) => {
                     </div>
                 ))}
             </div>
-        );
-    }
-
-    return (
-        <VStack
-            gap="20"
-            align="center"
-            justify="between"
-            className={classes.mainWrapper}
-        >
-            {content}
             <Paginator
                 currentPage={page}
                 setCurrentPage={setPage}

@@ -9,7 +9,7 @@ export const checkPassword = createAsyncThunk<
 >(
     'user/checkPassword',
     async (oldPassword, thunkApi) => {
-        const { extra, rejectWithValue, dispatch } = thunkApi;
+        const { extra, rejectWithValue } = thunkApi;
 
         try {
             const response = await extra.api.post<string>(

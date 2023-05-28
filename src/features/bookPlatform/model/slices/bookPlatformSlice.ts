@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { bookPlatform } from 'features/bookPlatform';
+import { bookPlatform } from '../services/bookPlatform';
 import { BookPlatformSchema } from '../types/bookPlatformSchema';
 
 const initialState: BookPlatformSchema = {
@@ -9,11 +9,7 @@ const initialState: BookPlatformSchema = {
 export const bookPlatformSlice = createSlice({
     name: 'bookPlatform',
     initialState,
-    reducers: {
-        template: (state, action: PayloadAction<string>) => {
-
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(bookPlatform.pending, (state) => {

@@ -2,9 +2,9 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import PaginatorIcon from 'shared/assets/icons/paginator.svg';
 import ArrowIcon from 'shared/assets/icons/right_arrow.svg';
-import { Icon } from 'shared/UI/Icon/Icon';
-import { Button } from 'shared/UI/Button';
-import { HStack } from 'shared/UI/Stack';
+import { Icon } from '../../Icon/Icon';
+import { Button } from '../../Button';
+import { HStack } from '../../Stack';
 import classes from './Paginator.module.scss';
 
 interface PaginatorProps {
