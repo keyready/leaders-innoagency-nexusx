@@ -4,6 +4,7 @@ import { Booking } from 'entities/Booking';
 import { fetchBookingsByUserId } from '../services/fetchBookingsByUserId';
 import { GetBookingsSchema } from '../types/getBookingsSchema';
 import { deleteBooking } from '../services/deleteBooking';
+import { makeBookingComment } from '../services/makeBookingComment';
 
 const bookingsAdapter = createEntityAdapter<Booking>({
     selectId: (booking) => booking._id,
@@ -47,6 +48,20 @@ export const getBookingsSlice = createSlice({
                 bookingsAdapter.setAll(state, action.payload);
             })
             .addCase(deleteBooking.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.data;
+            })
+
+            .addCase(makeBookingComment.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(makeBookingComment.fulfilled, (state, action: PayloadAction<Booking[]>) => {
+                state.isLoading = false;
+                bookingsAdapter.setAll(state, action.payload);
+            })
+            .addCase(makeBookingComment.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.data;

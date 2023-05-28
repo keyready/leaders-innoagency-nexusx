@@ -4,12 +4,14 @@ import { memo, useCallback, useState } from 'react';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import { HStack, VStack } from 'shared/UI/Stack';
 import {
-    banUser, unbanUser, User, UserRoles,
+    banUser, downgradeUserRoles, unbanUser, upgradeUserRoles, User, UserRoles,
 } from 'entities/User';
 import { Button } from 'shared/UI/Button';
 import { Icon } from 'shared/UI/Icon/Icon';
 import ApproveIcon from 'shared/assets/icons/approve.svg';
 import BanIcon from 'shared/assets/icons/ban.svg';
+import UpgradeIcon from 'shared/assets/icons/upgrade.svg';
+import DowngradeIcon from 'shared/assets/icons/downgrade.svg';
 import { Modal } from 'shared/UI/Modal';
 import { TextArea } from 'shared/UI/TextArea/TextArea';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -20,7 +22,7 @@ import classes from './UsersList.module.scss';
 
 interface UsersListProps {
     className?: string;
-    page: number
+    page: number;
     setPage: (page: number) => void;
 }
 
@@ -35,12 +37,33 @@ export const UsersList = memo((props: UsersListProps) => {
     const dispatch = useAppDispatch();
 
     const {
-        data: users, isLoading, isFetching, error,
+        data: users, isLoading, isFetching, error, refetch,
     } = useUsersListQuery(page);
 
     const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
     const [banReason, setBanReason] = useState<string>('');
     const [selectedUserId, setSelectedUserId] = useState<string>('');
+
+    const handleUpgradeUserRoles = useCallback(async (userId: string) => {
+        const result = await dispatch(upgradeUserRoles(userId));
+
+        if (result.meta.requestStatus === 'fulfilled') {
+            refetch();
+            alert(t('Пользователь успешно повышен') as string);
+        } else {
+            alert(t('Произошла ошибка, попробуйте еще раз') as string);
+        }
+    }, [dispatch, t]);
+    const handleDowngradeUserRoles = useCallback(async (userId: string) => {
+        const result = await dispatch(downgradeUserRoles(userId));
+
+        if (result.meta.requestStatus === 'fulfilled') {
+            refetch();
+            alert(t('Пользователь успешно понижен') as string);
+        } else {
+            alert(t('Произошла ошибка, попробуйте еще раз') as string);
+        }
+    }, [dispatch, t]);
 
     const banButtonClickedHandler = useCallback(async (index: number, userId: string) => {
         setSelectedUserId(userId);
@@ -117,7 +140,7 @@ export const UsersList = memo((props: UsersListProps) => {
                             <p>{user.email}</p>
                             <p>23.05.2023 г.</p>
                             <p>{user?.roles.includes(UserRoles.OWNER) ? 'Арендодатель' : 'Арендатор'}</p>
-                            <HStack max justify="center" align="center">
+                            <HStack max justify="start" align="center">
                                 <Button
                                     disabled={!user.isBanned}
                                     onClick={() => banButtonClickedHandler(index, user._id)}
@@ -132,6 +155,23 @@ export const UsersList = memo((props: UsersListProps) => {
                                 >
                                     <Icon Svg={BanIcon} className={classes.icon} />
                                 </Button>
+                                {user.roles.includes(UserRoles.ADMIN)
+                                    ? (
+                                        <Button
+                                            onClick={() => handleDowngradeUserRoles(user._id)}
+                                            variant="clear"
+                                        >
+                                            <Icon Svg={DowngradeIcon} className={classes.icon} />
+                                        </Button>
+                                    )
+                                    : (
+                                        <Button
+                                            onClick={() => handleUpgradeUserRoles(user._id)}
+                                            variant="clear"
+                                        >
+                                            <Icon Svg={UpgradeIcon} className={classes.icon} />
+                                        </Button>
+                                    )}
                             </HStack>
                         </div>
                     ))
