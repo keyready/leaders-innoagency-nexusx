@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { login } from '../services/Login';
 import { LoginPageSchema } from '../types/LoginPageSchema';
+import { loginByYandexAuth } from '../services/loginByYandexAuth';
 
 const initialState: LoginPageSchema = {
     data: {
@@ -36,6 +37,19 @@ export const LoginPageSlice = createSlice({
                 state.isLoading = false;
             })
             .addCase(login.rejected, (state, action) => {
+                state.isLoading = false;
+                // @ts-ignore
+                state.error = action.payload.message;
+            })
+
+            .addCase(loginByYandexAuth.pending, (state) => {
+                state.error = undefined;
+                state.isLoading = true;
+            })
+            .addCase(loginByYandexAuth.fulfilled, (state) => {
+                state.isLoading = false;
+            })
+            .addCase(loginByYandexAuth.rejected, (state, action) => {
                 state.isLoading = false;
                 // @ts-ignore
                 state.error = action.payload.message;
