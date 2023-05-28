@@ -24,7 +24,9 @@ export const userSlice = createSlice({
         setAuthData: (state, action: PayloadAction<User>) => {
             // при авторизации записать данные в стейт и в локал сторадж
             Cookies.set(USER_REFRESHTOKEN_KEY, action.payload.refresh_token || '');
-            Cookies.set(USER_ACCESSTOKEN_KEY, action.payload.access_token || '');
+            Cookies.set(USER_REFRESHTOKEN_KEY, action.payload.refresh_token || '');
+            localStorage.setItem(USER_REFRESHTOKEN_KEY, action.payload.refresh_token || '');
+            localStorage.setItem(USER_ACCESSTOKEN_KEY, action.payload.access_token || '');
             state.authData = action.payload;
         },
         initAuthData: (state) => {
