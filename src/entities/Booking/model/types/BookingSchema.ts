@@ -1,13 +1,13 @@
 export interface Booking {
     _id: string;
-    userId: string;
-    platformId?: string;
     platformTitle?: string;
-    places: number;
+    bookingPlaces: number;
     body: string;
     date: string;
     startTime: string;
     endTime: string;
+    comment: string
+    isFinished: boolean;
 }
 
 export interface BookingSchema {

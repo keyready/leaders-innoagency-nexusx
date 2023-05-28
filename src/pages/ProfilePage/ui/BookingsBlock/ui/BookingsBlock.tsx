@@ -10,6 +10,7 @@ import { BookingCard } from 'entities/Booking';
 import { Skeleton } from 'shared/UI/Skeleton/Skeleton';
 import { Carousel } from 'widgets/Carousel';
 import { Card } from 'shared/UI/Card/Card';
+import { TabContent, Tabs } from 'shared/UI/Tabs';
 import classes from './BookingsBlock.module.scss';
 
 interface BookingsBlockProps {
@@ -43,20 +44,40 @@ export const BookingsBlock = memo((props: BookingsBlockProps) => {
         );
     }
 
-    const bookingsCarousel = () => bookings.map((booking, index) => (
-        <BookingCard
-            key={index}
-            booking={booking}
-        />
-    ));
-    const carouselContent = bookingsCarousel();
+    const actualBookingsCarousel = () => bookings
+        .filter((booking) => !booking.isFinished)
+        .map((booking, index) => (
+            <BookingCard
+                key={index}
+                booking={booking}
+            />
+        ));
+    const actualCarouselContent = actualBookingsCarousel();
+
+    const finishedBookingsCarousel = () => bookings
+        .filter((booking) => booking.isFinished)
+        .map((booking, index) => (
+            <BookingCard
+                key={index}
+                booking={booking}
+            />
+        ));
+    const finishedCarouselContent = finishedBookingsCarousel();
+
+    const tabsContent: TabContent[] = [
+        {
+            title: t('Будущие') as string,
+            content: (<Carousel content={actualCarouselContent} />),
+        },
+        {
+            title: t('Завершенные') as string,
+            content: (<Carousel content={finishedCarouselContent} />),
+        },
+    ];
 
     return (
         <div className={classNames(classes.BookingsBlock, {}, [className])}>
-            <h3 style={{ textAlign: 'center' }}>{t('Мои бронирования')}</h3>
-            {carouselContent.length && (
-                <Carousel content={carouselContent} />
-            )}
+            <Tabs content={tabsContent} />
         </div>
     );
 });

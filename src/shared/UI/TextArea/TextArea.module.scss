@@ -10,4 +10,9 @@
     white-space: pre-wrap;
     overflow-wrap: break-word;
     min-height: 150px;
+
+    &:disabled {
+        border: none;
+        outline: none;
+    }
 }

@@ -9,8 +9,8 @@
       "phoneNumber": "89243093207",
       "password": "!!!!!",
       "avatar": "/users/user1.jpg",
-      "access_token": "hhgxzmq7gcuepwy7ksl0ih",
-      "refresh_token": "bkdqooldepm7uligo8ekqq",
+      "access_token": "qrsh2e9lzbsrmn4wti7hnn",
+      "refresh_token": "l990qnb2qsavcjbxsqco",
       "roles": [
         "ADMIN",
         "USER",
@@ -559,7 +559,8 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-05-24T00:00:00.000Z",
       "startTime": "2023-05-25T10:00:00.000Z",
-      "endTime": "2023-05-25T15:00:00.000Z"
+      "endTime": "2023-05-25T15:00:00.000Z",
+      "isFinished": false
     },
     {
       "_id": "booking2",
@@ -570,7 +571,8 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-06-02T00:00:00.000Z",
       "startTime": "2023-05-25T15:00:00.000Z",
-      "endTime": "2023-05-25T19:00:00.000Z"
+      "endTime": "2023-05-25T19:00:00.000Z",
+      "isFinished": false
     },
     {
       "_id": "booking3",
@@ -581,7 +583,8 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-05-30T00:00:00.000Z",
       "startTime": "2023-05-25T15:00:00.000Z",
-      "endTime": "2023-05-25T19:00:00.000Z"
+      "endTime": "2023-05-25T19:00:00.000Z",
+      "isFinished": true
     },
     {
       "_id": "booking4",
@@ -592,7 +595,9 @@
       "body": "Оставленный комментарий к бронированию площадки",
       "date": "2023-05-30T00:00:00.000Z",
       "startTime": "2023-05-25T15:00:00.000Z",
-      "endTime": "2023-05-25T19:00:00.000Z"
+      "endTime": "2023-05-25T19:00:00.000Z",
+      "isFinished": true,
+      "comment": "Все понравилось, нооооооо"
     }
   ],
   "comments": [

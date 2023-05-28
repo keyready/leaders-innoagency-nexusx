@@ -7,7 +7,9 @@ import { Button } from 'shared/UI/Button';
 import { Icon } from 'shared/UI/Icon/Icon';
 import CancelIcon from 'shared/assets/icons/ban.svg';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { deleteBooking } from 'features/getBookings';
+import { deleteBooking, makeBookingComment } from 'features/getBookings';
+import { Input } from 'shared/UI/Input';
+import { TextArea } from 'shared/UI/TextArea/TextArea';
 import { Booking } from '../../model/types/BookingSchema';
 import classes from './BookingCard.module.scss';
 
@@ -24,6 +26,7 @@ export const BookingCard = memo((props: BookingCardProps) => {
     const dispatch = useAppDispatch();
 
     const [showDeleteButton, setShowDeleteButton] = useState<boolean>(false);
+    const [bookingComment, setBookingComment] = useState<string>('');
 
     const deleteBookingHandler = useCallback(() => {
         if (!booking._id) {
@@ -32,6 +35,13 @@ export const BookingCard = memo((props: BookingCardProps) => {
         }
         dispatch(deleteBooking(booking._id));
     }, [booking._id, dispatch, t]);
+
+    const onMakeBookingCommentHandler = useCallback(() => {
+        dispatch(makeBookingComment({
+            comment: bookingComment,
+            bookingId: booking._id,
+        }));
+    }, [bookingComment, dispatch]);
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -71,10 +81,10 @@ export const BookingCard = memo((props: BookingCardProps) => {
                         {`${formatTime(booking?.startTime)} - ${formatTime(booking?.endTime)}`}
                     </p>
                 </HStack>
-                {booking.places && (
+                {booking.bookingPlaces && (
                     <HStack gap="8" max justify="start" align="start">
                         <b>{`${t('Места')}:`}</b>
-                        <p>{booking.places}</p>
+                        <p>{booking.bookingPlaces}</p>
                     </HStack>
                 )}
                 {booking.body && (
@@ -83,24 +93,54 @@ export const BookingCard = memo((props: BookingCardProps) => {
                         <p style={{ textAlign: 'justify' }}>{booking.body}</p>
                     </HStack>
                 )}
-                <HStack
-                    max
-                    justify="end"
-                >
-                    <Button
-                        onMouseEnter={() => setShowDeleteButton(true)}
-                        onMouseLeave={() => setShowDeleteButton(false)}
-                        onClick={deleteBookingHandler}
-                        variant="danger"
+
+                {booking.comment && (
+                    <HStack gap="8" max justify="start" align="start">
+                        <b>{`${t('Отзыв')}:`}</b>
+                        <TextArea
+                            disabled
+                            value={booking.comment}
+                        />
+                    </HStack>
+                )}
+
+                {booking.isFinished && !booking.comment && (
+                    <VStack gap="8" max justify="start" align="start">
+                        <TextArea
+                            value={bookingComment}
+                            onChange={setBookingComment}
+                            placeholder={t('Напишете пару слов?') as string}
+                        />
+                        <Button
+                            disabled={!bookingComment}
+                            style={{ marginLeft: 'auto' }}
+                            onClick={onMakeBookingCommentHandler}
+                        >
+                            {t('Отправить отзыв')}
+                        </Button>
+                    </VStack>
+                )}
+
+                {!booking.isFinished && (
+                    <HStack
+                        max
+                        justify="end"
                     >
-                        <HStack max justify="center" align="center">
-                            {showDeleteButton && (
-                                <span>{t('Удалить бронирование')}</span>
-                            )}
-                            <Icon Svg={CancelIcon} className={classes.icon} />
-                        </HStack>
-                    </Button>
-                </HStack>
+                        <Button
+                            onMouseEnter={() => setShowDeleteButton(true)}
+                            onMouseLeave={() => setShowDeleteButton(false)}
+                            onClick={deleteBookingHandler}
+                            variant="danger"
+                        >
+                            <HStack max justify="center" align="center">
+                                {showDeleteButton && (
+                                    <span>{t('Удалить бронирование')}</span>
+                                )}
+                                <Icon Svg={CancelIcon} className={classes.icon} />
+                            </HStack>
+                        </Button>
+                    </HStack>
+                )}
             </VStack>
         </Card>
     );
